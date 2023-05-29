@@ -147,15 +147,10 @@
                     <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
                     <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
                     <li class="dropdown-divider"></li>
-                    <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
+                    <a class="dropdown-item" id="#logout" href="{{ route('admin.logout') }}">
+
                         {{ __('Logout') }}
                     </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
                 </ul>
             </li>
         </ul>

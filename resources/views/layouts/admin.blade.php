@@ -11,10 +11,18 @@
     <link href="{{ asset('/') }}assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="{{ asset('/') }}assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
     <!-- PLUGINS STYLES-->
+
+     {{-- dataTAbles --}}
+     <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+     <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css" rel="stylesheet">
+
     <link href="{{ asset('/') }}assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
     <!-- THEME STYLES-->
     <link href="{{ asset('/') }}assets/css/main.min.css" rel="stylesheet" />
+
     <!-- PAGE LEVEL STYLES-->
+    <link href="{{ asset('/') }}assets/toastr.css" rel="stylesheet" />
+
 </head>
 
 <body class="fixed-navbar">
@@ -176,6 +184,7 @@
         <div class="page-preloader">Loading</div>
     </div>
     <!-- END PAGA BACKDROPS-->
+
     <!-- CORE PLUGINS-->
     <script src="{{ asset('/') }}assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
     <script src="{{ asset('/') }}assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
@@ -183,14 +192,64 @@
     <script src="{{ asset('/') }}assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
     <script src="{{ asset('/') }}assets/vendors/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- PAGE LEVEL PLUGINS-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('/') }}assets/vendors/chart.js/dist/Chart.min.js" type="text/javascript"></script>
     <script src="{{ asset('/') }}assets/vendors/jvectormap/jquery-jvectormap-2.0.3.min.js" type="text/javascript"></script>
     <script src="{{ asset('/') }}assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
     <script src="{{ asset('/') }}assets/vendors/jvectormap/jquery-jvectormap-us-aea-en.js" type="text/javascript"></script>
+
+
+      {{-- =================== Datatables Script ================== --}}
+      <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+      <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+      <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+
+    {{-- toastr message --}}
+    <script src="{{ asset('/') }}assets/toastr.min.js" type="text/javascript"></script>
     <!-- CORE SCRIPTS-->
     <script src="{{ asset('/') }}assets/js/app.min.js" type="text/javascript"></script>
     <!-- PAGE LEVEL SCRIPTS-->
     <script src="{{ asset('/') }}assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>
+
+    <script>
+        var _token = "{{ csrf_token() }}";
+    </script>
+
+    <script>
+
+
+        @if (Session::has('message'))
+            var type ="{{ Session::get('alert-type','info') }}"
+            switch(type){
+                case 'success':
+                    toastr.success("{{ Session::get('message') }}")
+                    break;
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}")
+                    break;
+                case 'warning':
+                    toastr.warning("{{ Session::get('message') }}")
+                    break;
+                case 'error':
+                    toastr.error("{{ Session::get('message') }}")
+                    break;
+            }
+        @endif
+
+
+    </script>
+
+
+@stack('scripts')
+
 </body>
 
 </html>

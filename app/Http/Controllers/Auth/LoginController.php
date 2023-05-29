@@ -66,7 +66,7 @@ class LoginController extends Controller
 
     public function adminLogin()
     {
-
+        return view('auth.login');
     }
 
 }

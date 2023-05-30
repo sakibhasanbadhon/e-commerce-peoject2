@@ -22,6 +22,29 @@
 
     <!-- PAGE LEVEL STYLES-->
     <link href="{{ asset('/') }}assets/toastr.css" rel="stylesheet" />
+    <style>
+        .table th{
+            font-weight: 600 !important;
+        }
+        .table th:first-child,
+        .table tr td:first-child{
+            text-align: left;
+            padding-left: 15px;
+        }
+        .table th:last-child,
+        .table tr td:last-child{
+            text-align: right;
+            padding-right: 15px;
+        }
+        .pr-15{
+            padding-right: 15px;
+        }
+        .dataTables_length,
+        .dataTables_info{
+            padding-left: 15px
+        }
+
+    </style>
 
 </head>
 
@@ -212,10 +235,11 @@
       <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
       <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
 
-    {{-- toastr message --}}
-    <script src="{{ asset('/') }}assets/toastr.min.js" type="text/javascript"></script>
     <!-- CORE SCRIPTS-->
     <script src="{{ asset('/') }}assets/js/app.min.js" type="text/javascript"></script>
+
+    {{-- toastr message --}}
+    <script src="{{ asset('/') }}assets/toastr.min.js" type="text/javascript"></script>
     <!-- PAGE LEVEL SCRIPTS-->
     <script src="{{ asset('/') }}assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>
 

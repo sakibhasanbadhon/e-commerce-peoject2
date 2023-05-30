@@ -1,18 +1,35 @@
 @extends('layouts.admin')
+@section('styles')
+<style>
+    tr td:last-child{
+        text-align: right;
+    }
+</style>
+
+@endsection
 @section('content')
+    @include('admin.include.modal')
+
     <div class="content-wrapper">
         <!-- START PAGE CONTENT-->
         <div class="page-content fade-in-up">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="ibox widget-stat">
-                        <div class="ibox-body">
+                    <div class="card ">
+                        <div class="card-header p-3">
+                            <h4 class=" d-flex justify-content-between"> Category List
+                                <a id="add_btn" class="btn btn-outline-primary">Add</a>
+                            </h4>
+
+                        </div>
+                        <div class="card-body">
                             <table class="table table-sm" id="category-datatables">
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
                                         <th>Category Name</th>
                                         <th>Category Name</th>
+                                        <th>created_at</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -28,9 +45,10 @@
     </div>
 @endsection
 
-@push('scripts')a
+@push('scripts')
     <script>
-       let table = $('#category-datatables').DataTable({
+
+        let table = $('#category-datatables').DataTable({
             processing: true,
             serverSide: true,
             order: [], //Initial no order
@@ -55,11 +73,11 @@
                 {data: 'id'},
                 {data: 'category_name'},
                 {data: 'category_slug'},
-                // {data: 'created_at'},
-                // {data: 'operation'},
+                {data: 'created_at'},
+                {data: 'operation'},
             ],
             language: {
-                processing: '<img src="{{ asset("table-loading.svg") }}">',
+                processing: '<img src="{{ asset('/table-loading.svg') }}">',
                 emptyTable: '<strong class="text-danger">No Data Found</strong>',
                 infoEmpty: '',
                 zeroRecords: '<strong class="text-danger">No Data Found</strong>',
@@ -119,6 +137,36 @@
                 ]
             }
         });
+
+
+        $(document).on("click",'#add_btn', function (e) {
+            e.preventDefault();
+            $('.modal').modal('show');
+
+        });
+
+
+        $(document).on("submit",'form#ajaxForm',function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.category.store') }}",
+                data: new FormData(this),
+                contentType:false,
+                processData:false,
+                success: function (response) {
+                    $('form#ajaxForm').trigger("reset");
+                    $('.modal').modal('hide');
+                    table.draw();
+                }
+            });
+        });
+
+
+
+
+
     </script>
 @endpush
 

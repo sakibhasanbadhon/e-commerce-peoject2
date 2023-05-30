@@ -19,25 +19,51 @@ class CategoryController extends Controller
     public function getData(Request $request)
     {
         if ($request->ajax()) {
-            $getData = Category::orderBy('id','DESC')->get();
-            dd($getData);
+            $getData = Category::latest('id');
+            // dd($getData);
 
             return DataTables::eloquent($getData)
             ->addIndexColumn()
             ->addColumn('operation', function($category){
                 $operation = '
-                    <a href="" class="btn btn-success btn-sm">Edit</a>
+                    <a href="" id="edit-btn" class="btn btn-success btn-sm">Edit</a>
                     <a href="" class="btn btn-danger btn-sm">Delete</a>
                 ';
 
                 return $operation;
             })
 
-            ->rowColumns(['operation'])
+            ->addColumn('created_at', function($category){
+                return $category->created_at->format('d-m-Y');
+            })
+
+            ->rawColumns(['operation','created_at'])
             ->make(true);
 
 
         }
+    }
+
+
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required',
+        ]);
+
+        $category = Category::create([
+            'category_name' => $request->name,
+            'category_slug' => $request->slug,
+        ]);
+
+        if ($category) {
+            $message = array('message'=>'Data update successfully','alert-type'=>'success' );
+
+        }
+
+        return back()->with($message);
     }
 
 

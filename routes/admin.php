@@ -27,6 +27,7 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     // Category route
     Route::resource('category', CategoryController::class);
     Route::post('category/get-data', [CategoryController::class, 'getData'])->name('category.get-data');
+    Route::post('category/store', [CategoryController::class, 'store'])->name('category.store');
 
 
 

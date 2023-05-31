@@ -6,21 +6,21 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h3 class="modal-title fs-5" id="exampleModalLabel">Add Category</h3>
+                <h3 class="modal-title fs-5" id="modalTitle"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
                         <div class="py-2">
-                            <input type="text" name="name" class="form-control" placeholder="Category Name" required>
+                            <input type="text" name="name" class="form-control" placeholder="Write Category Name" required>
                             @error('name')
                                 <span class="text-danger"> {{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="py-2">
-                            <input type="text" name="slug" class="form-control" placeholder="Category Slug" required>
+                            <input type="text" name="slug" class="form-control" placeholder="Write Category Slug" required>
                         </div>
 
                         {{-- <select name="status" id="" class="form-control">
@@ -31,8 +31,8 @@
 
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+                <button type="submit" class="btn btn-primary" id="modalSaveBtn"></button>
                 </div>
             </div>
         </div>

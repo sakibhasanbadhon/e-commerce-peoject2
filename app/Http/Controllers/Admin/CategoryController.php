@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
@@ -26,8 +27,8 @@ class CategoryController extends Controller
             ->addIndexColumn()
             ->addColumn('operation', function($category){
                 $operation = '
-                    <a href="" id="edit-btn" class="btn btn-success btn-sm">Edit</a>
-                    <a href="" class="btn btn-danger btn-sm">Delete</a>
+                    <button id="edit-btn" class="btn btn-success btn-sm">Edit</button>
+                    <button data-id="'.$category->id.'" id="delete-btn" class="btn btn-danger btn-sm">Delete</button>
                 ';
 
                 return $operation;
@@ -45,6 +46,7 @@ class CategoryController extends Controller
     }
 
 
+
     public function store(Request $request)
     {
 
@@ -55,15 +57,39 @@ class CategoryController extends Controller
 
         $category = Category::create([
             'category_name' => $request->name,
-            'category_slug' => $request->slug,
+            'category_slug' => Str::slug($request->slug),
         ]);
 
         if ($category) {
-            $message = array('message'=>'Data update successfully','alert-type'=>'success' );
+            $output=['status'=>'success','message'=>'Data has been Updated success'];
+        }else {
+            $output=['status'=>'error','message'=>'Something went wrong'];
 
         }
 
-        return back()->with($message);
+
+        return response()->json($output);
+
+    }
+
+
+    // data delete
+
+
+    public function destroy(Request $request)
+    {
+
+        if ($request->ajax()) {
+            // dd($request->data_id);
+
+            $Category_id = Category::find($request->data_id);
+        }
+
+        $Category_id->delete();
+
+        $message = ['status'=>'success','message'=>'Data has been Delete'];
+
+        return response()->json($message);
     }
 
 

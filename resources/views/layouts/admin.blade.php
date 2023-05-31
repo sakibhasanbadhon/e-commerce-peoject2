@@ -250,23 +250,75 @@
     <script>
 
 
-        @if (Session::has('message'))
-            var type ="{{ Session::get('alert-type','info') }}"
-            switch(type){
+        // @if (Session::has('message'))
+        //     var type ="{{ Session::get('alert-type','info') }}"
+        //     switch(type){
+        //         case 'success':
+        //             toastr.success("{{ Session::get('message') }}")
+        //             break;
+        //         case 'info':
+        //             toastr.info("{{ Session::get('message') }}")
+        //             break;
+        //         case 'warning':
+        //             toastr.warning("{{ Session::get('message') }}")
+        //             break;
+        //         case 'error':
+        //             toastr.error("{{ Session::get('message') }}")
+        //             break;
+        //     }
+        // @endif
+
+
+
+        function alertMessage(status,message){
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            switch(status) {
                 case 'success':
-                    toastr.success("{{ Session::get('message') }}")
-                    break;
-                case 'info':
-                    toastr.info("{{ Session::get('message') }}")
-                    break;
-                case 'warning':
-                    toastr.warning("{{ Session::get('message') }}")
+                    toastr.success(message)
                     break;
                 case 'error':
-                    toastr.error("{{ Session::get('message') }}")
+                    toastr.error(message)
                     break;
+                case 'warning':
+                    toastr.warning(message)
+                    break;
+                case 'info':
+                    toastr.info(message)
+                    break;
+                }
+
+
             }
-        @endif
+
+            @if (session()->get('success'))
+                alertMessage('success',"{{ session()->get('success') }}");
+            @elseif (session()->get('error'))
+                alertMessage('error',"{{ session()->get('error') }}");
+            @elseif (session()->get('info'))
+                alertMessage('info',"{{ session()->get('info') }}");
+            @elseif (session()->get('warning'))
+                alertMessage('warning',"{{ session()->get('warning') }}");
+            @endif
+
+
 
 
     </script>

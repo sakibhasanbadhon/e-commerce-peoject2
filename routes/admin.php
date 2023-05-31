@@ -25,9 +25,10 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::get('logout', [AdminController::class, 'adminLogout'])->name('logout');
 
     // Category route
-    Route::resource('category', CategoryController::class);
+    Route::resource('category', CategoryController::class)->except('store','destroy','update');
     Route::post('category/get-data', [CategoryController::class, 'getData'])->name('category.get-data');
     Route::post('category/store', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('category/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 
 

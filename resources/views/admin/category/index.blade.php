@@ -15,10 +15,11 @@
         <div class="page-content fade-in-up">
             <div class="row">
                 <div class="col-md-12">
+                    <div class="alert-message"></div>
                     <div class="card ">
                         <div class="card-header p-3">
                             <h4 class=" d-flex justify-content-between"> Category List
-                                <a id="add_btn" class="btn btn-outline-primary">Add</a>
+                                <a id="add_btn" onclick="addNewBtn('Add Category','Save')" class="btn btn-outline-primary">Add</a>
                             </h4>
 
                         </div>
@@ -138,13 +139,27 @@
             }
         });
 
+        // modal show
 
-        $(document).on("click",'#add_btn', function (e) {
-            e.preventDefault();
+        function addNewBtn(modalTitle,modalSaveBtn){
+
             $('.modal').modal('show');
+            $('#modalTitle').text(modalTitle);
+            $('button#modalSaveBtn').text(modalSaveBtn);
 
-        });
 
+        }
+
+
+        // $(document).on("click",'#add_btn', function (e) {
+        //     e.preventDefault();
+        //     // $('.modal').modal('show');
+        //     modal.show();
+
+        // });
+
+
+        // data store
 
         $(document).on("submit",'form#ajaxForm',function(e) {
             e.preventDefault();
@@ -156,11 +171,46 @@
                 contentType:false,
                 processData:false,
                 success: function (response) {
+                    if (response.status == 'success') {
+                        $('form#ajaxForm').trigger("reset");
+                        $('.modal').modal('hide');
+                        table.draw();
+                        toastr.success('Data Update Success');
+                }
+            },
+                error: function (response) {
                     $('form#ajaxForm').trigger("reset");
                     $('.modal').modal('hide');
-                    table.draw();
+                    toastr.error('Opps! Something went wrong');
                 }
             });
+        });
+
+
+
+        // Data delete
+
+        $(document).on('click','button#delete-btn',function(e) {
+            e.preventDefault();
+
+            let data_id = $(this).data('id');
+
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.category.destroy') }}",
+                data: {_token:_token,data_id:data_id},
+                success: function(response) {
+                    if (response.status == 'success') {
+                        table.draw();
+                        toastr.success('Data Delete Success');
+                    }
+                },
+                error: function (response) {
+                    toastr.error('Opps! Something went wrong');
+
+                }
+            });
+
         });
 
 

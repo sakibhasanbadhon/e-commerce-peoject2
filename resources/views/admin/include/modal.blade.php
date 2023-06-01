@@ -12,6 +12,8 @@
                 </button>
                 </div>
                 <div class="modal-body">
+                        <input type="hidden" id="dataId" name="dataId">
+
                         <div class="py-2">
                             <input type="text" name="name" class="form-control" placeholder="Write Category Name" required>
                             @error('name')

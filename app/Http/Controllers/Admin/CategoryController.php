@@ -27,7 +27,7 @@ class CategoryController extends Controller
             ->addIndexColumn()
             ->addColumn('operation', function($category){
                 $operation = '
-                    <button id="edit-btn" class="btn btn-success btn-sm">Edit</button>
+                    <button data-id="'.$category->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit</button>
                     <button data-id="'.$category->id.'" id="delete-btn" class="btn btn-danger btn-sm">Delete</button>
                 ';
 
@@ -50,15 +50,18 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'name' => 'required',
-            'slug' => 'required',
+        // $request->validate([
+        //     'name' => 'required',
+        //     'slug' => 'required',
+        // ]);
+        $category = Category::updateOrCreate([
+            'id' => $request->dataId
+        ],
+        [
+            'category_name' => $request->name,
+            'category_slug' => Str::slug($request->slug)
         ]);
 
-        $category = Category::create([
-            'category_name' => $request->name,
-            'category_slug' => Str::slug($request->slug),
-        ]);
 
         if ($category) {
             $output=['status'=>'success','message'=>'Data has been Updated success'];
@@ -69,6 +72,17 @@ class CategoryController extends Controller
 
 
         return response()->json($output);
+
+    }
+
+
+    public function edit(Request $request)
+    {
+        if ($request->ajax()) {
+            $category = Category::findOrFail($request->data_id);
+            return response()->json($category);
+        }
+
 
     }
 

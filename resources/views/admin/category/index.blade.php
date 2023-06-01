@@ -142,21 +142,14 @@
         // modal show
 
         function addNewBtn(modalTitle,modalSaveBtn){
-
+            $('#dataId').val('');
+            $('form#ajaxForm').trigger("reset");
             $('.modal').modal('show');
             $('#modalTitle').text(modalTitle);
             $('button#modalSaveBtn').text(modalSaveBtn);
 
 
         }
-
-
-        // $(document).on("click",'#add_btn', function (e) {
-        //     e.preventDefault();
-        //     // $('.modal').modal('show');
-        //     modal.show();
-
-        // });
 
 
         // data store
@@ -170,7 +163,7 @@
                 data: new FormData(this),
                 contentType:false,
                 processData:false,
-                success: function (response) {
+                success: function(response) {
                     if (response.status == 'success') {
                         $('form#ajaxForm').trigger("reset");
                         $('.modal').modal('hide');
@@ -185,6 +178,55 @@
                 }
             });
         });
+
+
+    // Data Edit
+
+    $(document).on("click",'button#edit-btn',function () {
+        let category_id = $(this).data('id');
+
+        $('.modal').modal('show');
+        $('#modalTitle').text('Edit category');
+        $('button#modalSaveBtn').text('Save Change');
+        $('#dataId').val(category_id);
+
+
+        $.ajax({
+            type: "post",
+            url: "{{ route('admin.category.edit') }}",
+            data: {_token:_token,data_id:category_id},
+            dataType:'json',
+            success: function(response) {
+                if (response) {
+                    $('form#ajaxForm input[name="name"]').val(response.category_name);
+                    $('form#ajaxForm input[name="slug"]').val(response.category_slug);
+
+                }
+            }
+        });
+    });
+
+
+    // Data Update
+    // $(document).on("click",'form#modalSaveBtn',function () {
+    //     e.preventDefault();
+    //     // let category_id = $(this).data('id');
+
+    //     $.ajax({
+    //         type: "post",
+    //         url: "{{ route('admin.category.update') }}",
+    //         data: new FormData(this),
+    //         dataType:'json',
+    //         success: function(response) {
+    //             if (response.status == 'success') {
+    //                     $('form#ajaxForm').trigger("reset");
+    //                     $('.modal').modal('hide');
+    //                     table.draw();
+    //                     toastr.success('Data Update Success');
+    //             }
+    //         }
+    //     });
+    // });
 
 
 

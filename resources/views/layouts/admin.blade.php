@@ -222,6 +222,8 @@
     <script src="{{ asset('/') }}assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
     <script src="{{ asset('/') }}assets/vendors/jvectormap/jquery-jvectormap-us-aea-en.js" type="text/javascript"></script>
 
+    <script src="{{ asset('/') }}assets/js/custom.js" type="text/javascript"></script>
+
 
       {{-- =================== Datatables Script ================== --}}
       <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>

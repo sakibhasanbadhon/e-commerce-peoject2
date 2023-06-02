@@ -148,111 +148,36 @@
             $('#modalTitle').text(modalTitle);
             $('button#modalSaveBtn').text(modalSaveBtn);
 
-
         }
 
 
-        // data store
+        // data store and update
 
         $(document).on("submit",'form#ajaxForm',function(e) {
             e.preventDefault();
-
-            $.ajax({
-                type: "post",
-                url: "{{ route('admin.category.store') }}",
-                data: new FormData(this),
-                contentType:false,
-                processData:false,
-                success: function(response) {
-                    if (response.status == 'success') {
-                        $('form#ajaxForm').trigger("reset");
-                        $('.modal').modal('hide');
-                        table.draw();
-                        toastr.success('Data Update Success');
-                }
-            },
-                error: function (response) {
-                    $('form#ajaxForm').trigger("reset");
-                    $('.modal').modal('hide');
-                    toastr.error('Opps! Something went wrong');
-                }
-            });
+            let url = "{{ route('admin.category.store') }}";
+            let form = new FormData(this);
+            updateCreate(url,form);
         });
 
 
-    // Data Edit
+        // Data Edit
 
-    $(document).on("click",'button#edit-btn',function () {
-        let category_id = $(this).data('id');
+        $(document).on("click",'button#edit-btn',function(e) {
+            e.preventDefault();
+            let url = "{{ route('admin.category.edit') }}";
+            let data_id = $(this).data('id');
 
-        $('.modal').modal('show');
-        $('#modalTitle').text('Edit category');
-        $('button#modalSaveBtn').text('Save Change');
-        $('#dataId').val(category_id);
-
-
-        $.ajax({
-            type: "post",
-            url: "{{ route('admin.category.edit') }}",
-            data: {_token:_token,data_id:category_id},
-            dataType:'json',
-            success: function(response) {
-                if (response) {
-                    $('form#ajaxForm input[name="name"]').val(response.category_name);
-                    $('form#ajaxForm input[name="slug"]').val(response.category_slug);
-
-                }
-            }
+            dataEdit(url,data_id);
         });
-    });
-
-
-    // Data Update
-    // $(document).on("click",'form#modalSaveBtn',function () {
-    //     e.preventDefault();
-    //     // let category_id = $(this).data('id');
-
-    //     $.ajax({
-    //         type: "post",
-    //         url: "{{ route('admin.category.update') }}",
-    //         data: new FormData(this),
-    //         dataType:'json',
-    //         success: function(response) {
-    //             if (response.status == 'success') {
-    //                     $('form#ajaxForm').trigger("reset");
-    //                     $('.modal').modal('hide');
-    //                     table.draw();
-    //                     toastr.success('Data Update Success');
-    //             }
-    //         }
-    //     });
-    // });
-
-
 
         // Data delete
 
         $(document).on('click','button#delete-btn',function(e) {
             e.preventDefault();
-
+            let url = "{{ route('admin.category.destroy') }}";
             let data_id = $(this).data('id');
-
-            $.ajax({
-                type: "post",
-                url: "{{ route('admin.category.destroy') }}",
-                data: {_token:_token,data_id:data_id},
-                success: function(response) {
-                    if (response.status == 'success') {
-                        table.draw();
-                        toastr.success('Data Delete Success');
-                    }
-                },
-                error: function (response) {
-                    toastr.error('Opps! Something went wrong');
-
-                }
-            });
-
+            dataDelete(url,data_id);
         });
 
 

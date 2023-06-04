@@ -23,7 +23,7 @@
                         <a href="{{ route('admin.category.index') }}">Category</a>
                     </li>
                     <li>
-                        <a href="typography.html">Sub Category</a>
+                        <a href="{{ route('admin.subcategory.index') }}">Sub Category</a>
                     </li>
                     <li>
                         <a href="panels.html">Child Category</a>

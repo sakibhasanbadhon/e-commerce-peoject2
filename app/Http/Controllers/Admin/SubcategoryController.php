@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Yajra\DataTables\Facades\DataTables;
 
 class SubcategoryController extends Controller
@@ -16,9 +17,14 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
-        $subcategory = DB::table('subcategories')->leftJoin('categories','subcategories.category_id','categories.id')
-            ->select('subcategories.*','categories.category_name')->get();
-        return view('admin.category.subcategory.index',['subcategories'=>$subcategory]);
+        // $subcategory = DB::table('subcategories')->leftJoin('categories','subcategories.category_id','categories.id')
+        //     ->select('subcategories.*','categories.category_name')->get();
+
+        $subcategory = Subcategory::with('category')->orderBy('id','DESC')->get;
+
+        $category = Category::all();
+
+        return view('admin.category.subcategory.index',['subcategory'=>$subcategory,'category'=>$category]);
     }
 
 
@@ -36,16 +42,22 @@ class SubcategoryController extends Controller
             ->addIndexColumn()
             ->addColumn('operation', function($subcategory){
                 $operation = '
-                    <button data-id="'.$subcategory->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit</button>
+                    <button data-id="'.$subcategory->id.'" id="edit-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="btn btn-success btn-sm">Edit</button>
                     <button data-id="'.$subcategory->id.'" id="delete-btn" class="btn btn-danger btn-sm">Delete</button>
                 ';
 
                 return $operation;
             })
 
-            ->addColumn('created_at', function($subcategory){
-                return $subcategory->created_at->format('d-m-Y');
+            ->addColumn('category_id', function($subcategory){
+                return $subcategory->category->category_name;
             })
+
+
+            // ->addColumn('created_at', function($subcategory){
+            //     return $subcategory->created_at->format('d-m-Y');
+                        // return date_formats('d-m-Y',$subcategory->created_at);
+            // })
 
             ->rawColumns(['operation','created_at'])
             ->make(true);
@@ -67,16 +79,14 @@ class SubcategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Subcategory::updateOrCreate([
-            'id' => $request->dataId
-        ],
-        [
+
+        $category = Subcategory::create([
             'subcategory_name' => $request->name,
-            'subcategory_slug' => Str::slug($request->slug)
+            'subcategory_slug' => Str::slug($request->slug),
+            'category_id'       => $request->category_id
         ]);
 
-
-        return response()->json();
+        return back();
 
     }
 

@@ -39,6 +39,7 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('subcategory/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
     Route::post('subcategory/edit', [SubcategoryController::class, 'edit'])->name('subcategory.edit');
     Route::post('subcategory/destroy', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
+    Route::post('subcategory/categorySelect',[SubcategoryController::class, 'categorySelect'])->name('subcategory.categorySelect');
 
 });
 

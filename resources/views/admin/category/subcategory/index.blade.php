@@ -8,7 +8,51 @@
 
 @endsection
 @section('content')
-    @include('admin.include.modal')
+
+    {{-- subcategory modal start  --}}
+    <form action="{{ route('admin.subcategory.store') }}" method="post">
+        @csrf
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label"> Recipient: </label>
+                        <select name="category_id" id="" class="form-control">
+                            <option value=""> Select Category </option>
+                            @foreach ($category as $item)
+                                <option value="{{ $item->id }}"> {{ $item->category_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Recipient:</label>
+                      <input type="text" name="name" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">Message:</label>
+                      <input type="text" name="slug" class="form-control" id="recipient-name">
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="sumit" class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </form>
+
+    {{-- subcategory modal end  --}}
 
     <div class="content-wrapper">
         <!-- START PAGE CONTENT-->
@@ -19,7 +63,7 @@
                     <div class="card ">
                         <div class="card-header p-3">
                             <h4 class=" d-flex justify-content-between"> Subcategory List
-                                <a id="add_btn" onclick="addNewBtn('Add Subcategory','Save')" class="btn btn-outline-primary">Add</a>
+                                <button id="add_btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="btn btn-outline-primary">Add</button>
                             </h4>
 
                         </div>
@@ -30,7 +74,8 @@
                                         <th>Sl</th>
                                         <th>Subcategory Name</th>
                                         <th>Subcategory slug</th>
-                                        <th>created_at</th>
+                                        <th>Category</th>
+                                        <th>Created_at</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -44,6 +89,15 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
 @endsection
 
 @push('scripts')
@@ -74,6 +128,7 @@
                 {data: 'id'},
                 {data: 'subcategory_name'},
                 {data: 'subcategory_slug'},
+                {data: 'category_id'},
                 {data: 'created_at'},
                 {data: 'operation'},
             ],
@@ -141,35 +196,20 @@
 
         // modal show
 
-        function addNewBtn(modalTitle,modalSaveBtn){
-            $('#dataId').val('');
-            $('form#ajaxForm').trigger("reset");
-            $('.modal').modal('show');
-            $('#modalTitle').text(modalTitle);
-            $('button#modalSaveBtn').text(modalSaveBtn);
+        // function addNewBtn(modalTitle,modalSaveBtn){
+        //     // $('#dataId').val('');
+        //     // $('form#ajaxForm').trigger("reset");
+        //     $('.subcategoryModal').modal('show');
+        //     $('#modalTitle').text(modalTitle);
+        //     $('button#modalSaveBtn').text(modalSaveBtn);
 
-        }
-
-
-        // data store and update
-
-        $(document).on("submit",'form#ajaxForm',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.subcategory.store') }}";
-            let form = new FormData(this);
-            updateCreate(url,form);
-        });
+        // }
 
 
-        // Data Edit
 
-        $(document).on("click",'button#edit-btn',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.subcategory.edit') }}";
-            let data_id = $(this).data('id');
 
-            dataEdit(url,data_id);
-        });
+
+
 
         // Data delete
 

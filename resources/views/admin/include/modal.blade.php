@@ -12,24 +12,18 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                        <input type="hidden" id="dataId" name="dataId">
+                    <input type="hidden" id="dataId" name="dataId">
 
-                        <div class="py-2">
-                            <input type="text" name="name" class="form-control" placeholder="Write Category Name" required>
-                            @error('name')
-                                <span class="text-danger"> {{ $message }}</span>
-                            @enderror
-                        </div>
+                    <div class="py-2">
+                        <input type="text" name="name" class="form-control" placeholder="Write Category Name" required>
+                        @error('name')
+                            <span class="text-danger"> {{ $message }}</span>
+                        @enderror
+                    </div>
 
-                        <div class="py-2">
-                            <input type="text" name="slug" class="form-control" placeholder="Write Category Slug" required>
-                        </div>
-
-                        {{-- <select name="status" id="" class="form-control">
-                            <option value="">Select Status</option>
-                            <option value="1">Active</option>
-                            <option value="0">Pending</option>
-                        </select> --}}
+                    <div class="py-2">
+                        <input type="text" name="slug" class="form-control" placeholder="Write Category Slug" required>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

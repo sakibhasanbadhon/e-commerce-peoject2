@@ -20,11 +20,16 @@ class SubcategoryController extends Controller
         // $subcategory = DB::table('subcategories')->leftJoin('categories','subcategories.category_id','categories.id')
         //     ->select('subcategories.*','categories.category_name')->get();
 
-        $subcategory = Subcategory::with('category')->orderBy('id','DESC')->get;
+        // $subcategory = Subcategory::with('category')->orderBy('id','DESC')->get();
+
+        $subcategory = Subcategory::get();
+
+
+        // return $subcategory;
 
         $category = Category::all();
 
-        return view('admin.category.subcategory.index',['subcategory'=>$subcategory,'category'=>$category]);
+        return view('admin.category.subcategory.index', compact('subcategory','category'));
     }
 
 
@@ -42,7 +47,7 @@ class SubcategoryController extends Controller
             ->addIndexColumn()
             ->addColumn('operation', function($subcategory){
                 $operation = '
-                    <button data-id="'.$subcategory->id.'" id="edit-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="btn btn-success btn-sm">Edit</button>
+                    <a href="'.route('admin.subcategory.edit',$subcategory->id).'" data-id="'.$subcategory->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit </a>
                     <button data-id="'.$subcategory->id.'" id="delete-btn" class="btn btn-danger btn-sm">Delete</button>
                 ';
 
@@ -50,7 +55,9 @@ class SubcategoryController extends Controller
             })
 
             ->addColumn('category_id', function($subcategory){
+
                 return $subcategory->category->category_name;
+
             })
 
 
@@ -82,11 +89,13 @@ class SubcategoryController extends Controller
 
         $category = Subcategory::create([
             'subcategory_name' => $request->name,
-            'subcategory_slug' => Str::slug($request->slug),
+            'subcategory_slug' => Str::slug($request->name),
             'category_id'       => $request->category_id
         ]);
 
-        return back();
+        $notification = array('message'=>'Subcategory inserted!','alert-type' => 'success');
+
+        return redirect()->back()->with($notification);
 
     }
 
@@ -101,9 +110,15 @@ class SubcategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $category = Category::latest()->get();
+        $subcategory = Subcategory::find($id);
+        return view('admin.category.subcategory.edit',['category'=>$category,'subcategory'=>$subcategory]);
+
+
+
+
     }
 
     /**
@@ -111,14 +126,36 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $subcategory =Subcategory::findOrFail($id);
+
+        $subcategory->update([
+            'category_id' => $request->category_id,
+            'subcategory_name'=> $request->subcategory_name,
+            'subcategory_slug'=> Str::slug($request->subcategory_name)
+        ]);
+
+       $notification = array('message'=>'Subcategory Updated !','alert-type' => 'success');
+
+        return redirect()->back()->with($notification);
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            // dd($request->data_id);
+
+            $Category_id = Subcategory::find($request->data_id);
+        }
+
+        $Category_id->delete();
+
+        $message = ['status'=>'success','message'=>'Subcategory has been Deleted !'];
+
+        return response()->json($message);
     }
 }

@@ -251,24 +251,55 @@
 
     <script>
 
+        function deleteWarning(url,data_id){
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: "To Delete this Data",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirm'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: url,
+                                type: "post",
+                                data:{_token:_token,data_id:data_id},
+                                success: function (response) {
+                                    if (response.status =='success') {
+                                        table.ajax.reload();
+                                        toastr.success('Data Delete Success');
+                                    }
+                                },
+                                error: function (response) {
+                                    toastr.error('Opps! Something went wrong');
 
-        // @if (Session::has('message'))
-        //     var type ="{{ Session::get('alert-type','info') }}"
-        //     switch(type){
-        //         case 'success':
-        //             toastr.success("{{ Session::get('message') }}")
-        //             break;
-        //         case 'info':
-        //             toastr.info("{{ Session::get('message') }}")
-        //             break;
-        //         case 'warning':
-        //             toastr.warning("{{ Session::get('message') }}")
-        //             break;
-        //         case 'error':
-        //             toastr.error("{{ Session::get('message') }}")
-        //             break;
-        //     }
-        // @endif
+                                }
+                            });
+                        }
+                    })
+                }
+
+
+
+        @if (Session::has('message'))
+            var type ="{{ Session::get('alert-type','info') }}"
+            switch(type){
+                case 'success':
+                    toastr.success("{{ Session::get('message') }}")
+                    break;
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}")
+                    break;
+                case 'warning':
+                    toastr.warning("{{ Session::get('message') }}")
+                    break;
+                case 'error':
+                    toastr.error("{{ Session::get('message') }}")
+                    break;
+            }
+        @endif
 
 
 

@@ -36,11 +36,7 @@
                       <label for="recipient-name" class="col-form-label">Recipient:</label>
                       <input type="text" name="name" class="form-control" id="recipient-name">
                     </div>
-                    <div class="form-group">
-                      <label for="message-text" class="col-form-label">Message:</label>
-                      <input type="text" name="slug" class="form-control" id="recipient-name">
 
-                    </div>
 
                 </div>
                 <div class="modal-footer">
@@ -53,6 +49,51 @@
     </form>
 
     {{-- subcategory modal end  --}}
+
+    {{-- @include('admin.category.subcategory.editModal') --}}
+
+
+
+    {{-- subcategory Edit modal start  --}}
+    {{-- <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="" method="Post">
+                @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="category_name">Category Name</label>
+                        <select class="form-control" name="category_id" required="">
+                            @foreach($category as $row)
+                                <option value="{{ $row->id }}" >{{ $row->category_name }}</option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="id" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="category_name">SubCategory Name</label>
+                        <input type="text" value="{{ $name->name }}" class="form-control"  name="subcategory_name"  required="">
+                        <small id="emailHelp" class="form-text text-muted">This is your sub category</small>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="sumit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+        </div>
+    </div> --}}
+    {{-- subcategory Edit modal end  --}}
+
 
     <div class="content-wrapper">
         <!-- START PAGE CONTENT-->
@@ -89,11 +130,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 
 
 
@@ -194,17 +230,6 @@
             }
         });
 
-        // modal show
-
-        // function addNewBtn(modalTitle,modalSaveBtn){
-        //     // $('#dataId').val('');
-        //     // $('form#ajaxForm').trigger("reset");
-        //     $('.subcategoryModal').modal('show');
-        //     $('#modalTitle').text(modalTitle);
-        //     $('button#modalSaveBtn').text(modalSaveBtn);
-
-        // }
-
 
 
 
@@ -217,8 +242,15 @@
             e.preventDefault();
             let url = "{{ route('admin.subcategory.destroy') }}";
             let data_id = $(this).data('id');
-            dataDelete(url,data_id);
+            deleteWarning(url,data_id);
         });
+
+        $(document).on('click','button#delete-btn',function(e) {
+            e.preventDefault();
+
+        });
+
+
 
 
 

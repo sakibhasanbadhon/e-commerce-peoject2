@@ -37,9 +37,9 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::get('subcategory', [SubcategoryController::class, 'index'])->name('subcategory.index');
     Route::post('subcategory/get-data', [SubcategoryController::class, 'getData'])->name('subcategory.get-data');
     Route::post('subcategory/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
-    Route::post('subcategory/edit', [SubcategoryController::class, 'edit'])->name('subcategory.edit');
+    Route::get('subcategory/edit/{id}', [SubcategoryController::class, 'edit'])->name('subcategory.edit');
+    Route::put('subcategory/update/{id}', [SubcategoryController::class, 'update'])->name('subcategory.update');
     Route::post('subcategory/destroy', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
-    Route::post('subcategory/categorySelect',[SubcategoryController::class, 'categorySelect'])->name('subcategory.categorySelect');
 
 });
 

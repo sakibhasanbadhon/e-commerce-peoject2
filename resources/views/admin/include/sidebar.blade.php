@@ -20,13 +20,16 @@
                     <span class="nav-label">Category</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
+                        <a href="{{ route('admin.brand.index') }}">Brands</a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.category.index') }}">Category</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.subcategory.index') }}">Sub Category</a>
                     </li>
                     <li>
-                        <a href="panels.html">Child Category</a>
+                        <a href="{{ route('admin.childCategory.index') }}">Child Category</a>
                     </li>
                 </ul>
             </li>

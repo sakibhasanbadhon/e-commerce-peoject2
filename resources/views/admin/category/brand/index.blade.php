@@ -9,59 +9,55 @@
 @endsection
 @section('content')
 
-    {{-- subcategory modal start  --}}
-    <form action="{{ route('admin.subcategory.store') }}" method="post">
-        @csrf
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label"> Recipient: </label>
-                        <select name="category_id" id="" class="form-control">
-                            <option value=""> Select Category </option>
-                            @foreach ($category as $item)
-                                <option value="{{ $item->id }}"> {{ $item->category_name }}</option>
-                            @endforeach
-                        </select>
+    {{-- Brand modal start --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <form method="POST" id="ajaxForm">
+            @csrf
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h3 class="modal-title fs-5" id="modalTitle"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                     </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="dataId" name="dataId">
 
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Recipient:</label>
-                      <input type="text" name="name" class="form-control" id="recipient-name">
+                        <div class="py-2">
+                            <input type="text" name="brand_name" class="form-control" placeholder="Write Category Name" required>
+                            @error('name')
+                                <span class="text-danger"> {{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="py-2">
+                            <input type="file" name="brand_logo" data-height="150" class="form-control dropify" placeholder="Write Category Slug" required>
+                        </div>
+
                     </div>
-
-
+                    <div class="modal-footer">
+                    <button type="reset" class="btn btn-danger">Reset</button>
+                    <button type="submit" class="btn btn-primary" id="modalSaveBtn"></button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="sumit" class="btn btn-primary">Save</button>
-                </div>
-              </div>
             </div>
-        </div>
-    </form>
+        </form>
+      </div>
 
-    {{-- subcategory modal end  --}}
-
-
+    {{-- Brand modal end --}}
 
     <div class="content-wrapper">
         <!-- START PAGE CONTENT-->
         <div class="page-content fade-in-up">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="alert-message"></div>
+
                     <div class="card ">
                         <div class="card-header p-3">
-                            <h4 class=" d-flex justify-content-between"> Subcategory List
-                                <button id="add_btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="btn btn-outline-primary">Add</button>
+                            <h4 class=" d-flex justify-content-between"> Brand List
+                                <a id="add_btn" onclick="addNewBtn('Add Category','Save')" class="btn btn-outline-primary">Add</a>
                             </h4>
 
                         </div>
@@ -70,10 +66,9 @@
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
-                                        <th>Subcategory Name</th>
-                                        <th>Subcategory slug</th>
-                                        <th>Category</th>
-                                        <th>Created_at</th>
+                                        <th>Brand Logo</th>
+                                        <th>Brand Name</th>
+                                        <th>created_at</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -87,13 +82,11 @@
             </div>
         </div>
     </div>
-
-
-
-
 @endsection
 
+
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
 
         let table = $('#category-datatables').DataTable({
@@ -110,7 +103,7 @@
             ],
             pageLength: 25, //number of data show per page
             ajax: {
-                url: "{{ route('admin.subcategory.get-data') }}",
+                url: "{{ route('admin.brand.get-data') }}",
                 type: "POST",
                 dataType: "JSON",
                 data: function(d) {
@@ -119,9 +112,8 @@
             },
             columns: [
                 {data: 'id'},
-                {data: 'subcategory_name'},
-                {data: 'subcategory_slug'},
-                {data: 'category_id'},
+                {data: 'brand_logo'},
+                {data: 'brand_name'},
                 {data: 'created_at'},
                 {data: 'operation'},
             ],
@@ -189,25 +181,74 @@
 
 
 
+        // image drofidy
+
+        $('.dropify').dropify({
+            messages:
+            {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove':  'Remove',
+                'error':   'Ooops, something wrong happended.'
+            }
+        });
+
+        // modal show
+
+        function addNewBtn(modalTitle,modalSaveBtn){
+            $('#dataId').val('');
+            $('form#ajaxForm').trigger("reset");
+            $('.modal').modal('show');
+            $('#modalTitle').text(modalTitle);
+            $('button#modalSaveBtn').text(modalSaveBtn);
+
+        }
 
 
+        // data store and update
 
+        $(document).on("submit",'form#ajaxForm',function(e) {
+            e.preventDefault();
+            let url = "{{ route('admin.brand.store') }}";
+            let form = new FormData(this);
+            updateCreate(url,form);
+        });
+
+
+        // Data Edit
+
+        $(document).on("click",'button#edit-btn',function(e) {
+            e.preventDefault();
+            let data_id = $(this).data('id');
+
+            $('.modal').modal('show');
+            $('#modalTitle').text('Edit category');
+            $('button#modalSaveBtn').text('Save Change');
+            $('#dataId').val(data_id);
+
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.brand.edit') }}",
+                data: {_token:_token,data_id:data_id},
+                dataType:'json',
+                success: function(response) {
+                    if (response) {
+                        $('form#ajaxForm input[name="brand_name"]').val(response.brand_name);
+
+
+                    }
+                }
+            });
+        });
 
         // Data delete
 
         $(document).on('click','button#delete-btn',function(e) {
             e.preventDefault();
-            let url = "{{ route('admin.subcategory.destroy') }}";
+            let url = "{{ route('admin.brand.destroy') }}";
             let data_id = $(this).data('id');
-            deleteWarning(url,data_id);
+            deleteWarning(url,data_id)
         });
-
-        $(document).on('click','button#delete-btn',function(e) {
-            e.preventDefault();
-
-        });
-
-
 
 
 

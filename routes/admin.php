@@ -8,8 +8,10 @@ use PHPUnit\Framework\Attributes\Group;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\SubcategoryController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubcategoryController;
+use App\Http\Controllers\Admin\ChildCategoryController;
 
 Auth::routes();
 
@@ -32,14 +34,36 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('category/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('category/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
 
-    // Subcategory Route
 
+    // Subcategory Route
     Route::get('subcategory', [SubcategoryController::class, 'index'])->name('subcategory.index');
     Route::post('subcategory/get-data', [SubcategoryController::class, 'getData'])->name('subcategory.get-data');
     Route::post('subcategory/store', [SubcategoryController::class, 'store'])->name('subcategory.store');
     Route::get('subcategory/edit/{id}', [SubcategoryController::class, 'edit'])->name('subcategory.edit');
     Route::put('subcategory/update/{id}', [SubcategoryController::class, 'update'])->name('subcategory.update');
     Route::post('subcategory/destroy', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
+
+
+    // Subcategory Route
+    Route::get('childCategory', [ChildCategoryController::class, 'index'])->name('childCategory.index');
+    Route::post('childCategory/get-data', [ChildCategoryController::class, 'getData'])->name('childCategory.get-data');
+    Route::post('childCategory/store', [ChildCategoryController::class, 'store'])->name('childCategory.store');
+    Route::post('childCategory/edit/', [ChildCategoryController::class, 'edit'])->name('childCategory.edit');
+    // Route::put('childCategory/update/{id}', [ChildCategoryController::class, 'update'])->name('childCategory.update');
+    Route::post('childCategory/destroy', [ChildCategoryController::class, 'destroy'])->name('childCategory.destroy');
+
+    Route::get('subcategories/{categoryId}', [ChildCategoryController::class, 'getSubcategories'])->name('category_get');
+
+
+
+
+    // Brand route
+    Route::resource('brand', BrandController::class)->except('store','destroy','update','edit','show');
+    Route::post('brand/get-data', [BrandController::class, 'getData'])->name('brand.get-data');
+    Route::post('brand/store', [BrandController::class, 'store'])->name('brand.store');
+    Route::post('brand/edit', [BrandController::class, 'edit'])->name('brand.edit');
+    Route::post('brand/destroy', [BrandController::class, 'destroy'])->name('brand.destroy');
+
 
 });
 

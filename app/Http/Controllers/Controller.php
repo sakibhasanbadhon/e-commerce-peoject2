@@ -9,4 +9,18 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+
+    protected function file_upload($file,$location) {
+        $image_file = $file;
+        $file_extension = $file->getClientOriginalExtension();
+        $image_rename = time().rand().'.'.$file_extension;
+        $image_file->move($location,$image_rename);
+        return $image_rename;
+
+    }
+
+
+
+
 }

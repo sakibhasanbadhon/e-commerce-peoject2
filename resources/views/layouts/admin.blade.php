@@ -20,6 +20,9 @@
     <!-- THEME STYLES-->
     <link href="{{ asset('/') }}assets/css/main.min.css" rel="stylesheet" />
 
+    {{-- drofify link --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css" integrity="sha512-In/+MILhf6UMDJU4ZhDL0R0fEpsp4D3Le23m6+ujDWXwl3whwpucJG1PEmI3B07nyJx+875ccs+yX2CqQJUxUw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- PAGE LEVEL STYLES-->
     <link href="{{ asset('/') }}assets/toastr.css" rel="stylesheet" />
     <style>
@@ -239,6 +242,9 @@
 
     <!-- CORE SCRIPTS-->
     <script src="{{ asset('/') }}assets/js/app.min.js" type="text/javascript"></script>
+
+    {{-- Drofify link --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     {{-- toastr message --}}
     <script src="{{ asset('/') }}assets/toastr.min.js" type="text/javascript"></script>

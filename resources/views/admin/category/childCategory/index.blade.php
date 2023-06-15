@@ -10,45 +10,10 @@
 @section('content')
 
     {{-- subcategory modal start  --}}
-    <form action="{{ route('admin.subcategory.store') }}" method="post">
-        @csrf
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label"> Recipient: </label>
-                        <select name="category_id" id="" class="form-control">
-                            <option value=""> Select Category </option>
-                            @foreach ($category as $item)
-                                <option value="{{ $item->id }}"> {{ $item->category_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                      <label for="recipient-name" class="col-form-label">Recipient:</label>
-                      <input type="text" name="name" class="form-control" id="recipient-name">
-                    </div>
-
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="sumit" class="btn btn-primary">Save</button>
-                </div>
-              </div>
-            </div>
-        </div>
-    </form>
+        @include('admin.category.childCategory.createModal')
 
     {{-- subcategory modal end  --}}
+
 
 
 
@@ -60,19 +25,19 @@
                     <div class="alert-message"></div>
                     <div class="card ">
                         <div class="card-header p-3">
-                            <h4 class=" d-flex justify-content-between"> Subcategory List
-                                <button id="add_btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="btn btn-outline-primary">Add</button>
+                            <h4 class=" d-flex justify-content-between"> Child Category List
+                                <button id="add_btn" onclick="addNewBtn('Add Child_Category','Save')" class="btn btn-outline-primary">Add</button>
                             </h4>
 
                         </div>
                         <div class="card-body">
-                            <table class="table table-sm" id="category-datatables">
+                            <table class="table table-sm" id="childCategory-datatables">
                                 <thead>
                                     <tr>
                                         <th>Sl</th>
-                                        <th>Subcategory Name</th>
-                                        <th>Subcategory slug</th>
+                                        <th>Childcategory Name</th>
                                         <th>Category</th>
+                                        <th>SubCategory</th>
                                         <th>Created_at</th>
                                         <th>Action</th>
                                     </tr>
@@ -96,7 +61,7 @@
 @push('scripts')
     <script>
 
-        let table = $('#category-datatables').DataTable({
+        let table = $('#childCategory-datatables').DataTable({
             processing: true,
             serverSide: true,
             order: [], //Initial no order
@@ -110,7 +75,7 @@
             ],
             pageLength: 25, //number of data show per page
             ajax: {
-                url: "{{ route('admin.subcategory.get-data') }}",
+                url: "{{ route('admin.childCategory.get-data') }}",
                 type: "POST",
                 dataType: "JSON",
                 data: function(d) {
@@ -119,9 +84,9 @@
             },
             columns: [
                 {data: 'id'},
-                {data: 'subcategory_name'},
-                {data: 'subcategory_slug'},
+                {data: 'childCategory_name'},
                 {data: 'category_id'},
+                {data: 'subcategory_id'},
                 {data: 'created_at'},
                 {data: 'operation'},
             ],
@@ -189,6 +154,82 @@
 
 
 
+        // category wise subcategory select
+        $(document).ready(function() {
+            $('#category_id').on('change', function() {
+                var categoryId = $(this).val();
+
+                if (categoryId) {
+                $.ajax({
+                    url: 'subcategories/' + categoryId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                    $('#subcategory').empty().prop('disabled', false);
+
+                    $.each(data, function(key, subcategory) {
+                        $('#subcategory').append('<option value="' + subcategory.id + '">' + subcategory.subcategory_name + '</option>');
+                    });
+                    },
+                    error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    }
+                });
+                } else {
+                $('#subcategory').empty().prop('disabled', true);
+                }
+            });
+        });
+
+
+        // when click save button
+        function addNewBtn(modalTitle,modalSaveBtn){
+            $('#dataId').val('');
+            $('form#ajaxForm').trigger("reset");
+            $('#child_cat_create_modal').modal('show');
+            $('#child_category_modal_title').text(modalTitle);
+            $('button#modal_save_botton').text(modalSaveBtn);
+
+        }
+
+
+
+        // data store and update
+
+        $(document).on("submit",'form#ajaxForm',function(e) {
+            e.preventDefault();
+            let url = "{{ route('admin.childCategory.store') }}";
+            let form = new FormData(this);
+            updateCreate(url,form);
+        });
+
+
+        // Data Edit
+
+        // $(document).on("click",'button#edit-btn',function(e) {
+        //     e.preventDefault();
+        //     let data_id = $(this).data('id');
+
+        //     $('#child_cat_create_modal').modal('show');
+        //     $('#child_category_modal_title').text('Edit Child-Category');
+        //     $('button#modalSaveBtn').text('Save Change');
+        //     $('#dataId').val(data_id);
+
+
+        //     $.ajax({
+        //         type: "post",
+        //         url: "{{ route('admin.childCategory.edit') }}",
+        //         data: {_token:_token,data_id:data_id},
+        //         dataType:'json',
+        //         success: function(response) {
+        //             if (response) {
+        //                 $('form.category_id').append('<option> sakib </option>')
+
+        //             }
+        //         }
+        //     });
+        // });
+
 
 
 
@@ -197,7 +238,7 @@
 
         $(document).on('click','button#delete-btn',function(e) {
             e.preventDefault();
-            let url = "{{ route('admin.subcategory.destroy') }}";
+            let url = "{{ route('admin.childCategory.destroy') }}";
             let data_id = $(this).data('id');
             deleteWarning(url,data_id);
         });

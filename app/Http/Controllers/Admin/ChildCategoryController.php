@@ -12,6 +12,8 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ChildCategoryController extends Controller
 {
+    private $myVariable;
+
     /**
      * Display a listing of the resource.
      */
@@ -136,8 +138,18 @@ class ChildCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
+
+        $category = Category::latest()->get();
+        // $subcategory = Subcategory::where('category_id', $id)->get();
+
+        $subcategory = Subcategory::latest()->get();
+        $childCategory = ChildCategory::find($id);
+
+        return view('admin.category.childCategory.edit',compact('category','subcategory','childCategory'));
+
+
         // if ($request->ajax()) {
 
         //     $category = Category::latest()->get();
@@ -155,9 +167,29 @@ class ChildCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $childCategory = ChildCategory::findOrFail($id);
+
+        $childCategory->update([
+            'childCategory_name' => $request->childCategory_name,
+            'childCategory_slug' => Str::slug($request->childCategory_name),
+            'category_id' => $request->category_id,
+            'subcategory_id'=> $request->subcategory_id,
+
+        ]);
+
+        if ($childCategory) {
+            $notification = array('message'=>'Child-Category added Success.','alert-type' => 'success');
+        }else {
+            $notification = array('message'=>'OPPS ! Child-Category Not added !','alert-type' => 'error');
+
+        }
+
+        return redirect()->back()->with($notification);
+
+
+
     }
 
     /**

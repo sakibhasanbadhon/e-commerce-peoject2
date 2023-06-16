@@ -218,7 +218,7 @@
 
         //     $.ajax({
         //         type: "post",
-        //         url: "{{ route('admin.childCategory.edit') }}",
+        //         url: "",
         //         data: {_token:_token,data_id:data_id},
         //         dataType:'json',
         //         success: function(response) {

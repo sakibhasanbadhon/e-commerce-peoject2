@@ -10,42 +10,7 @@
 @section('content')
 
     {{-- Brand modal start --}}
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-        <form method="POST" id="ajaxForm">
-            @csrf
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h3 class="modal-title fs-5" id="modalTitle"></h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" id="dataId" name="dataId">
-
-                        <div class="py-2">
-                            <input type="text" name="brand_name" class="form-control" placeholder="Write Category Name" required>
-                            @error('name')
-                                <span class="text-danger"> {{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="py-2">
-                            <input type="file" name="brand_logo" data-height="150" class="form-control dropify" placeholder="Write Category Slug" required>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                    <button type="reset" class="btn btn-danger">Reset</button>
-                    <button type="submit" class="btn btn-primary" id="modalSaveBtn"></button>
-                    </div>
-                </div>
-            </div>
-        </form>
-      </div>
-
+        @include('admin.category.brand.brandModal')
     {{-- Brand modal end --}}
 
     <div class="content-wrapper">
@@ -234,6 +199,10 @@
                 success: function(response) {
                     if (response) {
                         $('form#ajaxForm input[name="brand_name"]').val(response.brand_name);
+
+                        let avatar_path = "{{ asset('admin/brandImage') }}/"+response.brand_logo;
+                        $('form#ajaxForm .modalEdit_avatar').html('<img src="'+avatar_path+'" width="150" height="100" class="profile_img">');
+
 
 
                     }

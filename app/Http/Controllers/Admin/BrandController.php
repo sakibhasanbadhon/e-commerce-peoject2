@@ -114,9 +114,31 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        if($request->ajax()){
+
+            $student = Brand::findOrFail($request->data_id);
+
+            if($request->hasFile('avatar')){
+                $profile = $this->file_update($request->file('brand_logo'),'admin/brandImage/',$student->brand_logo);
+            }else{
+                $profile = $student->brand_logo;
+            }
+
+            $data=$student->update([
+                'brand_name'   => $request->name,
+                'brand_logo' => $profile
+            ]);
+
+            if ($data) {
+                $output=['status'=>'success','message'=>'Data has been Updated success'];
+            }else{
+                $output=['status'=>'error','message'=>'Something error'];
+            }
+
+            return response()->json($output);
+        }
     }
 
     /**

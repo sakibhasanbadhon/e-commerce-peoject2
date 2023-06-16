@@ -55,8 +55,6 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::get('subcategories/{categoryId}', [ChildCategoryController::class, 'getSubcategories'])->name('category_get');
 
 
-
-
     // Brand route
     Route::resource('brand', BrandController::class)->except('store','destroy','update','edit','show');
     Route::post('brand/get-data', [BrandController::class, 'getData'])->name('brand.get-data');

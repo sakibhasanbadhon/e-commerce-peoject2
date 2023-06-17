@@ -19,14 +19,15 @@ Route::get('admin/login', [LoginController::class, 'adminLogin'])->name('admin.l
 
 // Route::get('admin/dashboard', [HomeController::class, 'admin'])->name('admin.dashboard')->middleware('is_admin');
 
-Route::get('/admin',function(){
-    return view('layouts.admin');
-});
+// Route::get('/admin',function(){
+//     return view('layouts.admin');
+// });
 
 Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(function () {
     Route::get('dashboard', [AdminController::class, 'admin'])->name('dashboard');
     Route::get('logout', [AdminController::class, 'adminLogout'])->name('logout');
     Route::get('password/change', [AdminController::class, 'passwordChange'])->name('password.change');
+    Route::post('password/update', [AdminController::class, 'passwordUpdate'])->name('password.update');
 
 
     // Category route

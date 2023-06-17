@@ -39,7 +39,7 @@
                     <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="form_basic.html">Basic Forms</a>
+                        <a href="{{ route('admin.password.change') }}">password Change</a>
                     </li>
                     <li>
                         <a href="form_advanced.html">Advanced Plugins</a>

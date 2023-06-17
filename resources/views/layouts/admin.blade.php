@@ -68,8 +68,13 @@
      @endguest
 
         <!-- START PAGE CONTENT-->
+        <div class="content-wrapper">
+            <div class="page-content fade-in-up">
 
-        @yield('content')
+                @yield('content')
+
+            </div>
+        </div>
 
         <!-- END PAGE CONTENT-->
     </div>

@@ -13,35 +13,32 @@
         @include('admin.category.brand.brandModal')
     {{-- Brand modal end --}}
 
-    <div class="content-wrapper">
-        <!-- START PAGE CONTENT-->
-        <div class="page-content fade-in-up">
-            <div class="row">
-                <div class="col-md-12">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
 
-                    <div class="card ">
-                        <div class="card-header p-3">
-                            <h4 class=" d-flex justify-content-between"> Brand List
-                                <a id="add_btn" onclick="addNewBtn('Add Category','Save')" class="btn btn-outline-primary">Add</a>
-                            </h4>
+                <div class="card ">
+                    <div class="card-header p-3">
+                        <h4 class=" d-flex justify-content-between"> Brand List
+                            <a id="add_btn" onclick="addNewBtn('Add Category','Save')" class="btn btn-outline-primary">Add</a>
+                        </h4>
 
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-sm" id="category-datatables">
-                                <thead>
-                                    <tr>
-                                        <th>Sl</th>
-                                        <th>Brand Logo</th>
-                                        <th>Brand Name</th>
-                                        <th>created_at</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm" id="category-datatables">
+                            <thead>
+                                <tr>
+                                    <th>Sl</th>
+                                    <th>Brand Logo</th>
+                                    <th>Brand Name</th>
+                                    <th>created_at</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

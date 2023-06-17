@@ -8,10 +8,8 @@
 
 @endsection
 @section('content')
-
-<div class="content-wrapper">
-    <!-- START PAGE CONTENT-->
-    <div class="page-content fade-in-up">
+    <div class="container">
+        <!-- START PAGE CONTENT-->
         <div class="row">
             <div class="col-md-8">
                 <div class="alert-message"></div>
@@ -60,7 +58,6 @@
             </div>
         </div>
     </div>
-</div>
 
 
 

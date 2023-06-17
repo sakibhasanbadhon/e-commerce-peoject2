@@ -26,6 +26,8 @@ Route::get('/admin',function(){
 Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(function () {
     Route::get('dashboard', [AdminController::class, 'admin'])->name('dashboard');
     Route::get('logout', [AdminController::class, 'adminLogout'])->name('logout');
+    Route::get('password/change', [AdminController::class, 'passwordChange'])->name('password.change');
+
 
     // Category route
     Route::resource('category', CategoryController::class)->except('store','destroy','update','edit','show');

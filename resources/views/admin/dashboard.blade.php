@@ -1,12 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
-<div class="content-wrapper">
-
-
-
-    <!-- START PAGE CONTENT-->
-    <div class="page-content fade-in-up">
+    <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-6">
                 <div class="ibox bg-success color-white widget-stat">
@@ -549,7 +544,5 @@
             </a>
         </div>
     </div>
-    <!-- END PAGE CONTENT-->
-</div>
 
 @endsection

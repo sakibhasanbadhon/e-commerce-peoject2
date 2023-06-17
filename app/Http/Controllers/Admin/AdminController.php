@@ -25,6 +25,10 @@ class AdminController extends Controller
         return redirect()->route('admin.login')->with($message);
     }
 
+    public function passwordChange() {
+
+    }
+
 
 
 }

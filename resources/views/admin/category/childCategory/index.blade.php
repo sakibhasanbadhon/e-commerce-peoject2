@@ -17,36 +17,33 @@
 
 
 
-    <div class="content-wrapper">
-        <!-- START PAGE CONTENT-->
-        <div class="page-content fade-in-up">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="alert-message"></div>
-                    <div class="card ">
-                        <div class="card-header p-3">
-                            <h4 class=" d-flex justify-content-between"> Child Category List
-                                <button id="add_btn" onclick="addNewBtn('Add Child_Category','Save')" class="btn btn-outline-primary">Add</button>
-                            </h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert-message"></div>
+                <div class="card ">
+                    <div class="card-header p-3">
+                        <h4 class=" d-flex justify-content-between"> Child Category List
+                            <button id="add_btn" onclick="addNewBtn('Add Child_Category','Save')" class="btn btn-outline-primary">Add</button>
+                        </h4>
 
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-sm" id="childCategory-datatables">
-                                <thead>
-                                    <tr>
-                                        <th>Sl</th>
-                                        <th>Childcategory Name</th>
-                                        <th>Category</th>
-                                        <th>SubCategory</th>
-                                        <th>Created_at</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-sm" id="childCategory-datatables">
+                            <thead>
+                                <tr>
+                                    <th>Sl</th>
+                                    <th>Childcategory Name</th>
+                                    <th>Category</th>
+                                    <th>SubCategory</th>
+                                    <th>Created_at</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

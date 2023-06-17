@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Models\Seo;
 
 Auth::routes();
 
@@ -64,6 +66,12 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('brand/store', [BrandController::class, 'store'])->name('brand.store');
     Route::post('brand/edit', [BrandController::class, 'edit'])->name('brand.edit');
     Route::post('brand/destroy', [BrandController::class, 'destroy'])->name('brand.destroy');
+
+
+    // setting route
+    Route::get('setting/seo', [SettingController::class, 'seo'])->name('setting.seo');
+    Route::post('setting/seo/update/{id}', [SettingController::class, 'seoUpdate'])->name('setting.seo.update');
+
 
 
 });

@@ -57,6 +57,28 @@
             </li>
 
             <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                    <span class="nav-label">Setting</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="{{ route('admin.setting.seo') }}">Seo</a>
+                    </li>
+                    <li>
+                        <a href="form_advanced.html">Advanced Plugins</a>
+                    </li>
+                    <li>
+                        <a href="form_masks.html">Form input masks</a>
+                    </li>
+                    <li>
+                        <a href="form_validation.html">Form Validation</a>
+                    </li>
+                    <li>
+                        <a href="text_editors.html">Text Editors</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
                     <span class="nav-label">Menu Levels</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
@@ -77,6 +99,7 @@
                     </li>
                 </ul>
             </li>
+
         </ul>
     </div>
 </nav>

@@ -12,6 +12,7 @@ class Page extends Model
     protected $fillable=[
         'page_position',
         'page_name',
+        'page_slug',
         'page_title',
         'page_description'
     ];

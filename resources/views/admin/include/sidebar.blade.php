@@ -51,7 +51,7 @@
             </li>
 
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-file-text"></i>
                     <span class="nav-label">Setting</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
@@ -61,7 +61,7 @@
                         <a href="{{ route('admin.setting.smtp') }}">Smtp Setting</a>
                     </li>
                     <li>
-                        <a href="form_masks.html">Form input masks</a>
+                        <a href="{{ route('admin.page.index') }}">Create Page</a>
                     </li>
                     <li>
                         <a href="form_validation.html">Form Validation</a>

@@ -13,7 +13,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="alert-message"></div>
                 <div class="card ">
                     <div class="card-header p-3">
                         <h4 class=" d-flex justify-content-between"> Category List

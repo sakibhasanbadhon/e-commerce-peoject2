@@ -13,7 +13,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\PageController;
 use App\Models\Seo;
+use Illuminate\Routing\RouteGroup;
 
 Auth::routes();
 
@@ -73,6 +75,16 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('setting/seo/update/{id}', [SettingController::class, 'seoUpdate'])->name('setting.seo.update');
     Route::get('setting/smtp', [SettingController::class, 'smtp'])->name('setting.smtp');
     Route::post('setting/smtp/update/{id}', [SettingController::class, 'smtpUpdate'])->name('setting.smtp.update');
+
+    // page route
+    Route::get('page', [PageController::class, 'index'])->name('page.index');
+    Route::get('page/create', [PageController::class, 'create'])->name('page.create');
+    Route::post('page/store', [PageController::class, 'store'])->name('page.store');
+    Route::get('page/edit/{id}', [PageController::class, 'edit'])->name('page.edit');
+    Route::put('page/update/{id}', [PageController::class, 'update'])->name('page.update');
+    Route::delete('page/destroy/{id}', [PageController::class, 'destroy'])->name('page.destroy');
+
+
 
 
 

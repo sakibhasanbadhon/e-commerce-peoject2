@@ -11,7 +11,7 @@
         <div class="col-md-8">
             <div class="ibox">
                 <div class="ibox-head bg-info text-white">
-                    <div class="ibox-title">Password Change</div>
+                    <div class="ibox-title">Seo Settings</div>
                     <div class="ibox-tools">
                         <a class="ibox-collapse text-white"><i class="fa fa-minus"></i></a>
                         <a class="fullscreen-link text-white"><i class="fa fa-expand"></i></a>
@@ -20,7 +20,7 @@
                 <div class="ibox-body">
                     <form action="{{ route('admin.setting.seo.update',$seoData->id) }}" method="post">
                         @csrf
-
+                        @method('PUT')
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Meta Title</label>
                             <div class="col-sm-8">
@@ -58,6 +58,12 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Google Analytics </label>
+                            <div class="col-sm-8">
+                                <input class="form-control" name="google_analytics" value="{{ $seoData->google_analytics  }}" type="text">
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Google Verification</label>
                             <div class="col-sm-8">

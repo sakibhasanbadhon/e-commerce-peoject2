@@ -72,9 +72,13 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
 
     // setting route
     Route::get('setting/seo', [SettingController::class, 'seo'])->name('setting.seo');
-    Route::post('setting/seo/update/{id}', [SettingController::class, 'seoUpdate'])->name('setting.seo.update');
+    Route::put('setting/seo/update/{id}', [SettingController::class, 'seoUpdate'])->name('setting.seo.update');
     Route::get('setting/smtp', [SettingController::class, 'smtp'])->name('setting.smtp');
-    Route::post('setting/smtp/update/{id}', [SettingController::class, 'smtpUpdate'])->name('setting.smtp.update');
+    Route::put('setting/smtp/update/{id}', [SettingController::class, 'smtpUpdate'])->name('setting.smtp.update');
+
+    // website setting route
+    Route::get('setting/website', [SettingController::class, 'website'])->name('setting.website');
+    Route::put('setting/update/{id}', [SettingController::class, 'websiteUpdate'])->name('website.update');
 
     // page route
     Route::get('page', [PageController::class, 'index'])->name('page.index');

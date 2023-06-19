@@ -8,6 +8,11 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-md-12 ms-auto">
+            <a href="{{ route('admin.page.index') }}" class="float-right py-2"> << Back</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="ibox">
                 <div class="ibox-head bg-info text-white">

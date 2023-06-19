@@ -20,6 +20,7 @@
                 <div class="ibox-body">
                     <form action="{{ route('admin.setting.smtp.update',$smtp->id) }}" method="post">
                         @csrf
+                        @method('PUT')
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Mailer</label>
                             <div class="col-sm-8">

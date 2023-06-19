@@ -64,7 +64,7 @@
                         <a href="{{ route('admin.page.index') }}">Create Page</a>
                     </li>
                     <li>
-                        <a href="form_validation.html">Form Validation</a>
+                        <a href="{{ route('admin.setting.website') }}">Website Setting</a>
                     </li>
                     <li>
                         <a href="text_editors.html">Text Editors</a>

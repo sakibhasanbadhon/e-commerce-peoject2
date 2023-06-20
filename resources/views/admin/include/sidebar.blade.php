@@ -31,6 +31,9 @@
                     <li>
                         <a href="{{ route('admin.childCategory.index') }}">Child Category</a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.warehouse.index') }}">Warehouse</a>
+                    </li>
                 </ul>
             </li>
 
@@ -38,9 +41,7 @@
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                     <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="{{ route('admin.password.change') }}">password Change</a>
-                    </li>
+
                     <li>
                         <a href="form_validation.html">Form Validation</a>
                     </li>
@@ -65,6 +66,9 @@
                     </li>
                     <li>
                         <a href="{{ route('admin.setting.website') }}">Website Setting</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.password.change') }}">password Change</a>
                     </li>
                     <li>
                         <a href="text_editors.html">Text Editors</a>

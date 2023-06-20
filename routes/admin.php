@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\PageController;
 use App\Models\Seo;
 use Illuminate\Routing\RouteGroup;
@@ -88,6 +89,12 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::put('page/update/{id}', [PageController::class, 'update'])->name('page.update');
     Route::delete('page/destroy/{id}', [PageController::class, 'destroy'])->name('page.destroy');
 
+    // warehouse route
+    Route::get('warehouse', [WarehouseController::class, 'index'])->name('warehouse.index');
+    Route::post('warehouse/get-data', [WarehouseController::class, 'getData'])->name('warehouse.get-data');
+    Route::post('warehouse/store', [WarehouseController::class, 'store'])->name('warehouse.store');
+    Route::post('warehouse/edit', [WarehouseController::class, 'edit'])->name('warehouse.edit');
+    Route::post('warehouse/destroy', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
 
 
 

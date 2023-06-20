@@ -8,25 +8,26 @@
 
 @endsection
 @section('content')
-    @include('admin.category.modal')
+    @include('admin.category.warehouse.modal')
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header p-3">
-                        <h4 class=" d-flex justify-content-between"> Category List
-                            <a id="add_btn" onclick="addNewBtn('Add Category','Save')" class="btn btn-outline-primary">Add</a>
+                        <h4 class=" d-flex justify-content-between"> Warehouse List
+                            <a id="add_btn" onclick="addNewBtn('Add Werehouse','Save')" class="btn btn-outline-primary">Add</a>
                         </h4>
 
                     </div>
                     <div class="card-body">
-                        <table class="table table-sm" id="category-datatables">
+                        <table class="table table-sm" id="warehouse-datatables">
                             <thead>
                                 <tr>
                                     <th>Sl</th>
-                                    <th>Category Name</th>
-                                    <th>Category Name</th>
+                                    <th>Warehouse Name</th>
+                                    <th>Warehouse Address</th>
+                                    <th>phone</th>
                                     <th>created_at</th>
                                     <th>Action</th>
                                 </tr>
@@ -45,7 +46,7 @@
 @push('scripts')
     <script>
 
-        let table = $('#category-datatables').DataTable({
+        let table = $('#warehouse-datatables').DataTable({
             processing: true,
             serverSide: true,
             order: [], //Initial no order
@@ -59,7 +60,7 @@
             ],
             pageLength: 25, //number of data show per page
             ajax: {
-                url: "{{ route('admin.category.get-data') }}",
+                url: "{{ route('admin.warehouse.get-data') }}",
                 type: "POST",
                 dataType: "JSON",
                 data: function(d) {
@@ -68,8 +69,9 @@
             },
             columns: [
                 {data: 'id'},
-                {data: 'category_name'},
-                {data: 'category_slug'},
+                {data: 'warehouse_name'},
+                {data: 'warehouse_address'},
+                {data: 'warehouse_phone'},
                 {data: 'created_at'},
                 {data: 'operation'},
             ],
@@ -151,7 +153,7 @@
 
         $(document).on("submit",'form#ajaxForm',function(e) {
             e.preventDefault();
-            let url = "{{ route('admin.category.store') }}";
+            let url = "{{ route('admin.warehouse.store') }}";
             let form = new FormData(this);
             updateCreate(url,form);
         });
@@ -161,19 +163,37 @@
 
         $(document).on("click",'button#edit-btn',function(e) {
             e.preventDefault();
-            let url = "{{ route('admin.category.edit') }}";
             let data_id = $(this).data('id');
 
-            dataEdit(url,data_id);
+            $('.modal').modal('show');
+            $('#modalTitle').text('Edit category');
+            $('button#modalSaveBtn').text('Save Change');
+            $('#dataId').val(data_id);
+
+
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.warehouse.edit') }}",
+                data: {_token:_token,data_id:data_id},
+                dataType:'json',
+                success: function(response) {
+                    if (response) {
+                        $('form#ajaxForm input[name="warehouse_name"]').val(response.warehouse_name);
+                        $('form#ajaxForm input[name="warehouse_address"]').val(response.warehouse_address);
+                        $('form#ajaxForm input[name="warehouse_phone"]').val(response.warehouse_phone);
+
+                    }
+                }
+            });
         });
 
         // Data delete
 
         $(document).on('click','button#delete-btn',function(e) {
             e.preventDefault();
-            let url = "{{ route('admin.category.destroy') }}";
+            let url = "{{ route('admin.warehouse.destroy') }}";
             let data_id = $(this).data('id');
-            dataDelete(url,data_id);
+            deleteWarning(url,data_id)
         });
 
 

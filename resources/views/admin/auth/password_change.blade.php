@@ -21,8 +21,8 @@
                     <form action="{{ route('admin.password.update') }}" method="post" class="form-horizontal">
                         @csrf
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Old Password</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Old Password</label>
+                            <div class="col-sm-8">
                                 <input class="form-control" name="old_password" type="password" placeholder="Old Password">
                                 @error('old_password')
                                     <span class="text-danger py-1"> {{ $message }}</span>
@@ -30,8 +30,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">New Password</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">New Password</label>
+                            <div class="col-sm-8">
                                 <input class="form-control" name="password" type="password" placeholder="New Password">
                                 @error('password')
                                     <span class="text-danger py-1"> {{ $message }}</span>
@@ -39,8 +39,8 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Confirmed Password</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-3 col-form-label">Confirmed Password</label>
+                            <div class="col-sm-8">
                                 <input class="form-control" name="password_confirmation" type="password" placeholder="Confirmed Password">
                             </div>
                         </div>

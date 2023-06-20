@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="ibox">
-                <div class="ibox-head bg-info text-white">
+                <div style="background-color:#374f65 !important" class="ibox-head text-white">
                     <div class="ibox-title"> Add Page</div>
                     <div class="ibox-tools">
                         <a class="ibox-collapse text-white"><i class="fa fa-minus"></i></a>

@@ -10,7 +10,7 @@
     <div class="row ${1| ,row-cols-2,row-cols-3, auto,justify-content-md-center,|}">
         <div class="col-md-8">
             <div class="ibox">
-                <div class="ibox-head bg-info text-white">
+                <div class="ibox-head text-white" style="background-color:#374f65 !important">
                     <div class="ibox-title">Website Setting</div>
                     <div class="ibox-tools">
                         <a class="ibox-collapse text-white"><i class="fa fa-minus"></i></a>

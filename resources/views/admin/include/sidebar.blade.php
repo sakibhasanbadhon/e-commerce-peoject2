@@ -39,14 +39,14 @@
 
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                    <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Offer</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
 
                     <li>
-                        <a href="form_validation.html">Form Validation</a>
+                        <a href="{{ route('admin.coupon.index') }}">Coupon</a>
                     </li>
                     <li>
-                        <a href="text_editors.html">Text Editors</a>
+                        <a href="text_editors.html">E Campign</a>
                     </li>
                 </ul>
             </li>

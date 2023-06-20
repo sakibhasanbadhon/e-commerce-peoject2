@@ -1,22 +1,23 @@
 <?php
 
+use App\Models\Seo;
 use App\Models\Category;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\RouteRegistrar;
 use PHPUnit\Framework\Attributes\Group;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\WarehouseController;
-use App\Http\Controllers\PageController;
-use App\Models\Seo;
-use Illuminate\Routing\RouteGroup;
 
 Auth::routes();
 
@@ -95,6 +96,13 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('warehouse/store', [WarehouseController::class, 'store'])->name('warehouse.store');
     Route::post('warehouse/edit', [WarehouseController::class, 'edit'])->name('warehouse.edit');
     Route::post('warehouse/destroy', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
+
+    // Coupon route
+    Route::get('coupon', [CouponController::class, 'index'])->name('coupon.index');
+    Route::post('coupon/get-data', [CouponController::class, 'getData'])->name('coupon.get-data');
+    Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
+    Route::post('coupon/edit', [CouponController::class, 'edit'])->name('coupon.edit');
+    Route::post('coupon/destroy', [CouponController::class, 'destroy'])->name('coupon.destroy');
 
 
 

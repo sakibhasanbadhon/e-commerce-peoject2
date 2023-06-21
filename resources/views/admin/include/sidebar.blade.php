@@ -71,7 +71,7 @@
                         <a href="{{ route('admin.password.change') }}">password Change</a>
                     </li>
                     <li>
-                        <a href="text_editors.html">Text Editors</a>
+                        <a href="{{ route('admin.pickupPoint.index') }}">Pickup Point</a>
                     </li>
                 </ul>
             </li>

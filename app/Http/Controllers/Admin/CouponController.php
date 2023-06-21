@@ -39,12 +39,20 @@ class CouponController extends Controller
                 return $operation;
             })
 
+            ->addColumn('status', function($coupon){
+                if($coupon->status == 1) {
+                    return '<span class=" badge badge-success"> Active </span>';
+                } else {
+                    return '<span class="badge badge-warning"> Inactive </span>';
+                }
+            })
+
             ->addColumn('created_at', function($coupon){
                 return date('d-M-y', strtotime($coupon->created_at));
 
             })
 
-            ->rawColumns(['operation','created_at'])
+            ->rawColumns(['operation','created_at','status'])
             ->make(true);
 
 

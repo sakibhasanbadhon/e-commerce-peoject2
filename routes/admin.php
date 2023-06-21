@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\WarehouseController;
+use App\Http\Controllers\Admin\PickupPointController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 
@@ -103,6 +104,13 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
     Route::post('coupon/edit', [CouponController::class, 'edit'])->name('coupon.edit');
     Route::post('coupon/destroy', [CouponController::class, 'destroy'])->name('coupon.destroy');
+
+    // pickup Point route
+    Route::get('pickup-Point', [PickupPointController::class, 'index'])->name('pickupPoint.index');
+    Route::post('pickup-Point/get-data', [PickupPointController::class, 'getData'])->name('pickupPoint.get-data');
+    Route::post('pickup-Point/store', [PickupPointController::class, 'store'])->name('pickupPoint.store');
+    Route::post('pickup-Point/edit', [PickupPointController::class, 'edit'])->name('pickupPoint.edit');
+    Route::post('pickup-Point/destroy', [PickupPointController::class, 'destroy'])->name('pickupPoint.destroy');
 
 
 

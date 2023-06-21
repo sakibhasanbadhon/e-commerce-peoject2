@@ -22,7 +22,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                      <label for="recipient-name" class="col-form-label"> Category: </label>
+                      <label for="recipient-name" class="col-form-label"> Sub Category: </label>
                       <select id="subcategory" name="subcategory_id" class="form-control">
                         <option value="">-- Select a Subcategory --</option>
                       </select>

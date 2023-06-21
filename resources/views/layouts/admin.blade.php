@@ -16,6 +16,8 @@
      <link href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css" rel="stylesheet">
      <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css" rel="stylesheet">
 
+     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+
     <link href="{{ asset('/') }}assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
     <!-- THEME STYLES-->
     <link href="{{ asset('/') }}assets/css/main.min.css" rel="stylesheet" />
@@ -29,6 +31,64 @@
     <!-- PAGE LEVEL STYLES-->
     <link href="{{ asset('/') }}assets/toastr.css" rel="stylesheet" />
     <style>
+
+        /* css switch style */
+
+        .toggle-switch {
+            position: relative;
+            width: 100px;
+        }
+
+        .switch-label {
+            position: absolute;
+            width: 84%;
+            height: 30px;
+            background-color: red;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .switch-label input {
+            position: absolute;
+            display: none;
+        }
+
+        .switch_slider {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            color:white;
+            transition: 0.3s;
+            padding: 2px 0 0 9px;
+        }
+
+        .switch-label input:checked ~ .switch_slider {
+            background-color: green;
+        }
+
+        .switch_slider::before {
+            content: "";
+            position: absolute;
+            top: 1px;
+            left: 3px;
+            width: 30px;
+            height: 28px;
+            border-radius: 50%;
+            box-shadow: inset 0px 0px 0px 0px #d8dbe0;
+            background-color: #f9f8f8;
+            transition: 0.8s;
+        }
+
+        .switch-label input:checked ~ .switch_slider::before {
+            transform: translateX(50px);
+            background-color: 28292c;
+            box-shadow: none;
+        }
+
+        /* switch end */
+
+
         .table th{
             font-weight: 600 !important;
         }
@@ -376,7 +436,7 @@
             @endif
 
 
-
+            $('.dropify').dropify();
 
     </script>
 

@@ -17,8 +17,11 @@ return new class extends Migration
             $table->foreignId('subcategory_id')->constrained('subcategories')->cascadeOnDelete();
             $table->integer('childcategory_id')->nullable();
             $table->integer('brand_id')->nullable();
+            $table->integer('pickup_point_id')->nullable();
             $table->string('name');
             $table->string('code');
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
             $table->string('video')->nullable();

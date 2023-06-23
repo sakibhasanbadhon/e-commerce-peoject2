@@ -11,8 +11,60 @@
 
     {{-- subcategory modal start  --}}
         @include('admin.category.childCategory.createModal')
-
     {{-- subcategory modal end  --}}
+
+        {{-- subcategory modal start  --}}
+        <form action="" method="post" id="editForm">
+            @csrf
+            <div class="modal fade" id="child_cat_edit_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="child_category_modal_title"> </h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label"> Category: </label>
+                            <select name="subcategory_id" id="category_id" class="form-control" required>
+                                <option value=""> -- Select Category -- </option>
+                                @foreach ($category as $item)
+                                    <option class="text-primary" disabled="">--{{ $item->category_name }}--</option>
+                                    @php
+                                        $subcategory = DB::table('subcategories')->where('category_id',$item->id)->get();
+                                    @endphp
+
+                                    @foreach ($subcategory as $item)
+                                        <option value="{{ $item->id }}" >{{ $item->subcategory_name }}</option>
+                                    @endforeach
+                                @endforeach
+
+                            </select>
+
+                            <input type="hidden" name="child_cat_hide_id" id="dataId">
+                        </div>
+
+
+                        <div class="form-group">
+                          <label for="recipient-name" class="col-form-label">Child Category Name:</label>
+                          <input type="text" name="childCategory_name" class="form-control" id="recipient-name" required>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" id="modal_save_botton" class="btn btn-primary">Save</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </form>
+
+        {{-- subcategory modal end  --}}
 
 
 
@@ -182,7 +234,7 @@
         // when click save button
         function addNewBtn(modalTitle,modalSaveBtn){
             $('#dataId').val('');
-            $('form#ajaxForm').trigger("reset");
+            $('form#ajaxForm').trigger("reset"); //create form
             $('#child_cat_create_modal').modal('show');
             $('#child_category_modal_title').text(modalTitle);
             $('button#modal_save_botton').text(modalSaveBtn);
@@ -203,31 +255,57 @@
 
         // Data Edit
 
-        // $(document).on("click",'button#edit-btn',function(e) {
-        //     e.preventDefault();
-        //     let data_id = $(this).data('id');
-
-        //     $('#child_cat_create_modal').modal('show');
-        //     $('#child_category_modal_title').text('Edit Child-Category');
-        //     $('button#modalSaveBtn').text('Save Change');
-        //     $('#dataId').val(data_id);
-
-
-        //     $.ajax({
-        //         type: "post",
-        //         url: "",
-        //         data: {_token:_token,data_id:data_id},
-        //         dataType:'json',
-        //         success: function(response) {
-        //             if (response) {
-        //                 $('form.category_id').append('<option> sakib </option>')
-
-        //             }
-        //         }
-        //     });
-        // });
+        $(document).on("click",'button#edit-btn',function(e) {
+            e.preventDefault();
+            let data_id = $(this).data('id');
+            $('form#editForm').trigger("reset");
+            $('#child_cat_edit_modal').modal('show');
+            $('#child_category_modal_title').text('Edit Child-Category');
+            $('button#modalSaveBtn').text('Save Change');
+            $('#dataId').val(data_id);
 
 
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.childCategory.edit') }}",
+                data: {_token:_token,data_id:data_id},
+                dataType:'json',
+                success: function(response) {
+                    if (response) {
+                        $('form#editForm input[name="childCategory_name"]').val(response.childCategory_name);
+
+                    }
+                }
+            });
+        });
+
+
+        // Data Update
+
+        $(document).on("submit",'form#editForm',function(e) {
+            e.preventDefault();
+            let form = new FormData(this);
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.childCategory.update') }}",
+                data: form,
+                contentType:false,
+                processData:false,
+                success: function(response) {
+                    if (response) {
+                        $('form#ajaxForm').trigger("reset");
+                        $('#child_cat_edit_modal').modal('hide');
+                        table.draw();
+                        toastr.success('Data Update Success');
+                    }
+                },
+                error: function (response) {
+                    $('form#editForm').trigger("reset");
+                    $('#child_cat_edit_modal').modal('hide');
+                    toastr.error('Opps! Something went wrong');
+                }
+            });
+        });
 
 
 

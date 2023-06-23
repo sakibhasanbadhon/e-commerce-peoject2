@@ -7,208 +7,230 @@
 
 @section('content')
 <div class="container">
-    <div class="row ${1| ,row-cols-2,row-cols-3, auto,justify-content-md-center,|}">
-        <div class="col-md-8">
-            <div class="ibox">
-                <div class="ibox-head text-white" style="background-color:#374f65 !important">
-                    <div class="ibox-title">Password Change</div>
-                    <div class="ibox-tools">
-                        <a class="ibox-collapse text-white"><i class="fa fa-minus"></i></a>
-                        <a class="fullscreen-link text-white"><i class="fa fa-expand"></i></a>
+    <form action="" method="POST">
+        @csrf
+        <div class="row ${1| ,row-cols-2,row-cols-3, auto,justify-content-md-center,|}">
+                <div class="col-md-8">
+                    <div class="ibox">
+                        <div class="ibox-head text-white" style="background-color:#374f65 !important">
+                            <div class="ibox-title">Add Product</div>
+                            <div class="ibox-tools">
+                                <a class="ibox-collapse text-white"><i class="fa fa-minus"></i></a>
+                                <a class="fullscreen-link text-white"><i class="fa fa-expand"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-body">
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Product Name</label>
+                                    <input type="text" class="form-control" name="product_name" placeholder="write product name">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Product Code</label>
+                                    <input type="text" class="form-control" name="product_slug" placeholder="write product code">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Category/Subcategory</label>
+                                    <select id="subcategory_id" name="subcategory_id" class="form-control">
+                                        <option value=""> -- choose Category --</option>
+                                        @foreach ($category as $item)
+                                            <option class="text-primary" disabled="">--{{ $item->category_name }}--</option>
+                                            @php
+                                                $subcategory = DB::table('subcategories')->where('category_id',$item->id)->get();
+                                            @endphp
+
+                                            @foreach ($subcategory as $item)
+                                                <option value="{{ $item->id }}">{{ $item->subcategory_name }}</option>
+                                            @endforeach
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Child Category</label>
+                                    <select name="" id="child_category_id" class="form-control">
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Brand</label>
+                                    <select id="" name="brand" class="form-control">
+                                        <option value=""> -- select Brand --</option>
+                                        @foreach ($brand as $item)
+                                            <option value="">{{ $item->brand_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="">Pickup Point</label>
+                                    <select id="" name="pickup_point" class="form-control">
+                                        <option value=""> -- choose Pickup point --</option>
+                                        @foreach ($pickup_point as $item)
+                                            <option value="">{{ $item->pickup_point_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Tags</label>
+                                    <input type="text" name="tags" class="form-control">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="">Unit</label>
+                                    <input type="text" name="unit" class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label for="">Perchase Price</label>
+                                    <input type="text" name="perchase_price" class="form-control">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="">Selling Price</label>
+                                    <input type="text" name="selling_price" class="form-control">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="">Discount Price</label>
+                                    <input type="text" name="discount_price" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Warehouse</label>
+                                    <select id="" name="warehouse" class="form-control">
+                                        <option value="">-- Choose Warehouse --</option>
+                                        @foreach ($warehouse as $item)
+                                            <option value="">{{ $item->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Stock</label>
+                                    <input type="text" name="stock"  class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Color</label>
+                                    <input type="text" name="color" class="form-control">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Size</label>
+                                    <input type="text" name="size" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="">Description</label>
+                                    <textarea name="description" id="summernote"  rows="4"> </textarea>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <div class="ibox-body">
-                    <form action="" method="post">
-                        @csrf
-                        @method('PUT')
 
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="">Product Name</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="">Product Code</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
+                <div class="col-md-4 bg-white">
+                    <div class="form-group">
+                        <label for="">Main Thumbnail</label>
+                        <input type="file" name="thumbnail" data-height="150" class="form-control dropify" placeholder="Write Category Slug" required>
+                    </div>
+                    <div class="form-group">
+                        <small class="text-secondary py-1">More images:(click add more image)</small>
+                        <table class="table table-bordered" id="dynamicAddRemove">
+                            <tr>
+                                <td><input type="file" name="images[]" placeholder="Enter subject" class="form-control" />
+                                </td>
+                                <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add</button></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="card p-5">
+                        <h6>Featured Product</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="feature">
+                            <input type = "checkbox" name="feature" value="1" class="input-feature" id="feature">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="">Category</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="">Brand</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                </select>
-                            </div>
+                    <div class="card p-5">
+                        <h6>Today Deal</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="todaydeal">
+                            <input type = "checkbox" name="today_deal"  value="1" class="input-todaydeal" id="todaydeal">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
                         </div>
+                    </div>
 
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="">SubCategory</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="">Unit</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                </select>
-                            </div>
+                    <div class="card p-5">
+                        <h6>Status</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="status">
+                            <input type = "checkbox" name="status"  value="1" class="input-status" id="status">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
                         </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="">Child Category</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="">Pickup Point</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label for="">Perchase Price</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="">Selling Price</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                            <div class="col-sm-4">
-                                <label for="">Discount Price</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="">Warehouse</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="1">2</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="">Stock</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="">color</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                            <div class="col-sm-6">
-                                <label for="">size</label>
-                                <input type="text" class="form-control" name="">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-12">
-                                <label for="">Stock</label>
-                                <textarea name="" id="summernote"  rows="4"> </textarea>
-                            </div>
-                        </div>
+                    </div>
 
 
-
-
-                        <div class="form-group row">
-                            <div class="col-sm-10 ml-sm-auto">
-                                <label class="ui-checkbox ui-checkbox-gray">
-                                    <input type="checkbox">
-                                    <span class="input-span"></span>Remamber me</label>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10 ml-sm-auto">
-                                <button class="btn btn-info" type="submit">Submit</button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
-        </div>
+            <input type="submit" class="btn btn-success" value="submit">
+    </form>
 
-        <div class="col-md-4 bg-white">
-            <div class="form-group">
-                <label for="">Main Thumbnail</label>
-                <input type="file" name="brand_logo" data-height="150" class="form-control dropify" placeholder="Write Category Slug" required>
-            </div>
-            <div class="form-group">
-                <small class="text-secondary py-1">More images:(click add more image)</small>
-                <table class="table table-bordered" id="dynamicAddRemove">
-                    <tr>
-                        <td><input type="file" name="addMoreInputFields[0][subject]" placeholder="Enter subject" class="form-control" />
-                        </td>
-                        <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add</button></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="card p-5">
-                <h6>Featured Product</h6>
-                <div class = "toggle-switch">
-                    <label class="switch-label" for="feature">
-                    <input type = "checkbox" name="feature" class="input-feature" id="feature">
-                        <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
-                        <span class = "switch_slider">ON</span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="card p-5">
-                <h6>Today Deal</h6>
-                <div class = "toggle-switch">
-                    <label class="switch-label" for="todaydeal">
-                    <input type = "checkbox" name="todaydeal" class="input-todaydeal" id="todaydeal">
-                        <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
-                        <span class = "switch_slider">ON</span>
-                    </label>
-                </div>
-            </div>
-
-            <div class="card p-5">
-                <h6>Status</h6>
-                <div class = "toggle-switch">
-                    <label class="switch-label" for="status">
-                    <input type = "checkbox" name="status" class="input-status" id="status">
-                        <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
-                        <span class = "switch_slider">ON</span>
-                    </label>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
 </div>
+
+
 
 @endsection
 
 @push('scripts')
     <script>
+
+
+
+        $(document).on('change','#subcategory_id',function (e) {
+            e.preventDefault();
+            // alert('ok')
+            var categoryId = $(this).val();
+            $.ajax({
+                url: "{{ route('admin.product.childCat') }}",
+                type: "post",
+                data: {_token:_token,data_id:categoryId},
+                dataType: 'json',
+                success: function (response) {
+                    $('#child_category').html(response);
+                    // alert("ok");
+                }
+            });
+
+        });
+
+
+
         var i = 0;
         $("#dynamic-ar").click(function () {
             ++i;

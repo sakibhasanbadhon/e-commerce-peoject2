@@ -55,12 +55,12 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('subcategory/destroy', [SubcategoryController::class, 'destroy'])->name('subcategory.destroy');
 
 
-    // Subcategory Route
+    // Child Category Route
     Route::get('childCategory', [ChildCategoryController::class, 'index'])->name('childCategory.index');
     Route::post('childCategory/get-data', [ChildCategoryController::class, 'getData'])->name('childCategory.get-data');
     Route::post('childCategory/store', [ChildCategoryController::class, 'store'])->name('childCategory.store');
-    Route::get('childCategory/edit/{id}', [ChildCategoryController::class, 'edit'])->name('childCategory.edit');
-    Route::put('childCategory/update/{id}', [ChildCategoryController::class, 'update'])->name('childCategory.update');
+    Route::post('childCategory/edit', [ChildCategoryController::class, 'edit'])->name('childCategory.edit');
+    Route::post('childCategory/update/', [ChildCategoryController::class, 'update'])->name('childCategory.update');
     Route::post('childCategory/destroy', [ChildCategoryController::class, 'destroy'])->name('childCategory.destroy');
 
     Route::get('subcategories/{categoryId}', [ChildCategoryController::class, 'getSubcategories'])->name('category_get');
@@ -122,6 +122,8 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     // Route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     // Route::put('product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     // Route::delete('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::post('product/childcategory', [ProductController::class, 'childCatSelect'])->name('product.childCat');
+
 
 
 

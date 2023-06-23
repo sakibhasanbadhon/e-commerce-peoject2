@@ -16,6 +16,8 @@ class Product extends Model
         'brand_id',
         'name',
         'code',
+        'color',
+        'size',
         'unit',
         'tags',
         'video',
@@ -34,6 +36,27 @@ class Product extends Model
         'cash_on_delivery',
         'admin_id',
     ];
+
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    public function sub_category(){
+        return $this->belongsTo(Subcategory::class);
+    }
+
+    public function child_category(){
+        return $this->belongsTo(Category::class);
+    }
+
+    public function brand(){
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function pickup_point(){
+        return $this->belongsTo(PickupPoint::class);
+    }
 
 
 }

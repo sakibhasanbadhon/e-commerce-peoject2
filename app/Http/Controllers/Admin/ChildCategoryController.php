@@ -20,7 +20,7 @@ class ChildCategoryController extends Controller
     public function index()
     {
         $category = Category::latest()->get();
-        return view('admin.category.childCategory.index',['category'=>$category]);
+        return view('admin.category.childCategory.index',compact('category'));
     }
 
     public function getData(Request $request)
@@ -33,7 +33,7 @@ class ChildCategoryController extends Controller
            ->addIndexColumn()
            ->addColumn('operation', function($childCategory){
                $operation = '
-                   <a href="'.route('admin.childCategory.edit',$childCategory->id).'" data-id="'.$childCategory->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit </a>
+                   <button data-id="'.$childCategory->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit </button>
                    <button data-id="'.$childCategory->id.'" id="delete-btn" class="btn btn-danger btn-sm">Delete</button>
                ';
 
@@ -49,10 +49,10 @@ class ChildCategoryController extends Controller
            })
 
 
-           // ->addColumn('created_at', function($subcategory){
-           //     return $subcategory->created_at->format('d-m-Y');
-                       // return date_formats('d-m-Y',$subcategory->created_at);
-           // })
+           ->addColumn('created_at', function($childCategory){
+            return date('d-M-y', strtotime($childCategory->created_at));
+
+        })
 
            ->rawColumns(['operation','created_at'])
            ->make(true);
@@ -73,22 +73,6 @@ class ChildCategoryController extends Controller
     }
 
 
-    // public function getSubcategories(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $sub_categories = Subcategory::where('category_id', $request->category_id)->get();
-    //         $output = '<option value="">Select Please</option>';
-    //         if (!$sub_categories->isEmpty()) {
-    //             foreach($sub_categories as $category){
-    //                 $output .= '<option value="'.$category->id.'">'.$category->subcategory_name.'</option>';
-    //             }
-    //         }
-
-    //     // return response()->json($output);
-    //     }
-
-
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -138,46 +122,31 @@ class ChildCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
+        if ($request->ajax()) {
+            $childCategory = ChildCategory::find($request->data_id);
+            return response()->json($childCategory);
+        }
 
-        $category = Category::latest()->get();
-        // $subcategory = Subcategory::where('category_id', $id)->get();
-
-        $subcategory = Subcategory::latest()->get();
-        $childCategory = ChildCategory::find($id);
-
-        return view('admin.category.childCategory.edit',compact('category','subcategory','childCategory'));
-
-
-        // if ($request->ajax()) {
-
-        //     $category = Category::latest()->get();
-        //     $subcategory = Subcategory::latest()->get();
-        //     $childCategory_edit = ChildCategory::findOrFail($request->data_id);
-        //     $output = '';
-        //     foreach ($childCategory_edit as $key => $categories) {
-        //         $output .= '<option id="category_option> "'.$categories->category_name.'" </option>';
-        //     }
-
-        //     return response()->json($output);
-        // }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $childCategory = ChildCategory::findOrFail($id);
+        if ($request->ajax()) {
+            $childCategory = ChildCategory::findOrFail($request->child_cat_hide_id);
 
-        $childCategory->update([
-            'childCategory_name' => $request->childCategory_name,
-            'childCategory_slug' => Str::slug($request->childCategory_name),
-            'category_id' => $request->category_id,
-            'subcategory_id'=> $request->subcategory_id,
+            $childCategory->update([
+                'childCategory_name' => $request->childCategory_name,
+                'childCategory_slug' => Str::slug($request->childCategory_name),
+                'subcategory_id'=> $request->subcategory_id,
 
-        ]);
+            ]);
+        }
+
 
         if ($childCategory) {
             $notification = array('message'=>'Child-Category added Success.','alert-type' => 'success');
@@ -186,7 +155,8 @@ class ChildCategoryController extends Controller
 
         }
 
-        return redirect()->back()->with($notification);
+        // return redirect()->back()->json($notification);
+        return response()->json($notification);
 
 
 

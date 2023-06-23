@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\ChildCategory;
+use App\Models\PickupPoint;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use PhpOption\Option;
 
 class ProductController extends Controller
 {
@@ -12,7 +18,23 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product.create');
+        $category = Category::get();
+        $brand = Brand::get();
+        $pickup_point = PickupPoint::get();
+        $warehouse = Warehouse::get();
+        return view('admin.product.create',compact('category','brand','pickup_point','warehouse'));
+    }
+
+    public function childCatSelect(Request $request) {
+        if ($request->ajax()) {
+            $childCat = ChildCategory::where('subcategory_id', $request->data_id)->get();
+            $options = '';
+            foreach ($childCat as $item) {
+                $options .= '<option>'.$item->childCategory_name.'</option>';
+            }
+
+            return response()->json($options);
+        }
     }
 
     /**

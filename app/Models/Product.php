@@ -14,7 +14,9 @@ class Product extends Model
         'subcategory_id',
         'childcategory_id',
         'brand_id',
+        'pickup_point_id',
         'name',
+        'slug',
         'code',
         'color',
         'size',
@@ -35,6 +37,8 @@ class Product extends Model
         'flash_deal_id',
         'cash_on_delivery',
         'admin_id',
+        'date',
+        'month',
     ];
 
 

@@ -118,7 +118,7 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::get('product', [ProductController::class, 'index'])->name('product.index');
     // Route::post('pickup-Point/get-data', [ProductController::class, 'getData'])->name('pickupPoint.get-data');
     Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
-    // Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
+    Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
     // Route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     // Route::put('product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     // Route::delete('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');

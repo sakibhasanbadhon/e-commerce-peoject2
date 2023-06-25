@@ -19,7 +19,8 @@ return new class extends Migration
             $table->integer('brand_id')->nullable();
             $table->integer('pickup_point_id')->nullable();
             $table->string('name');
-            $table->string('code');
+            $table->string('slug');
+            $table->string('code')->nullable();
             $table->string('color')->nullable();
             $table->string('size')->nullable();
             $table->string('unit')->nullable();
@@ -39,6 +40,8 @@ return new class extends Migration
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();
             $table->integer('admin_id')->nullable();
+            $table->integer('date')->nullable();
+            $table->integer('month')->nullable();
             $table->timestamps();
         });
     }

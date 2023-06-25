@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <div class="input-group-icon right">
                                 <div class="input-icon"><i class="fa fa-envelope"></i></div>
-                                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" placeholder="Email" >
+                                <input class="form-control @error('email') is-invalid @enderror" value="admin@gmail.com" type="email" name="email" placeholder="Email" >
                                 @if (session('error'))
                                     <strong style="color:red">  {{ session('error') }}</strong>
                                 @endif

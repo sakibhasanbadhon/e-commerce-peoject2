@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Image;
 use App\Models\Brand;
 use PhpOption\Option;
 use App\Models\Product;
@@ -15,7 +16,7 @@ use App\Models\ChildCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
-use Image;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
@@ -24,11 +25,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $category = Category::get();
-        $brand = Brand::get();
-        $pickup_point = PickupPoint::get();
-        $warehouse = Warehouse::get();
-        return view('admin.product.create',compact('category','brand','pickup_point','warehouse'));
+
+        return view('admin.product.index');
     }
 
     // subcategory wise child category
@@ -46,11 +44,91 @@ class ProductController extends Controller
     }
 
     /**
+     * Product Fetch
+     */
+
+     public function getData(Request $request)
+     {
+         if ($request->ajax()) {
+             $getData = Product::latest('id');
+             // dd($getData);
+
+             return DataTables::eloquent($getData)
+             ->addIndexColumn()
+             ->addColumn('operation', function($product){
+                 $operation = '
+                     <button data-id="'.$product->id.'" id="view-btn" class="btn btn-info btn-sm">View</button>
+                     <button data-id="'.$product->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit</button>
+                     <button data-id="'.$product->id.'" id="delete-btn" class="btn btn-danger btn-sm">Delete</button>
+                 ';
+
+                 return $operation;
+             })
+
+             ->addColumn('thumbnail', function($product) {
+                $image = '<img width="40" height="40" src="' . asset('admin/product-images/'.$product->thumbnail).'">';
+                return $image;
+            })
+
+             ->addColumn('category_id', function($product) {
+                return $product->category->category_name;
+            })
+
+             ->addColumn('subcategory_id', function($product) {
+                return $product->subcategory->subcategory_name;
+            })
+
+             ->addColumn('brand_id', function($product) {
+                return $product->brand->brand_name;
+            })
+
+             ->addColumn('featured', function($product) {
+                if ($product->featured ==1) {
+                    return '<a class="deactive_featured" data-id="'.$product->id.'"> <i class="fa fa-thumbs-down text-danger"> </i> <span class="badge badge-warning"> Deactive </span>  </a>';
+                }else {
+                    return '<a class="active_featured" data-id="'.$product->id.'"> <i class="fa fa-thumbs-up text-success"> </i> <span class="badge badge-success"> Active </span>  </a>';
+                }
+            })
+
+            ->addColumn('today_deal', function($product) {
+                if ($product->today_deal ==1) {
+                    return '<a class="deactivate_today_deal" data-id="'.$product->id.'"> <i class="fa fa-thumbs-down text-danger"> </i> <span class="badge badge-warning"> Deactive </span>  </a>';
+                }else {
+                    return '<a class="active_today_deal" data-id="'.$product->id.'"> <i class="fa fa-thumbs-up text-success"> </i> <span class="badge badge-success"> Active </span>  </a>';
+                }
+            })
+
+             ->addColumn('status', function($product) {
+                if ($product->status ==1) {
+                    return '<a class="deactivate_status" data-id="'.$product->id.'"> <i class="fa fa-thumbs-down text-danger"> </i> <span class="badge badge-warning"> Deactive </span>  </a>';
+                }else {
+                    return '<a class="active_status" data-id="'.$product->id.'"> <i class="fa fa-thumbs-up text-success"> </i> <span class="badge badge-success"> Active </span>  </a>';
+                }
+            })
+
+
+
+             ->addColumn('created_at', function($product){
+                 return $product->created_at->format('d-m-Y');
+             })
+
+             ->rawColumns(['operation','thumbnail','category_id','subcategory_id','brand_id','featured','today_deal','status','created_at'])
+             ->make(true);
+
+             return view('admin.product.index');
+         }
+     }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('admin.product.create');
+        $category = Category::get();
+        $brand = Brand::get();
+        $pickup_point = PickupPoint::get();
+        $warehouse = Warehouse::get();
+        return view('admin.product.create',compact('category','brand','pickup_point','warehouse'));
     }
 
     /**
@@ -107,11 +185,11 @@ class ProductController extends Controller
             'warehouse'        => $request->warehouse,
             'stock_quantity'   => $request->stock,
             'color'            => $request->color,
-            'images'           => implode(",",$imageArray),
             'size'             => $request->size,
             'description'      => $request->description,
             'video'            => $request->video,
             'thumbnail'        => $thumbnail_image,
+            'images'           => implode(",",$imageArray),
             'featured'         => $request->featured,
             'today_deal'       => $request->today_deal,
             'status'           => $request->status,
@@ -126,6 +204,59 @@ class ProductController extends Controller
         return redirect()->back()->with($notification);
 
     }
+
+
+    // featured active
+    public function featuredActive(Request $request) {
+        if ($request->ajax()) {
+            $featured_active = Product::where('id',$request->data_id)->update(['featured'=>1]);
+            $message = ['status'=>'success','message'=>'Data has been update'];
+            return response()->json($message);
+        }
+    }
+    // featured active
+    public function featuredDeactivate(Request $request) {
+        if ($request->ajax()) {
+            $featured_deactive = Product::where('id',$request->data_id)->update(['featured'=>0]);
+            $message = ['status'=>'success','message'=>'Data has been update'];
+            return response()->json($message);
+        }
+    }
+    // Today_deal active
+    public function today_deal_active(Request $request) {
+        if ($request->ajax()) {
+            $today_deal_active = Product::where('id',$request->data_id)->update(['today_deal'=>1]);
+            $message = ['status'=>'success','message'=>'Data has been update'];
+            return response()->json($message);
+        }
+    }
+    // Today_deal Deactivate
+    public function today_deal_deactivate(Request $request) {
+        if ($request->ajax()) {
+            $today_deal_deactivate = Product::where('id',$request->data_id)->update(['today_deal'=>0]);
+            $message = ['status'=>'success','message'=>'Data has been update'];
+            return response()->json($message);
+        }
+    }
+    // status active
+    public function status_active(Request $request) {
+        if ($request->ajax()) {
+            $status_active = Product::where('id',$request->data_id)->update(['status'=>1]);
+            $message = ['status'=>'success','message'=>'Data has been update'];
+            return response()->json($message);
+        }
+    }
+    // status Deactivate
+    public function status_deactivate(Request $request) {
+        if ($request->ajax()) {
+            $status_deactivate = Product::where('id',$request->data_id)->update(['status'=>0]);
+            $message = ['status'=>'success','message'=>'Data has been update'];
+            return response()->json($message);
+        }
+    }
+
+
+
 
     /**
      * Display the specified resource.

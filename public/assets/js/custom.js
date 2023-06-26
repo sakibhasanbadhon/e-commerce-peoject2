@@ -76,3 +76,25 @@ function dataDelete(url,data_id) {
     });
 
 }
+
+
+// status
+
+function OnOFFSwitch(url,data_id) {
+    $.ajax({
+        type: "post",
+        url: url,
+        data: {_token:_token,data_id:data_id},
+        success: function(response) {
+            if (response.status == 'success') {
+                table.draw();
+                toastr.success('Data has been Update');
+            }
+        },
+        error: function (response) {
+            toastr.error('Opps! Something went wrong');
+
+        }
+    });
+
+}

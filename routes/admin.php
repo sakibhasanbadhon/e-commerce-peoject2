@@ -116,13 +116,25 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
 
     // Product route
     Route::get('product', [ProductController::class, 'index'])->name('product.index');
-    // Route::post('pickup-Point/get-data', [ProductController::class, 'getData'])->name('pickupPoint.get-data');
+    Route::post('product/get-data', [ProductController::class, 'getData'])->name('product.get-data');
     Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
     // Route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     // Route::put('product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     // Route::delete('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::post('product/childcategory', [ProductController::class, 'childCatSelect'])->name('product.childCat');
+
+    // Featured switch
+    Route::post('product/featured_active', [ProductController::class, 'featuredActive'])->name('product.featured_active');
+    Route::post('product/featured_deactivate', [ProductController::class, 'featuredDeactivate'])->name('product.featured_deactivate');
+
+    // Today_deal switch
+    Route::post('product/today_deal_active', [ProductController::class, 'today_deal_active'])->name('product.today_deal_active');
+    Route::post('product/today_deal_deactivate', [ProductController::class, 'today_deal_deactivate'])->name('product.today_deal_deactivate');
+
+    // Today_deal switch
+    Route::post('product/status_active', [ProductController::class, 'status_active'])->name('product.status_active');
+    Route::post('product/status_deactivate', [ProductController::class, 'status_deactivate'])->name('product.status_deactivate');
 
 
 

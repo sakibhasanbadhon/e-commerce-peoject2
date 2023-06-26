@@ -43,10 +43,10 @@
                 <ul class="nav-2-level collapse">
 
                     <li>
-                        <a href="{{ route('admin.product.index') }}">Product</a>
+                        <a href="{{ route('admin.product.create') }}">Product</a>
                     </li>
                     <li>
-                        <a href="text_editors.html">Product Manage</a>
+                        <a href="{{ route('admin.product.index') }}">Product Manage</a>
                     </li>
                 </ul>
             </li>

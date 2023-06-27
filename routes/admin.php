@@ -121,7 +121,7 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
     // Route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     // Route::put('product/update/{id}', [ProductController::class, 'update'])->name('product.update');
-    // Route::delete('product/destroy/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+    Route::post('product/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::post('product/childcategory', [ProductController::class, 'childCatSelect'])->name('product.childCat');
 
     // Featured switch

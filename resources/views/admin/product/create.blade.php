@@ -93,7 +93,7 @@
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <label for="">Tags</label>
-                                    <input type="text" name="tags" value="{{ old('tags') }}" class="form-control">
+                                    <input type="text" name="tags" value="{{ old('tags') }}" class="form-control" id="tags" data-role="tagsinput" >
                                 </div>
 
                                 <div class="col-sm-6">
@@ -137,11 +137,11 @@
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <label for="">Color</label>
-                                    <input type="text" name="color" value="{{ old('color') }}"  class="form-control @error('color') is-invalid @enderror">
+                                    <input type="text" name="color" value="{{ old('color') }}"  class="form-control @error('color') is-invalid @enderror" id="tags" data-role="tagsinput">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="">Size</label>
-                                    <input type="text" name="size" class="form-control">
+                                    <input type="text" name="size" class="form-control" id="tags" data-role="tagsinput">
                                 </div>
                             </div>
 

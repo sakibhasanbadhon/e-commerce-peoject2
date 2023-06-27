@@ -18,8 +18,47 @@
                         <h4 class=" d-flex justify-content-between"> Product List
                             <a href="{{ route('admin.product.create') }}" id=""  class="btn btn-outline-primary">Add</a>
                         </h4>
+                    </div>
+
+                    <div class="row p-2">
+                        <div class="form-group col-3">
+                            <label for="">Category</label>
+                            <select name="category_id" class="form-control submitable" id="category_id">
+                                <option value="">All</option>
+                                @foreach ($category as $categorys)
+                                    <option value="{{ $categorys->id }}">{{ $categorys->category_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Brand</label>
+                            <select name="brand_id" class="form-control submitable" id="brand_id">
+                                <option value="">All</option>
+                                @foreach ($brand as $brands)
+                                    <option value="{{ $brands->id }}">{{ $brands->brand_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Warehouse</label>
+                            <select name="warehouse_id" class="form-control submitable" id="warehouse_id">
+                                <option value="">All</option>
+                                @foreach ($warehouse as $warehouses)
+                                    <option value="{{ $warehouses->id }}">{{ $warehouses->warehouse_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="">Status</label>
+                            <select name="status" class="form-control submitable" id="status">
+                                <option value="">All</option>
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
 
                     </div>
+
                     <div class="card-body">
                         <table class="table table-sm" id="product-datatables">
                             <thead>
@@ -73,6 +112,10 @@
                 dataType: "JSON",
                 data: function(d) {
                     d._token = _token
+                    d.category_id = $("#category_id").val(); //#category_id value going to controller request
+                    d.brand_id = $("#brand_id").val();      //#brand_id value going to controller request
+                    d.warehouse_id = $("#warehouse_id").val();
+                    d.status = $("#status").val();
                 }
             },
             columns: [
@@ -151,6 +194,15 @@
             }
         });
 
+
+        // filtering
+
+        $(document).on('change','.submitable',function () {
+            $('#product-datatables').DataTable().ajax.reload();
+        });
+
+
+
         // Featured active
         $(document).on("click",'.active_featured',function(e) {
             e.preventDefault();
@@ -199,15 +251,14 @@
 
 
 
-
         // Data delete
 
-        // $(document).on('click','button#delete-btn',function(e) {
-        //     e.preventDefault();
-        //     let url = "";
-        //     let data_id = $(this).data('id');
-        //     dataDelete(url,data_id);
-        // });
+        $(document).on('click','button#delete-btn',function(e) {
+            e.preventDefault();
+            let url = "{{ route('admin.product.destroy') }}";
+            let data_id = $(this).data('id');
+            deleteWarning(url,data_id);
+        });
 
 
 

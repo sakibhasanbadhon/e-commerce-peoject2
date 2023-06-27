@@ -25,8 +25,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-
-        return view('admin.product.index');
+        $category = Category::all();
+        $brand = Brand::all();
+        $warehouse = Warehouse::all();
+        return view('admin.product.index',compact('category','brand','warehouse'));
     }
 
     // subcategory wise child category
@@ -50,16 +52,33 @@ class ProductController extends Controller
      public function getData(Request $request)
      {
          if ($request->ajax()) {
+             $getData= "";
              $getData = Product::latest('id');
+             if ($request->category_id) {
+                $getData->where('category_id',$request->category_id); // request coming from index page
+             }
+             if ($request->brand_id) {
+                $getData->where('brand_id',$request->brand_id);  // request coming from index page
+             }
+             if ($request->warehouse_id) {
+                $getData->where('warehouse',$request->warehouse_id); // request coming from index page
+             }
+             if ($request->status ==1) {
+                $getData->where('status',$request->status); // request coming from index page
+             }
+            //  if ($request->status ==0) {
+            //     $getData->where('status',$request->status); // request coming from index page
+            //  }
+
              // dd($getData);
 
              return DataTables::eloquent($getData)
              ->addIndexColumn()
              ->addColumn('operation', function($product){
                  $operation = '
-                     <button data-id="'.$product->id.'" id="view-btn" class="btn btn-info btn-sm">View</button>
-                     <button data-id="'.$product->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit</button>
-                     <button data-id="'.$product->id.'" id="delete-btn" class="btn btn-danger btn-sm">Delete</button>
+                     <button data-id="'.$product->id.'" id="view-btn" class="btn btn-info btn-sm"><i class="fa fa-eye text-white"> </i></button>
+                     <button data-id="'.$product->id.'" id="edit-btn" class="btn btn-success btn-sm"><i class="fa fa-edit text-white"> </i></button>
+                     <button data-id="'.$product->id.'" id="delete-btn" class="btn btn-danger btn-sm"><i class="fa fa-trash text-white"> </i></button>
                  ';
 
                  return $operation;
@@ -285,8 +304,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $product= Product::find($request->data_id);
+            $product->delete();
+            $message = ['status'=>'success','message'=>'Data has been update'];
+            return response()->json($message);
+        }
     }
 }

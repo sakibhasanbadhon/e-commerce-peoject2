@@ -76,7 +76,7 @@ class ProductController extends Controller
              ->addIndexColumn()
              ->addColumn('operation', function($product){
                  $operation = '
-                     <button data-id="'.$product->id.'" id="view-btn" class="btn btn-info btn-sm"><i class="fa fa-eye text-white"> </i></button>
+                     <a href="'.route('admin.product.edit',$product->id).'" data-id="'.$product->id.'" id="view-btn" class="btn btn-info btn-sm"><i class="fa fa-eye text-white"> </i></a>
                      <button data-id="'.$product->id.'" id="edit-btn" class="btn btn-success btn-sm"><i class="fa fa-edit text-white"> </i></button>
                      <button data-id="'.$product->id.'" id="delete-btn" class="btn btn-danger btn-sm"><i class="fa fa-trash text-white"> </i></button>
                  ';
@@ -124,7 +124,6 @@ class ProductController extends Controller
                     return '<a class="active_status" data-id="'.$product->id.'"> <i class="fa fa-thumbs-up text-success"> </i> <span class="badge badge-success"> Active </span>  </a>';
                 }
             })
-
 
 
              ->addColumn('created_at', function($product){
@@ -290,7 +289,8 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product_edit = Product::findOrFail($id);
+        return view('admin.product.edit',compact('product_edit'));
     }
 
     /**

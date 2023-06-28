@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Warehouse;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -51,7 +52,7 @@ class Product extends Model
     }
 
     public function child_category(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(ChildCategory::class,'childcategory_id');
     }
 
     public function brand(){
@@ -60,6 +61,10 @@ class Product extends Model
 
     public function pickup_point(){
         return $this->belongsTo(PickupPoint::class);
+    }
+
+    public function warehouse_name(){
+        return $this->belongsTo(Warehouse::class,"warehouse");
     }
 
 

@@ -13,4 +13,10 @@ class Warehouse extends Model
         'warehouse_address',
         'warehouse_phone'
     ];
+
+
+    public function product()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

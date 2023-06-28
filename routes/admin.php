@@ -119,7 +119,7 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('product/get-data', [ProductController::class, 'getData'])->name('product.get-data');
     Route::get('product/create', [ProductController::class, 'create'])->name('product.create');
     Route::post('product/store', [ProductController::class, 'store'])->name('product.store');
-    // Route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
+    Route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     // Route::put('product/update/{id}', [ProductController::class, 'update'])->name('product.update');
     Route::post('product/destroy', [ProductController::class, 'destroy'])->name('product.destroy');
     Route::post('product/childcategory', [ProductController::class, 'childCatSelect'])->name('product.childCat');

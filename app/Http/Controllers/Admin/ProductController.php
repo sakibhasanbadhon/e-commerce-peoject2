@@ -45,6 +45,7 @@ class ProductController extends Controller
         }
     }
 
+
     /**
      * Product Fetch
      */
@@ -76,8 +77,8 @@ class ProductController extends Controller
              ->addIndexColumn()
              ->addColumn('operation', function($product){
                  $operation = '
-                     <a href="'.route('admin.product.edit',$product->id).'" data-id="'.$product->id.'" id="view-btn" class="btn btn-info btn-sm"><i class="fa fa-eye text-white"> </i></a>
-                     <button data-id="'.$product->id.'" id="edit-btn" class="btn btn-success btn-sm"><i class="fa fa-edit text-white"> </i></button>
+                     <a href="'.route('admin.product.show',$product->id).'" data-id="'.$product->id.'" id="view-btn" class="btn btn-info btn-sm"><i class="fa fa-eye text-white"> </i></a>
+                     <a href="'.route('admin.product.edit',$product->id).'" data-id="'.$product->id.'" id="edit-btn" class="btn btn-success btn-sm"><i class="fa fa-edit text-white"> </i></a>
                      <button data-id="'.$product->id.'" id="delete-btn" class="btn btn-danger btn-sm"><i class="fa fa-trash text-white"> </i></button>
                  ';
 
@@ -281,7 +282,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product_show = Product::findOrFail($id);
+        return view('admin.product.show',compact('product_show'));
     }
 
     /**
@@ -289,8 +291,12 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+        $category = Category::get();
+        $brand = Brand::get();
+        $pickup_point = PickupPoint::get();
+        $warehouse = Warehouse::get();
         $product_edit = Product::findOrFail($id);
-        return view('admin.product.edit',compact('product_edit'));
+        return view('admin.product.edit',compact('category','brand','pickup_point','warehouse','product_edit'));
     }
 
     /**

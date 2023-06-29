@@ -1,273 +1,262 @@
 @extends('layouts.admin')
 @section('styles')
 <style>
-    .sl_no{
-        width: 30px;
-    }
 
 </style>
-
 @endsection
+
 @section('content')
+<div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header p-3">
-                        <h4 class=" d-flex justify-content-between"> Product List
-                            <a href="{{ route('admin.product.index') }}" id=""  class="btn btn-outline-primary">Product List</a>
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <table class="table-sm w-100 table-striped">
+    <form action="{{ route('admin.product.update',$product_edit->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="row ${1| ,row-cols-2,row-cols-3, auto,justify-content-md-center,|}">
+                <div class="col-md-8">
+                    <div class="ibox">
+                        <div class="ibox-head text-white" style="background-color:#374f65 !important">
+                            <div class="ibox-title">Edit Product</div>
+                            <div class="ibox-tools">
+                                <a class="ibox-collapse text-white"><i class="fa fa-minus"></i></a>
+                                <a class="fullscreen-link text-white"><i class="fa fa-expand"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-body">
 
-                            <tbody>
-                                <tr>
-                                    <th class="sl_no">Sl</th>
-                                    <th>Subject</th>
-                                    <th><span class="p-3"></span>Subject Details</th>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">1.</th>
-                                    <td>Thumbnail</td>
-                                    <td><span class="p-3">:</span><img class="ml-5" src="{{ $product_edit->thumbnail != null ? asset('admin/product-images/'.$product_edit->thumbnail)  : 'https://via.placeholder.com/80' }}" width="150" height="110" alt=""></td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">2.</th>
-                                    <td>Name</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->name }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">3.</th>
-                                    <td>Slug</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->slug }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">4.</th>
-                                    <td>Code</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->code }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">5.</th>
-                                    <td>Description</td>
-                                    <td><span class="p-3">:</span>{!! $product_edit->description !!}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">6.</th>
-                                    <td>Category</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->category->category_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_do">7.</th>
-                                    <td>Subcategory</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->subcategory->subcategory_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_do">8.</th>
-                                    <td>Childcategory</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->child_category->childCategory_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">9.</th>
-                                    <td>Brand</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->brand->brand_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">10.</th>
-                                    <td>PickUp Point</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->pickup_point->pickup_point_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">11.</th>
-                                    <td>Color</th>
-                                    <td><span class="p-3">:</span>{{ $product_edit->color }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">12.</th>
-                                    <td>Size</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->size }}
-                                    {{-- @foreach ($product_edit as $item)
-                                        <span class="badge badge-info">{{ $item->size }}</span>
-                                    @endforeach --}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">13.</th>
-                                    <td>Unit</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->unit }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">14</th>
-                                    <td>Tags</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->tags }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">15.</th>
-                                    <td>Purchase Price </td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->purchase_price }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">16. </th>
-                                    <td>Discount Price </td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->discount_price }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">17.</th>
-                                    <td>Selling Price </th>
-                                    <td><span class="p-3">:</span>{{ $product_edit->selling_price }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">18. </th>
-                                    <td>Warehouse </td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->warehouse_name->warehouse_name }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">19. </th>
-                                    <td>Stock Quantity </td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->stock_quantity }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">20.</th>
-                                    <td>Featured</td>
-                                    <td><span class="p-3">:</span>
-                                        @if ($product_edit->featured==1)
-                                            <span class="badge badge-success">Active</span>
-                                        @else
-                                            <span class="badge badge-warning">Inactive</span>
-                                        @endif
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Product Name</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $product_edit->name }}" placeholder="write product name">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Product Code</label>
+                                    <input type="text" class="form-control" name="code" value="{{ $product_edit->code }}" placeholder="write product code">
+                                </div>
+                            </div>
 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">21.</th>
-                                    <td>Today Deal</td>
-                                    <td><span class="p-3">:</span>
-                                        @if ($product_edit->today_deal==1)
-                                            <span class="badge badge-success">Active</span>
-                                        @else
-                                            <span class="badge badge-warning">Inactive</span>
-                                        @endif
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Category/Subcategory</label>
+                                    <select id="subcategory_id" name="subcategory_id" class="form-control @error('subcategory_id') is-invalid @enderror">
+                                        <option value=""> -- choose Category --</option>
+                                        @foreach ($category as $item)
+                                            <option class="text-primary" disabled="">--{{ $item->category_name }}--</option>
+                                            @php
+                                                $subcategory = DB::table('subcategories')->where('category_id',$item->id)->get();
+                                            @endphp
 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">22.</th>
-                                    <td>status</td>
-                                    <td><span class="p-3">:</span>
-                                        @if ($product_edit->status==1)
-                                            <span class="badge badge-success">Active</span>
-                                        @else
-                                            <span class="badge badge-warning">Inactive</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">23.</th>
-                                    <td>Today Deal</td>
-                                    <td><span class="p-3">:</span>
-                                        @if ($product_edit->today_deal==1)
-                                            <span class="badge badge-success">Active</span>
-                                        @else
-                                            <span class="badge badge-warning">Inactive</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">24.</th>
-                                    <td>Created at</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->created_at->format('d-m-Y') }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="sl_no">25.</th>
-                                    <td>Author</td>
-                                    <td><span class="p-3">:</span>{{ $product_edit->admin_id }}</td>
-                                </tr>
+                                            @foreach ($subcategory as $item)
+                                                <option value="{{ $item->id }}" {{ $product_edit->subcategory_id == $item->id ? 'selected' : '' }} >{{ $item->subcategory_name }}</option>
+                                            @endforeach
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Child Category</label>
+                                    <select name="child_category_id" id="child_category_id" class="form-control">
 
-                            </tbody>
-                        </table>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Brand</label>
+                                    <select id="" name="brand_id" class="form-control @error('brand_id') is-invalid @enderror"">
+                                        <option value=""> -- select Brand --</option>
+                                        @foreach ($brand as $item)
+                                            <option value="{{ $item->id }}" {{ $product_edit->brand_id == $item->id ? 'selected' : '' }}>{{ $item->brand_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="">Pickup Point</label>
+                                    <select id="" name="pickup_point_id" class="form-control @error('pickup_point_id') is-invalid @enderror">
+                                        <option value=""> -- choose Pickup point --</option>
+                                        @foreach ($pickup_point as $item)
+                                            <option value="{{ $item->id }}" {{ $product_edit->pickup_point_id == $item->id ? 'selected' : '' }}>{{ $item->pickup_point_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Tags</label>
+                                    <input type="text" name="tags" value="{{ $product_edit->tags }}" class="form-control" id="tags" data-role="tagsinput" >
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="">Unit</label>
+                                    <input type="text" name="unit" value="{{ $product_edit->unit }}" class="form-control @error('unit') is-invalid @enderror">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label for="">Purchase Price</label>
+                                    <input type="number" name="purchase_price" value="{{ $product_edit->purchase_price }}" class="form-control">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="">Selling Price</label>
+                                    <input type="number" name="selling_price" value="{{ $product_edit->selling_price }}" class="form-control @error('selling_price') is-invalid @enderror">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="">Discount Price</label>
+                                    <input type="number" name="discount_price" value="{{ $product_edit->discount_price }}" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Warehouse</label>
+                                    <select id="" name="warehouse" class="form-control">
+                                        <option value="">-- Choose Warehouse --</option>
+                                        @foreach ($warehouse as $item)
+                                            <option value="{{ $item->id }}" {{ $product_edit->warehouse == $item->id ? 'selected' : '' }}>{{ $item->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Stock</label>
+                                    <input type="text" name="stock" value="{{ $product_edit->stock_quantity }}"  class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="">Color</label>
+                                    <input type="text" name="color" value="{{ $product_edit->color }}"  class="form-control @error('color') is-invalid @enderror" id="tags" data-role="tagsinput">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="">Size</label>
+                                    <input type="text" name="size" value="{{ $product_edit->size }}" class="form-control" id="tags" data-role="tagsinput">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="summernote">Description</label>
+                                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="summernote" cols="30" rows="10"> {{ $product_edit->description }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label>Video Embaded Code</label>
+                                    <textarea class="form-control" name="video"> {{ $product_edit->video }}</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="col-md-4 bg-white">
+                    <div class="form-group">
+                        <label for="">Main Thumbnail</label>
+                        {{-- <input type="file" name="thumbnail" data-height="150" class="form-control dropify"> --}}
+                        <input type="file" name="thumbnail_image" data-height="150" class="form-control dropify" placeholder="Write Category Slug" required>
+
+                    </div>
+                    <div class="form-group">
+                        <small class="text-secondary py-1">More images:(click add more image)</small>
+                        <table class="table table-bordered" id="dynamicAddRemove">
+                            <tr>
+                                <td><input type="file" name="images[]" placeholder="Enter subject" class="form-control" multiple />
+                                </td>
+                                <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add</button></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="card p-5">
+                        <h6>Featured Product</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="featured">
+                            <input type = "checkbox" name="featured" value="1" class="input-feature" id="featured">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card p-5">
+                        <h6>Today Deal</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="todaydeal">
+                            <input type = "checkbox" name="today_deal"  value="1" class="input-todaydeal" id="todaydeal">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card p-5">
+                        <h6>Status</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="status">
+                            <input type = "checkbox" name="status"  value="1" class="input-status" id="status">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-        </div>
-    </div>
+            <input type="submit" class="btn btn-success" value="submit">
+    </form>
+
+</div>
+
+
+
 @endsection
-
-
 
 @push('scripts')
     <script>
 
-        // filtering
-
-        $(document).on('change','.submitable',function () {
-            $('#product-datatables').DataTable().ajax.reload();
-        });
 
 
-
-        // Featured active
-        $(document).on("click",'.active_featured',function(e) {
+        $(document).on('change','#subcategory_id',function (e) {
             e.preventDefault();
-            let url = "{{ route('admin.product.featured_active') }}";
-            let data_id = $(this).data('id');
-            OnOFFSwitch(url,data_id);
-        });
+            // alert($(this).val());
+            var categoryId = $(this).val();
+            $.ajax({
+                url: "{{ route('admin.product.childCat') }}",
+                type: "post",
+                data: {_token:_token,data_id:categoryId},
+                dataType: 'json',
+                success: function (response) {
+                    $('#child_category_id').html(response);
+                }
+            });
 
-        // Featured active deactivate
-        $(document).on("click",'.deactive_featured',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.product.featured_deactivate') }}";
-            let data_id = $(this).data('id');
-            OnOFFSwitch(url,data_id);
-        });
-
-        // today_deal Active
-        $(document).on("click",'.active_today_deal',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.product.today_deal_active') }}";
-            let data_id = $(this).data('id');
-            OnOFFSwitch(url,data_id);
-        });
-        // today_deal Deactivate
-        $(document).on("click",'.deactivate_today_deal',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.product.today_deal_deactivate') }}";
-            let data_id = $(this).data('id');
-            OnOFFSwitch(url,data_id);
-        });
-
-        // status Active
-        $(document).on("click",'.active_status',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.product.status_active') }}";
-            let data_id = $(this).data('id');
-            OnOFFSwitch(url,data_id);
-        });
-        // status Deactivate
-        $(document).on("click",'.deactivate_status',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.product.status_deactivate') }}";
-            let data_id = $(this).data('id');
-            OnOFFSwitch(url,data_id);
         });
 
 
 
-        // Data delete
-
-        $(document).on('click','button#delete-btn',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.product.destroy') }}";
-            let data_id = $(this).data('id');
-            deleteWarning(url,data_id);
+        var i = 0;
+        $("#dynamic-ar").click(function () {
+            ++i;
+            $("#dynamicAddRemove").append('<tr><td><input type="file" name="images[]" placeholder="Enter subject" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Remove</button></td></tr>'
+                );
         });
-
-
-
-
-
+        $(document).on('click', '.remove-input-field', function () {
+            $(this).parents('tr').remove();
+        });
     </script>
+
 @endpush
-
-

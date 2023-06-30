@@ -164,9 +164,13 @@
 
                 <div class="col-md-4 bg-white">
                     <div class="form-group">
+                        <img class="ml-5" src="{{ $product_edit->thumbnail != null ? asset('admin/product-images/'.$product_edit->thumbnail)  : 'https://via.placeholder.com/80' }}" width="150" height="110" alt="">
+
+                    </div>
+                    <div class="form-group">
                         <label for="">Main Thumbnail</label>
-                        {{-- <input type="file" name="thumbnail" data-height="150" class="form-control dropify"> --}}
-                        <input type="file" name="thumbnail_image" data-height="150" class="form-control dropify" placeholder="Write Category Slug" required>
+                        <input type="file" name="thumbnail_edit" data-height="150" class="form-control dropify">
+                        {{-- <input type="file" name="thumbnail_image" data-height="150" class="form-control dropify" placeholder="Write Category Slug"> --}}
 
                     </div>
                     <div class="form-group">
@@ -182,9 +186,12 @@
 
                     <div class="card p-5">
                         <h6>Featured Product</h6>
+                        @php
+                            $checked_featured = $product_edit->featured == 1 ? 'checked':'' ;
+                        @endphp
                         <div class = "toggle-switch">
                             <label class="switch-label" for="featured">
-                            <input type = "checkbox" name="featured" value="1" class="input-feature" id="featured">
+                            <input type = "checkbox" name="featured" value="1" class="input-feature" id="featured" {{ $checked_featured }}>
                                 <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
                                 <span class = "switch_slider">ON</span>
                             </label>
@@ -193,9 +200,12 @@
 
                     <div class="card p-5">
                         <h6>Today Deal</h6>
+                        @php
+                            $checked_today_deal = $product_edit->today_deal == 1 ? 'checked':'' ;
+                        @endphp
                         <div class = "toggle-switch">
                             <label class="switch-label" for="todaydeal">
-                            <input type = "checkbox" name="today_deal"  value="1" class="input-todaydeal" id="todaydeal">
+                            <input type = "checkbox" name="today_deal"  value="1" class="input-todaydeal" id="todaydeal" {{ $checked_today_deal }}>
                                 <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
                                 <span class = "switch_slider">ON</span>
                             </label>
@@ -204,9 +214,12 @@
 
                     <div class="card p-5">
                         <h6>Status</h6>
+                        @php
+                            $checked_status = $product_edit->status == 1 ? 'checked':'' ;
+                        @endphp
                         <div class = "toggle-switch">
                             <label class="switch-label" for="status">
-                            <input type = "checkbox" name="status"  value="1" class="input-status" id="status">
+                            <input type = "checkbox" name="status"  value="1" class="input-status" id="status" {{ $checked_status }}>
                                 <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
                                 <span class = "switch_slider">ON</span>
                             </label>

@@ -306,7 +306,8 @@ class ProductController extends Controller
     {
 
         $product_update = Product::findOrFail($id);
-        // $request->validate([
+
+         // $request->validate([
         //     'name'            => 'required',
         //     'code'            => 'required|max:55',
         //     'subcategory_id'  => 'required',
@@ -318,13 +319,22 @@ class ProductController extends Controller
         //     'description'     => 'required',
         // ]);
 
-        $subcategory = Subcategory::where('id',$request->subcategory_id)->first();
 
         // if ($request->hasFile('thumbnail_edit')) {
         //     $product_update['thumbnail'] = $this->file_update($request->file('thumbnail_edit'),'admin/product-images/',$product_update->thumbnail);
         // }
-        $thumbnail_edit = $this->file_upload($request->file('thumbnail_edit'),'admin/product-images/');
+        // $thumbnail_edit = $this->file_upload($request->file('thumbnail_edit'),'admin/product-images/');
 
+        if ($request->has('thumbnail_edit')) {
+
+            file_exists('admin/product-images/'.$product_update->thumbnail) ? unlink('admin/product-images/'.$product_update->thumbnail) : false;
+            $file = $request->file('thumbnail_edit');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = uniqid(rand().time()).'.'.$extension;
+            $file->move('admin/product-images/',$imageName);
+        }else{
+            $imageName = $product_update->thumbnail;
+        }
 
 
 
@@ -340,7 +350,7 @@ class ProductController extends Controller
             }
         }
 
-
+        $subcategory = Subcategory::where('id',$request->subcategory_id)->first();
 
         $product_update->update([
             'name'             => $request->name,
@@ -362,7 +372,7 @@ class ProductController extends Controller
             'size'             => $request->size,
             'description'      => $request->description,
             'video'            => $request->video,
-            'thumbnail'        => $thumbnail_edit,
+            'thumbnail'        => $imageName,
             'images'           => implode(",",$imageArray),
             'featured'         => $request->featured,
             'today_deal'       => $request->today_deal,

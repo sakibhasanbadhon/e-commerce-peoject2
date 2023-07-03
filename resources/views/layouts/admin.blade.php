@@ -130,6 +130,8 @@
 
      @endguest
 
+        @yield('auth-content') <!--for login and registration-->
+
         <!-- START PAGE CONTENT-->
         <div class="content-wrapper">
             <div class="page-content fade-in-up">

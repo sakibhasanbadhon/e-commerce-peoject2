@@ -320,13 +320,7 @@ class ProductController extends Controller
         // ]);
 
 
-        // if ($request->hasFile('thumbnail_edit')) {
-        //     $product_update['thumbnail'] = $this->file_update($request->file('thumbnail_edit'),'admin/product-images/',$product_update->thumbnail);
-        // }
-        // $thumbnail_edit = $this->file_upload($request->file('thumbnail_edit'),'admin/product-images/');
-
         if ($request->has('thumbnail_edit')) {
-
             file_exists('admin/product-images/'.$product_update->thumbnail) ? unlink('admin/product-images/'.$product_update->thumbnail) : false;
             $file = $request->file('thumbnail_edit');
             $extension = $file->getClientOriginalExtension();

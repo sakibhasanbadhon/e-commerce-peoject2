@@ -66,7 +66,7 @@
                                 <tr>
                                     <th class="sl_do">8.</th>
                                     <td>Childcategory</td>
-                                    <td><span class="p-3">:</span>{{ $product_show->child_category->childCategory_name }}</td>
+                                    <td><span class="p-3">:</span>{{ $product_show->child_category->childCategory_name ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <th class="sl_no">9.</th>
@@ -167,6 +167,17 @@
                                     <td>Today Deal</td>
                                     <td><span class="p-3">:</span>
                                         @if ($product_show->today_deal==1)
+                                            <span class="badge badge-success">Active</span>
+                                        @else
+                                            <span class="badge badge-warning">Inactive</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="sl_no">23.</th>
+                                    <td>Slider Show</td>
+                                    <td><span class="p-3">:</span>
+                                        @if ($product_show->slider_show==1)
                                             <span class="badge badge-success">Active</span>
                                         @else
                                             <span class="badge badge-warning">Inactive</span>

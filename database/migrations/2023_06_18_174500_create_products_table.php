@@ -36,6 +36,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->string('images')->nullable();
             $table->integer('featured')->nullable();
+            $table->integer('slider_show')->nullable();
             $table->integer('today_deal')->nullable();
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();

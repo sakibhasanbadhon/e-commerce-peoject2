@@ -2,12 +2,11 @@
 @section('styles')
 
 @endsection
-@section('content')
-
-		{{-- Main Menu --}}
+    @section('navbar')
         @include('website.include.navbar')
+    @endsection
 
-
+@section('content')
 
 	<!-- Banner -->
 

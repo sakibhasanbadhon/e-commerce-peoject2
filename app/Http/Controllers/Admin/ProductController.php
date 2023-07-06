@@ -210,6 +210,7 @@ class ProductController extends Controller
             'thumbnail'        => $thumbnail_image,
             'images'           => implode(",",$imageArray),
             'featured'         => $request->featured,
+            'slider_show'      => $request->slider_show,
             'today_deal'       => $request->today_deal,
             'status'           => $request->status,
             'admin_id'         => Auth::id(),
@@ -304,8 +305,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request->slider_show);
 
         $product_update = Product::findOrFail($id);
+
 
          // $request->validate([
         //     'name'            => 'required',
@@ -369,6 +372,7 @@ class ProductController extends Controller
             'thumbnail'        => $imageName,
             'images'           => implode(",",$imageArray),
             'featured'         => $request->featured,
+            'slider_show'      => $request->slider_show,
             'today_deal'       => $request->today_deal,
             'status'           => $request->status,
             'admin_id'         => Auth::id(),

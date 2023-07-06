@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="">Stock</label>
-                                    <input type="text" name="stock" value="{{ old('stock') }}"  class="form-control">
+                                    <input type="number" name="stock" value="{{ old('stock') }}"  class="form-control">
                                 </div>
                             </div>
 
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="">Size</label>
-                                    <input type="text" name="size" class="form-control" id="tags" data-role="tagsinput">
+                                    <input type="number" name="size" class="form-control" id="tags" data-role="tagsinput">
                                 </div>
                             </div>
 
@@ -210,6 +210,18 @@
                                 <span class = "switch_slider">ON</span>
                             </label>
                         </div>
+                    </div>
+
+                    <div class="card p-5">
+                        <h6>Slider Show Switch</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="slider_show">
+                            <input type = "checkbox" name="slider_show"  value="1" class="input-status" id="slider_show">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
+                        </div>
+                        <small class="mt-5"> This product show on website top slider </small>
                     </div>
 
 

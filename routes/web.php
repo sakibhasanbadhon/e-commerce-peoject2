@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Website\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('website.index');
-});
+Route::get('/', [IndexController::class, 'index']);
 
 Auth::routes();
 

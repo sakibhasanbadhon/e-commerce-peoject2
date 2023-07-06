@@ -34,6 +34,7 @@ class Product extends Model
         'thumbnail',
         'images',
         'featured',
+        'slider_show',
         'today_deal',
         'flash_deal_id',
         'cash_on_delivery',

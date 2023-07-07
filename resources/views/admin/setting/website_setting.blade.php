@@ -20,12 +20,13 @@
                 <div class="ibox-body">
                     <form action="{{ route('admin.website.update',$websiteSettings->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT');
+                        @method('PUT')
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Currency</label>
                             <select name="currency" class="form-control col-sm-8" id="">
-                                <option value="1">BDT</option>
-                                <option value="2">USD</option>
+                                <option value="৳">BDT (৳)</option>
+                                <option value="$">USD ($) </option>
+                                <option value="₹">RUPEE (₹)</option>
                             </select>
                         </div>
                         <div class="form-group row">

@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <button class="btn btn-info btn-block" type="submit">Login</button>
                         </div>
-                        <div class="social-auth-hr">
+                        <div class="social-auth-hr py-3">
                             <span>Or login with</span>
                         </div>
                         <div class="text-center social-auth m-b-20">

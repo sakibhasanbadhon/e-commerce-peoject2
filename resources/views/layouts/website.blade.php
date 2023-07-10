@@ -6,6 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/bootstrap4/bootstrap.min.css">
 <link href="{{ asset('/') }}plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}plugins/OwlCarousel2-2.2.1/owl.carousel.css">
@@ -14,6 +15,12 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}plugins/slick-1.8.0/slick.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/responsive.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('/plugins/toastr/toastr.css') }}">
+
+
+
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/product_styles.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/product_responsive.css"> --}}
 
 </head>
 
@@ -74,7 +81,7 @@
 					<!-- Logo -->
 					<div class="col-lg-2 col-sm-3 col-3 order-1">
 						<div class="logo_container">
-							<div class="logo"><a href="#">STR Soft</a></div>
+							<div class="logo"><a href="{{ asset('/') }}">STR Soft</a></div>
 						</div>
 					</div>
 
@@ -142,12 +149,13 @@
 	</header>
 	<!--End Header -->
 
-@yield('content')
+    @yield('content')
 
 	<!-- Footer -->
     @include('website.include.footer')
 
 </div>
+
 
 <script src="{{ asset('/') }}js/jquery-3.3.1.min.js"></script>
 <script src="{{ asset('/') }}styles/bootstrap4/popper.js"></script>
@@ -161,6 +169,9 @@
 <script src="{{ asset('/') }}plugins/slick-1.8.0/slick.js"></script>
 <script src="{{ asset('/') }}plugins/easing/easing.js"></script>
 <script src="{{ asset('/') }}js/custom.js"></script>
+<script src="{{ asset('/') }}js/product_custom.js"></script>
+<script type="text/javascript" src="{{ asset('/plugins/toastr/toastr.min.js') }}"></script>
+
 </body>
 
 </html>

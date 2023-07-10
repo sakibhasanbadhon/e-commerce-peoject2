@@ -16,9 +16,6 @@
                             <div class="input-group-icon right">
                                 <div class="input-icon"><i class="fa fa-envelope"></i></div>
                                 <input class="form-control @error('email') is-invalid @enderror" value="admin@gmail.com" type="email" name="email" placeholder="Email" >
-                                @if (session('error'))
-                                    <strong style="color:red">  {{ session('error') }}</strong>
-                                @endif
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -58,7 +55,7 @@
                             <a class="btn btn-social-icon btn-vk" href="javascript:;"><i class="fa fa-vk"></i></a>
                         </div>
                         <div class="text-center">Not a member?
-                            <a class="color-blue" href="register.html">Create accaunt</a>
+                            <a class="color-blue" href="{{ route('register') }}">Create accaunt</a>
                         </div>
                     </form>
                 </div>

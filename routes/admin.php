@@ -23,7 +23,19 @@ use App\Http\Controllers\Admin\ProductController;
 
 Auth::routes();
 
-Route::get('admin/login', [LoginController::class, 'adminLogin'])->name('admin.login');
+Auth::routes([
+    // 'register' => false, // Register Routes...
+    'reset' => false, // Reset Password Routes...
+    'verify' => false, // Email Verification Routes...
+
+  ]);
+
+// Route::get('admin/login', [LoginController::class, 'adminLogin'])->name('login');
+
+Route::get('signup', [LoginController::class, 'signup'])->name('signup');
+Route::post('signup/store', [LoginController::class, 'signupStore'])->name('signup.store');
+
+Route::get('customer/dashboard', [AdminController::class, 'customer'])->name('customer.dashboard');
 
 // Route::get('admin/dashboard', [HomeController::class, 'admin'])->name('admin.dashboard')->middleware('is_admin');
 

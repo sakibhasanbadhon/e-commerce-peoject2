@@ -24,7 +24,7 @@ class AdminController extends Controller
     {
         Auth::logout();
         $message = array('message'=>'You are Logged out','alert-type'=>'success' );
-        return redirect()->route('admin.login')->with($message);
+        return redirect()->route('login')->with($message);
     }
 
     public function passwordChange() {
@@ -41,7 +41,6 @@ class AdminController extends Controller
             // 'password_confirmation' => 'required'
 
         ]);
-
 
         $authPassword = auth::user();
         if (Hash::check($request->old_password, $authPassword->password)) {
@@ -62,6 +61,10 @@ class AdminController extends Controller
 
 
 
+    }
+
+    public function customer(){
+        return view('customer.index');
     }
 
 

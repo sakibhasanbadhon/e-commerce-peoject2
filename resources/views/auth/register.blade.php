@@ -1,22 +1,27 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('layouts.admin')
+@section('title')
+    Register
+@endsection
+@section('auth-content')
+<br>
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4">
+            <div class="bg-silver-300">
+                <div class="content">
+                    <div class="brand">
+                        {{-- <a class="link" href="index.html">AdminCAST</a> --}}
+                    </div>
+                    <form id="login-form" action="{{ route('register') }}" class="p-3" method="post">
                         @csrf
-
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
+                        <h2 class="login-title">Log in</h2>
+                        <div class="form-group">
+                            <div class="input-group-icon right">
+                                <div class="input-icon"><i class="fa fa-user"></i></div>
+                                <input class="form-control @error('name') is-invalid @enderror" type="text" name="name" placeholder="Full name" required >
+                                @if (session('error'))
+                                    <strong style="color:red">  {{ session('error') }}</strong>
+                                @endif
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -24,13 +29,13 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                        <div class="form-group">
+                            <div class="input-group-icon right">
+                                <div class="input-icon"><i class="fa fa-envelope"></i></div>
+                                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" placeholder="Email" required>
+                                @if (session('error'))
+                                    <strong style="color:red">  {{ session('error') }}</strong>
+                                @endif
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -38,12 +43,10 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        <div class="form-group">
+                            <div class="input-group-icon right">
+                                <div class="input-icon"><i class="fa fa-lock font-16"></i></div>
+                                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" placeholder="Password" required>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -52,26 +55,49 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="input-group-icon right">
+                                <div class="input-icon"><i class="fa fa-lock font-16"></i></div>
+                                <input class="form-control @error('password') is-invalid @enderror" type="password" name="password_confirmation" placeholder="Confirmed Password">
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
+                        <div class="form-group d-flex justify-content-between">
+                            <label class="ui-checkbox ui-checkbox-info">
+                                <input type="checkbox">
+                                <span class="input-span"></span>Remember me</label>
+                            <a href="{{ route('password.request') }}">Forgot password?</a>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-info btn-block" type="submit">Signup</button>
+                        </div>
+                        <div class="social-auth-hr py-3">
+                            <span>Or Signup with</span>
+                        </div>
+                        <div class="text-center social-auth m-b-20">
+                            <a class="btn btn-social-icon btn-twitter m-r-5" href="javascript:;"><i class="fa fa-twitter"></i></a>
+                            <a class="btn btn-social-icon btn-facebook m-r-5" href="javascript:;"><i class="fa fa-facebook"></i></a>
+                            <a class="btn btn-social-icon btn-google m-r-5" href="javascript:;"><i class="fa fa-google-plus"></i></a>
+                            <a class="btn btn-social-icon btn-linkedin m-r-5" href="javascript:;"><i class="fa fa-linkedin"></i></a>
+                            <a class="btn btn-social-icon btn-vk" href="javascript:;"><i class="fa fa-vk"></i></a>
+                        </div>
+                        <div class="text-center">Not a member?
+                            <a class="color-blue" href="{{ route('login') }}">Login</a>
                         </div>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+
+
+
 @endsection
+

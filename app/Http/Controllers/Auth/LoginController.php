@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-// use GuzzleHttp\Psr7\Request;
-use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -31,6 +31,50 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    public function redirectTo(){
+        if (Auth::check() && Auth::user()->is_admin==1) {
+            return route('admin.dashboard');
+            // return "This is Admin";
+        }elseif(Auth::check() && Auth::user()->is_admin==2) {
+            return route('customer.dashboard');
+        }else{
+            return route('login');
+        }
+
+    }
+
+    /**
+     * user signup
+     */
+
+    //  public function signup(Request $request){
+    //     return view('auth.register');
+
+    // }
+
+    /**
+     * Signup store
+     */
+
+    // public function signupStore(Request $request) {
+    //     $request->validate([
+    //         'name'     => 'required',
+    //         'email'    => 'required'|'email',
+    //         'password' => 'required|min:8'|'max:55'|'confirmed',
+    //     ]);
+
+    //     $signup = User::create([
+    //         'name'=> $request->name,
+    //         'email'=> $request->email,
+    //         'password'=> $request->password,
+    //     ]);
+
+    //     if ($signup) {
+    //         return redirect()->route('login')->with('error','Signup Success');
+    //     }
+    // }
+
+
     /**
      * Create a new controller instance.
      *
@@ -42,31 +86,31 @@ class LoginController extends Controller
     }
 
 
-    public function login(Request $request)
-    {
-        $validate = $request->validate([
-            'email' =>'required|email',
-            'password' =>'required',
-        ]);
+    // public function login(Request $request)
+    // {
+    //     $validate = $request->validate([
+    //         'email' =>'required|email',
+    //         'password' =>'required',
+    //     ]);
 
-        if (auth()->attempt(array('email' => $request->email,'password' => $request->password))) {
+    //     if (auth()->attempt(array('email' => $request->email,'password' => $request->password))) {
 
-            if (auth()->user()->is_admin==1) {
-                return redirect()->route('admin.dashboard');
-            }else {
-                return redirect()->route('home');
-            }
-        }else {
-            return redirect()->back()->with('error','Invalid email or password');
-        }
-
-
-    }
+    //         if (auth()->user()->is_admin==1) {
+    //             return redirect()->route('admin.dashboard');
+    //         }elseif(auth()->user()->is_admin==2) {
+    //             return redirect()->route('customer.dashboard');
+    //         }
+    //     }else {
+    //         return redirect()->back()->with('error','Invalid email or password');
+    //     }
 
 
-    public function adminLogin()
-    {
-        return view('auth.login');
-    }
+    // }
+
+
+    // public function adminLogin()
+    // {
+    //     return view('auth.login');
+    // }
 
 }

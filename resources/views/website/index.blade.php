@@ -19,7 +19,7 @@
 					<div class="banner_content">
 						<h1 class="banner_text">{{ $slider_product->name }}</h1>
                         @if ($slider_product->discount_price==null)
-                            <div class="banner_price">{{ $slider_product->selling_price }}</div>
+                            <div class="banner_price">{{ $currency_symbol->currency }} {{ $slider_product->selling_price }}</div>
                         @else
                             <div class="banner_price">
                                 <span>{{ $currency_symbol->currency }}{{ $slider_product->selling_price }}</span>

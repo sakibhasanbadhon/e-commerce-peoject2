@@ -16,6 +16,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/responsive.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('/plugins/toastr/toastr.css') }}">
+<link href="{{ asset('/') }}assets/toastr.css" rel="stylesheet" />
 
 
 
@@ -42,7 +43,7 @@
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('/') }}images/phone.png" alt=""></div>+880 183 22 45 72</div>
 						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('/') }}images/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">sakibhasan23333@gmail.com</a></div>
 						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
+							{{-- <div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
 										<a href="#">English<i class="fas fa-chevron-down"></i></a>
@@ -60,12 +61,31 @@
 										</ul>
 									</li>
 								</ul>
-							</div>
-							<div class="top_bar_user">
-								<div class="user_icon"><img src="{{ asset('/') }}images/user.svg" alt=""></div>
-								<div><a href="#">Register</a></div>
-								<div><a href="{{ url('login') }}">Sign in</a></div>
-							</div>
+							</div> --}}
+
+                            @guest
+                                <div class="top_bar_user">
+                                    <div class="user_icon"><img src="{{ asset('/') }}images/user.svg" alt=""></div>
+                                    <div><a href="#">Register</a></div>
+                                    <div><a href="{{ url('login') }}">Sign in</a></div>
+							    </div>
+
+                            @else
+                                <ul class="standard_dropdown top_bar_dropdown">
+                                    <li>
+                                        <a href="#">{{ Auth::user()->name }}<i class="fas fa-chevron-down"></i></a>
+                                        <ul>
+                                            <li><a href="#">Profile</a></li>
+                                            <li><a href="#">Order list</a></li>
+                                            <li><a href="#">Setting</a></li>
+                                            <li><a href="{{ route('customer.logout') }}">Logout</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            @endguest
+
+
 						</div>
 					</div>
 				</div>
@@ -170,7 +190,129 @@
 <script src="{{ asset('/') }}plugins/easing/easing.js"></script>
 <script src="{{ asset('/') }}js/custom.js"></script>
 <script src="{{ asset('/') }}js/product_custom.js"></script>
-<script type="text/javascript" src="{{ asset('/plugins/toastr/toastr.min.js') }}"></script>
+{{-- toastr message --}}
+<script src="{{ asset('/') }}assets/toastr.min.js" type="text/javascript"></script>
+
+<script>
+        var _token = "{{ csrf_token() }}";
+</script>
+
+    <script>
+
+        // summernote run code
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+
+
+        // sweet alert delete warning
+        function deleteWarning(url,data_id){
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: "To Delete this Data",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirm'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: url,
+                                type: "post",
+                                data:{_token:_token,data_id:data_id},
+                                success: function (response) {
+                                    if (response.status =='success') {
+                                        table.ajax.reload();
+                                        toastr.success('Data Delete Success');
+                                    }
+                                },
+                                error: function (response) {
+                                    toastr.error('Opps! Something went wrong');
+
+                                }
+                            });
+                        }
+                    })
+                }
+
+
+
+        @if (Session::has('message'))
+            var type ="{{ Session::get('alert-type','info') }}"
+            switch(type){
+                case 'success':
+                    toastr.success("{{ Session::get('message') }}")
+                    break;
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}")
+                    break;
+                case 'warning':
+                    toastr.warning("{{ Session::get('message') }}")
+                    break;
+                case 'error':
+                    toastr.error("{{ Session::get('message') }}")
+                    break;
+            }
+        @endif
+
+
+
+        function alertMessage(status,message){
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            switch(status) {
+                case 'success':
+                    toastr.success(message)
+                    break;
+                case 'error':
+                    toastr.error(message)
+                    break;
+                case 'warning':
+                    toastr.warning(message)
+                    break;
+                case 'info':
+                    toastr.info(message)
+                    break;
+                }
+
+
+            }
+
+            @if (session()->get('success'))
+                alertMessage('success',"{{ session()->get('success') }}");
+            @elseif (session()->get('error'))
+                alertMessage('error',"{{ session()->get('error') }}");
+            @elseif (session()->get('info'))
+                alertMessage('info',"{{ session()->get('info') }}");
+            @elseif (session()->get('warning'))
+                alertMessage('warning',"{{ session()->get('warning') }}");
+            @endif
+
+
+            $('.dropify').dropify();
+
+    </script>
+
+
+@stack('scripts')
 
 </body>
 

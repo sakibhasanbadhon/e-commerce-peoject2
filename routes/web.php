@@ -15,3 +15,4 @@ Route::get('product/details/{slug}', [IndexController::class,'productDetails'])-
 Route::get('customer/logout', [IndexController::class,'customerLogout'])->name('customer.logout');
 
 Route::post('review', [IndexController::class,'review'])->name('review.store');
+Route::get('add/wishlist/{product_id}', [IndexController::class,'wishlist'])->name('add.wishlist');

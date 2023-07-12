@@ -33,6 +33,8 @@ class Product extends Model
         'status',
         'thumbnail',
         'images',
+        'product_views',
+        'trendy',
         'featured',
         'slider_show',
         'today_deal',

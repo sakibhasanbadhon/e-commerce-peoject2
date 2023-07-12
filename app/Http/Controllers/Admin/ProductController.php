@@ -212,6 +212,7 @@ class ProductController extends Controller
             'images'           => json_encode($imageArray),
             'featured'         => $request->featured,
             'slider_show'      => $request->slider_show,
+            'trendy'           => $request->trendy,
             'today_deal'       => $request->today_deal,
             'status'           => $request->status,
             'admin_id'         => Auth::id(),

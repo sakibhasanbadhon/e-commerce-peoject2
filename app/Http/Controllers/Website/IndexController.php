@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
@@ -16,8 +17,11 @@ class IndexController extends Controller
     public function index()
     {
         $category = Category::all();
-        $slider_product = Product::where('slider_show',1)->latest()->first();
-        return view('website.index', compact('category','slider_product'));
+        $slider_product = Product::where('status',1)->where('slider_show',1)->latest()->first();
+        $featured = Product::where('status',1)->where('featured',1)->orderBy('id','DESC')->limit(8)->get();
+        $popular_product = Product::where('status',1)->orderBy('product_views','DESC')->limit(8)->get();
+
+        return view('website.index', compact('category','slider_product','featured','popular_product'));
     }
 
 
@@ -26,6 +30,7 @@ class IndexController extends Controller
     public function productDetails($slug_name){
         $category = Category::all();
         $product_details = Product::where('slug',$slug_name)->first();
+        Product::where('slug',$slug_name)->increment('product_views');
         $related_product = Product::where('subcategory_id',$product_details->subcategory_id)->orderBy('id','DESC')->take(10)->get();
         $review = Review::where('product_id',$product_details->id)->get();
         return view('website.details',compact('category','product_details','related_product','review'));
@@ -64,6 +69,33 @@ class IndexController extends Controller
 
         $message = array('message'=>'Thanks for your review !','alert-type'=>'success' );
         return redirect()->back()->with($message);
+
+    }
+
+
+
+    public function wishlist($product_id) {
+        if (Auth::check()) {
+            $check = Wishlist::where('product_id',$product_id)->where('user_id',auth::id())->first();
+
+        if ($check) {
+            $message = array('message'=>'Already have it on your wishlist !','alert-type'=>'error' );
+            return redirect()->back()->with($message);
+        } else {
+            $addWishlist=Wishlist::create([
+                'user_id'    => Auth::id(),
+                'product_id' => $product_id,
+            ]);
+            $message = array('message'=>'Product Added on Wishlist !','alert-type'=>'success');
+            return redirect()->back()->with($message);
+        }
+
+        } else {
+            $message = array('message'=>'At first login to your account !','alert-type'=>'error');
+            return redirect()->back()->with($message);
+        }
+
+
 
     }
 

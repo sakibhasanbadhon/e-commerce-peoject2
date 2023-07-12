@@ -25,7 +25,7 @@
             <div class="col-lg-1 order-lg-1 order-2">
                 <ul class="image_list">
                     @foreach ($images as $item)
-                        <li><img src="{{ asset('admin/product-images/'.$item) }}" alt=""></li>
+                        <li><img onclick="changeImg()" src="{{ asset('admin/product-images/'.$item) }}" alt=""></li>
                     @endforeach
 
                 </ul>
@@ -33,7 +33,7 @@
 
             <!-- Selected Image -->
             <div class="col-lg-3 order-lg-2 order-1">
-                <div class="image_selected"><img src="{{ $product_details->thumbnail != null ? asset('admin/product-images/'.$product_details->thumbnail)  : 'https://via.placeholder.com/80' }}" alt=""></div>
+                <div class="image_selected"><img id="myImg" src="{{ $product_details->thumbnail != null ? asset('admin/product-images/'.$product_details->thumbnail)  : 'https://via.placeholder.com/80' }}" alt=""></div>
             </div>
 
             @php
@@ -148,8 +148,9 @@
                             {{-- <div class="product_price" style="margin-top: 20px">$2000</div> --}}
 
                             <div class="button_container">
-                                <button type="button" class="button cart_button">Add to Cart</button>
-                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                <button type="button" class="btn btn-sm btn-info">Add to Cart</button>
+                                <a href="{{ route('add.wishlist',$product_details->id) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
+
                             </div>
 
                         </form>
@@ -431,5 +432,9 @@
 @endsection
 
 @push('scripts')
-
+    <script>
+        function changeImg1(){
+            myImg.src="./img/images (2).jpg"
+        }
+    </script>
 @endpush

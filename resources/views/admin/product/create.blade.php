@@ -221,7 +221,19 @@
                                 <span class = "switch_slider">ON</span>
                             </label>
                         </div>
-                        <small class="mt-5"> This product show on website top slider </small>
+                        <small class="mt-5"> If you on this switch then This product show on website top slider </small>
+                    </div>
+
+                    <div class="card p-5">
+                        <h6>Trendy Show Switch</h6>
+                        <div class = "toggle-switch">
+                            <label class="switch-label" for="trendy_show">
+                            <input type = "checkbox" name="trendy"  value="1" class="input-status" id="trendy_show">
+                                <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                <span class = "switch_slider">ON</span>
+                            </label>
+                        </div>
+                        <small class="mt-5"> If you on this switch then product show on website Trendy </small>
                     </div>
 
 

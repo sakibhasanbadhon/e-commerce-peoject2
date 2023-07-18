@@ -25,7 +25,7 @@
             <div class="col-lg-1 order-lg-1 order-2">
                 <ul class="image_list">
                     @foreach ($images as $item)
-                        <li><img onclick="changeImg()" src="{{ asset('admin/product-images/'.$item) }}" alt=""></li>
+                        <li><img class="product_images" src="{{ asset('admin/product-images/'.$item) }}" alt=""></li>
                     @endforeach
 
                 </ul>
@@ -33,7 +33,7 @@
 
             <!-- Selected Image -->
             <div class="col-lg-3 order-lg-2 order-1">
-                <div class="image_selected"><img id="myImg" src="{{ $product_details->thumbnail != null ? asset('admin/product-images/'.$product_details->thumbnail)  : 'https://via.placeholder.com/80' }}" alt=""></div>
+                <div class="image_selected"><img id="display_image" src="{{ $product_details->thumbnail != null ? asset('admin/product-images/'.$product_details->thumbnail)  : 'https://via.placeholder.com/80' }}" alt=""></div>
             </div>
 
             @php
@@ -399,7 +399,7 @@
                             <div class="owl-item">
                                 <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
                                     <div class="viewed_image" style="height: 60px">
-                                        <img src="{{ asset('admin/product-images/'.$item->thumbnail) }}" alt="">
+                                        <img src="{{ asset('admin/product-images/'.$item->thumbnail) }}" alt="" height="100%" width="60%">
                                     </div>
                                     <div class="viewed_content text-center">
                                         @if ($item->discount_price==null)
@@ -433,8 +433,12 @@
 
 @push('scripts')
     <script>
-        function changeImg1(){
-            myImg.src="./img/images (2).jpg"
-        }
+        $(document).ready(function() {
+            $(".product_images").click(function() {
+                var imageSrc = $(this).attr("src");
+                $("#display_image").attr("src", imageSrc);
+                $("#display_image").show();
+            });
+        });
     </script>
 @endpush

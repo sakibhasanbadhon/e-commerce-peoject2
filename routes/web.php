@@ -16,3 +16,4 @@ Route::get('customer/logout', [IndexController::class,'customerLogout'])->name('
 
 Route::post('review', [IndexController::class,'review'])->name('review.store');
 Route::get('add/wishlist/{product_id}', [IndexController::class,'wishlist'])->name('add.wishlist');
+Route::get('quick/view', [IndexController::class,'quickView'])->name('quick.view');

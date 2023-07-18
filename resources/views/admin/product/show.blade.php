@@ -207,7 +207,7 @@
 
 
 @push('scripts')
-    <script>
+    {{-- <script>
 
         // filtering
 
@@ -278,7 +278,7 @@
 
 
 
-    </script>
+    </script> --}}
 @endpush
 
 

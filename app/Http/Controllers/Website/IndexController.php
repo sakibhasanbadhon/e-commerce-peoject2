@@ -18,10 +18,11 @@ class IndexController extends Controller
     {
         $category = Category::all();
         $slider_product = Product::where('status',1)->where('slider_show',1)->latest()->first();
-        $featured = Product::where('status',1)->where('featured',1)->orderBy('id','DESC')->limit(8)->get();
-        $popular_product = Product::where('status',1)->orderBy('product_views','DESC')->limit(8)->get();
+        $featured = Product::where('status',1)->where('featured',1)->orderBy('id','DESC')->limit(16)->get();
+        $popular_product = Product::where('status',1)->orderBy('product_views','DESC')->limit(16)->get();
+        $trendy_product = Product::where('status',1)->where('trendy',1)->orderBy('id','DESC')->limit(8)->get();
 
-        return view('website.index', compact('category','slider_product','featured','popular_product'));
+        return view('website.index', compact('category','slider_product','featured','popular_product','trendy_product'));
     }
 
 
@@ -102,6 +103,16 @@ class IndexController extends Controller
 
 
 
+    public function  quickView(Request $request) {
+
+            $product = Product::where('id',$request->button_id)->first();
+            return view('website.include.quick-view',compact('product'));
+
+        }
+
+
 
 
 }
+
+

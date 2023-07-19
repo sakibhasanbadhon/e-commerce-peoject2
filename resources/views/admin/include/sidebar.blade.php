@@ -60,7 +60,7 @@
                         <a href="{{ route('admin.coupon.index') }}">Coupon</a>
                     </li>
                     <li>
-                        <a href="text_editors.html">E Campign</a>
+                        <a href="{{ route('admin.campaign.index') }}">E Campaign</a>
                     </li>
                 </ul>
             </li>

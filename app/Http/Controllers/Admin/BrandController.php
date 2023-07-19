@@ -139,6 +139,7 @@ class BrandController extends Controller
 
             return response()->json($output);
         }
+        
     }
 
     /**

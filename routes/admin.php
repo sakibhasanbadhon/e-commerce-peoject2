@@ -12,6 +12,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -117,6 +118,16 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('coupon/store', [CouponController::class, 'store'])->name('coupon.store');
     Route::post('coupon/edit', [CouponController::class, 'edit'])->name('coupon.edit');
     Route::post('coupon/destroy', [CouponController::class, 'destroy'])->name('coupon.destroy');
+
+    // Campaign route
+    Route::get('campaign', [CampaignController::class, 'index'])->name('campaign.index');
+    Route::post('campaign/get-data', [CampaignController::class, 'getData'])->name('campaign.get-data');
+    Route::post('campaign/store', [CampaignController::class, 'store'])->name('campaign.store');
+    Route::post('campaign/edit', [CampaignController::class, 'edit'])->name('campaign.edit');
+    Route::post('campaign/update', [CampaignController::class, 'update'])->name('campaign.update');
+    Route::post('campaign/destroy', [CampaignController::class, 'destroy'])->name('campaign.destroy');
+
+
 
     // pickup Point route
     Route::get('pickup-Point', [PickupPointController::class, 'index'])->name('pickupPoint.index');

@@ -22,7 +22,30 @@ class IndexController extends Controller
         $popular_product = Product::where('status',1)->orderBy('product_views','DESC')->limit(16)->get();
         $trendy_product = Product::where('status',1)->where('trendy',1)->orderBy('id','DESC')->limit(8)->get();
 
-        return view('website.index', compact('category','slider_product','featured','popular_product','trendy_product'));
+
+        $category_wise_product = Category::where('home_page',1)->limit(1)->first();
+
+        if ($category_wise_product) {
+
+            $arrival_product = Product::where('category_id',$category_wise_product->id)->get();
+        }else {
+            $arrival_product = [];
+
+        }
+
+        $category_wise_popular_product = Product::where('status',1)->orderBy('product_views','DESC')->limit(1)->first();
+
+        // dd($arrival_product);
+        return view('website.index', compact(
+                'category',
+                'slider_product',
+                'featured',
+                'popular_product',
+                'trendy_product',
+                'category_wise_product',
+                'arrival_product',
+                'category_wise_popular_product'
+            ));
     }
 
 
@@ -109,6 +132,13 @@ class IndexController extends Controller
             return view('website.include.quick-view',compact('product'));
 
         }
+
+
+
+    // public function categoryWiseProduct($category){
+    //     $arrival_product = Product::where('category_id', $category->id)->get();
+    //     return view('website.index', compact('arrival_product'));
+    // }
 
 
 

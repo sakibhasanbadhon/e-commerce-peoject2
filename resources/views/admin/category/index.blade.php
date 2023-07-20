@@ -27,6 +27,7 @@
                                     <th>Sl</th>
                                     <th>Category Name</th>
                                     <th>Category Name</th>
+                                    <th>Home Page</th>
                                     <th>created_at</th>
                                     <th>Action</th>
                                 </tr>
@@ -70,6 +71,7 @@
                 {data: 'id'},
                 {data: 'category_name'},
                 {data: 'category_slug'},
+                {data: 'home_page'},
                 {data: 'created_at'},
                 {data: 'operation'},
             ],
@@ -161,10 +163,27 @@
 
         $(document).on("click",'button#edit-btn',function(e) {
             e.preventDefault();
-            let url = "{{ route('admin.category.edit') }}";
             let data_id = $(this).data('id');
+            $('.modal').modal('show');
+            $('#modalTitle').text('Edit category');
+            $('button#modalSaveBtn').text('Save Change');
+            $('#dataId').val(data_id);
 
-            dataEdit(url,data_id);
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.category.edit') }}",
+                data: {_token:_token,data_id:data_id},
+                dataType:'json',
+                success: function(response) {
+                    if (response) {
+                        $('form#ajaxForm input[name="name"]').val(response.category.category_name);
+                        // $('#home_page]').html(response.category_home_page);
+                        $('#category_home_page').html(response.category_home_page);
+
+                    }
+                }
+            });
+
         });
 
         // Data delete

@@ -42,11 +42,19 @@ class CampaignController extends Controller
                 return $image;
             })
 
+            ->addColumn('status', function($campaign) {
+                if ($campaign->status ==1) {
+                    return '<span class="badge badge-success"> Active </span>';
+                }else {
+                    return '<span class="badge badge-warning"> Inactive </span>';
+                }
+            })
+
             //  ->addColumn('created_at', function($campaign){
             //      return $campaign->created_at->format('d-m-Y');
             //  })
 
-             ->rawColumns(['operation','campaign_image'])
+             ->rawColumns(['operation','campaign_image','status'])
              ->make(true);
 
 

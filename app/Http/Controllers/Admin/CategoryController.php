@@ -59,7 +59,8 @@ class CategoryController extends Controller
         ],
         [
             'category_name' => $request->name,
-            'category_slug' => Str::slug($request->slug)
+            'category_slug' => Str::slug($request->name),
+            'home_page' => $request->home_page
         ]);
 
 
@@ -80,7 +81,15 @@ class CategoryController extends Controller
     {
         if ($request->ajax()) {
             $category = Category::findOrFail($request->data_id);
-            return response()->json($category);
+
+            $home_page='
+                <option value="0" '.($category->home_page == 0 ? 'selected' : '').'>NO</option>
+                <option value="1" '.($category->home_page == 1 ? 'selected' : '').'>YES</option>
+            ';
+            return response()->json([
+                'category'=>$category,
+                'category_home_page' =>$home_page
+            ]);
         }
 
 

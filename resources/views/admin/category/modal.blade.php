@@ -15,14 +15,19 @@
                     <input type="hidden" id="dataId" name="dataId">
 
                     <div class="py-2">
-                        <input type="text" name="name" class="form-control" placeholder="Write Category Name" required>
+                        <label for="name">Category Name</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Write Category Name" required>
                         @error('name')
                             <span class="text-danger"> {{ $message }}</span>
                         @enderror
                     </div>
 
                     <div class="py-2">
-                        <input type="text" name="slug" class="form-control" placeholder="Write Category Slug" required>
+                        <label for="home_page"> Home Page</label>
+                        <select name="home_page" id="category_home_page" class="form-control">
+                            <option value="0">NO</option>
+                            <option value="1">Yes</option>
+                        </select>
                     </div>
 
                 </div>

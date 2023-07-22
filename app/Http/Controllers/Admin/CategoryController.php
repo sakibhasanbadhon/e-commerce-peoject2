@@ -25,6 +25,17 @@ class CategoryController extends Controller
 
             return DataTables::eloquent($getData)
             ->addIndexColumn()
+
+            ->addColumn('icon', function($category) {
+                $image = '<img width="40" height="40" src="' . asset('admin/category-icon/'.$category->icon).'">';
+                return $image;
+            })
+
+
+            ->addColumn('created_at', function($category){
+                return $category->created_at->format('d-m-Y');
+            })
+
             ->addColumn('operation', function($category){
                 $operation = '
                     <button data-id="'.$category->id.'" id="edit-btn" class="btn btn-success btn-sm">Edit</button>
@@ -34,11 +45,9 @@ class CategoryController extends Controller
                 return $operation;
             })
 
-            ->addColumn('created_at', function($category){
-                return $category->created_at->format('d-m-Y');
-            })
 
-            ->rawColumns(['operation','created_at'])
+
+            ->rawColumns(['icon','operation','created_at'])
             ->make(true);
 
 
@@ -54,10 +63,10 @@ class CategoryController extends Controller
         //     'name' => 'required',
         //     'slug' => 'required',
         // ]);
-        $category = Category::updateOrCreate([
-            'id' => $request->dataId
-        ],
-        [
+        $category_icon = $this->file_upload($request->file('icon'), 'admin/category-icon/');
+
+        $category = Category::create([
+            'icon' => $category_icon,
             'category_name' => $request->name,
             'category_slug' => Str::slug($request->name),
             'home_page' => $request->home_page
@@ -65,7 +74,7 @@ class CategoryController extends Controller
 
 
         if ($category) {
-            $output=['status'=>'success','message'=>'Data has been Updated success'];
+            $output=['status'=>'success','message'=>'Data has been create success'];
         }else {
             $output=['status'=>'error','message'=>'Something went wrong'];
 
@@ -86,12 +95,51 @@ class CategoryController extends Controller
                 <option value="0" '.($category->home_page == 0 ? 'selected' : '').'>NO</option>
                 <option value="1" '.($category->home_page == 1 ? 'selected' : '').'>YES</option>
             ';
+
             return response()->json([
                 'category'=>$category,
                 'category_home_page' =>$home_page
             ]);
         }
 
+
+    }
+
+
+    // Category Update
+
+    public function update(Request $request)
+    {
+        $category_id = Category::findOrFail($request->dataId);
+
+        if ($request->has('icon')) {
+            file_exists('admin/category-icon/'.$category_id->icon) ? unlink('admin/category-icon/'.$category_id->icon) : false;
+            $file = $request->file('icon');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = uniqid(rand().time()).'.'.$extension;
+            $file->move('admin/category-icon/',$imageName);
+        }else{
+            $imageName = $category_id->icon;
+        }
+
+
+        $category = $category_id->update([
+            'icon' => $imageName,
+            'category_name' => $request->name,
+            'category_slug' => Str::slug($request->name),
+            'home_page' => $request->home_page
+        ]);
+
+
+        if ($category) {
+            $output=['status'=>'success','message'=>'Data has been Updated success'];
+        }else {
+            $output=['status'=>'error','message'=>'Something went wrong'];
+
+        }
+
+
+        return response()->json($output);
 
     }
 

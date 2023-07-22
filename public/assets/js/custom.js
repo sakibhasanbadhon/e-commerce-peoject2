@@ -54,6 +54,33 @@ function updateCreate(url,form) {
 
 
 
+    //update
+
+    function dataUpdate(url,form){
+        $.ajax({
+            type: "post",
+            url: url,
+            data: form,
+            contentType:false,
+            processData:false,
+            success: function(response) {
+                if (response) {
+                    $('form').trigger("reset");
+                    $('.modal').modal('hide');
+                    table.draw();
+                    toastr.success('Data Update Success');
+                }
+            },
+            error: function (response) {
+                $('form#editForm').trigger("reset");
+                $('.modal').modal('hide');
+                toastr.error('Opps! Something went wrong');
+            }
+        });
+    }
+
+
+
 
 
 // Data delete

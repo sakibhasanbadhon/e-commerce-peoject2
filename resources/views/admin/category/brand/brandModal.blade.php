@@ -27,7 +27,7 @@
                             <div class="modalEdit_avatar"> </div> {{-- image show --}}
 
                             <div class="py-2">
-                                <input type="file" name="brand_logo" data-height="150" class="form-control dropify" placeholder="Write Category Slug" required>
+                                <input type="file" name="brand_logo" data-height="150" class="form-control dropify" required>
                             </div>
 
                         </div>

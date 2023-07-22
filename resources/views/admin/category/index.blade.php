@@ -25,8 +25,9 @@
                             <thead>
                                 <tr>
                                     <th>Sl</th>
+                                    <th>Icon</th>
                                     <th>Category Name</th>
-                                    <th>Category Name</th>
+                                    <th>Category slug</th>
                                     <th>Home Page</th>
                                     <th>created_at</th>
                                     <th>Action</th>
@@ -69,6 +70,7 @@
             },
             columns: [
                 {data: 'id'},
+                {data: 'icon'},
                 {data: 'category_name'},
                 {data: 'category_slug'},
                 {data: 'home_page'},
@@ -142,14 +144,14 @@
         function addNewBtn(modalTitle,modalSaveBtn){
             $('#dataId').val('');
             $('form#ajaxForm').trigger("reset");
-            $('.modal').modal('show');
+            $('#category_create').modal('show');
             $('#modalTitle').text(modalTitle);
             $('button#modalSaveBtn').text(modalSaveBtn);
 
         }
 
 
-        // data store and update
+        // data store
 
         $(document).on("submit",'form#ajaxForm',function(e) {
             e.preventDefault();
@@ -164,7 +166,7 @@
         $(document).on("click",'button#edit-btn',function(e) {
             e.preventDefault();
             let data_id = $(this).data('id');
-            $('.modal').modal('show');
+            $('#category_update_modal').modal('show');
             $('#modalTitle').text('Edit category');
             $('button#modalSaveBtn').text('Save Change');
             $('#dataId').val(data_id);
@@ -176,8 +178,12 @@
                 dataType:'json',
                 success: function(response) {
                     if (response) {
-                        $('form#ajaxForm input[name="name"]').val(response.category.category_name);
+                        let icon_path = "{{ asset('admin/category-icon') }}/"+response.category.icon;
+                        $('#category_icon').html('<img src="'+icon_path+'" width="120" height="100" class="profile_img">');
+
+                        $('form#categoryForm input[name="name"]').val(response.category.category_name);
                         // $('#home_page]').html(response.category_home_page);
+
                         $('#category_home_page').html(response.category_home_page);
 
                     }
@@ -185,6 +191,36 @@
             });
 
         });
+
+
+        // update
+
+        $(document).on("submit",'form#categoryForm',function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "post",
+                url: "{{ route('admin.category.update') }}",
+                data: new FormData(this),
+                contentType:false,
+                processData:false,
+                success: function(response) {
+                    if (response) {
+                        $('form#categoryForm').trigger("reset");
+                        $('#category_update_modal').modal('hide');
+                        table.draw();
+                        toastr.success('Data Update Success');
+                    }
+                },
+                error: function (response) {
+                    $('form#categoryForm').trigger("reset");
+                    $('#category_update_modal').modal('hide');
+                    toastr.error('Opps! Something went wrong');
+                }
+            });
+
+        });
+
+
 
         // Data delete
 

@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Review;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
@@ -18,33 +19,27 @@ class IndexController extends Controller
     {
         $category = Category::all();
         $slider_product = Product::where('status',1)->where('slider_show',1)->latest()->first();
+        $today_deal = Product::where('status',1)->where('today_deal',1)->latest()->get();
         $featured = Product::where('status',1)->where('featured',1)->orderBy('id','DESC')->limit(16)->get();
         $popular_product = Product::where('status',1)->orderBy('product_views','DESC')->limit(16)->get();
         $trendy_product = Product::where('status',1)->where('trendy',1)->orderBy('id','DESC')->limit(8)->get();
+        $category_home = Category::where('home_page',1)->get();
+        $brand = Brand::where('home_page',1)->limit(24)->get();
+        // recently product
+        $random_product = Product::where('status',1)->inRandomOrder()->limit(12)->get();
 
 
-        $category_wise_product = Category::where('home_page',1)->limit(1)->first();
 
-        if ($category_wise_product) {
-
-            $arrival_product = Product::where('category_id',$category_wise_product->id)->get();
-        }else {
-            $arrival_product = [];
-
-        }
-
-        $category_wise_popular_product = Product::where('status',1)->orderBy('product_views','DESC')->limit(1)->first();
-
-        // dd($arrival_product);
         return view('website.index', compact(
                 'category',
                 'slider_product',
                 'featured',
+                'today_deal',
                 'popular_product',
                 'trendy_product',
-                'category_wise_product',
-                'arrival_product',
-                'category_wise_popular_product'
+                'category_home',
+                'brand',
+                'random_product'
             ));
     }
 
@@ -132,6 +127,8 @@ class IndexController extends Controller
             return view('website.include.quick-view',compact('product'));
 
         }
+
+
 
 
 

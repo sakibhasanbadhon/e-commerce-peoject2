@@ -85,6 +85,7 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('brand/get-data', [BrandController::class, 'getData'])->name('brand.get-data');
     Route::post('brand/store', [BrandController::class, 'store'])->name('brand.store');
     Route::post('brand/edit', [BrandController::class, 'edit'])->name('brand.edit');
+    Route::post('brand/update', [BrandController::class, 'update'])->name('brand.update');
     Route::post('brand/destroy', [BrandController::class, 'destroy'])->name('brand.destroy');
 
 

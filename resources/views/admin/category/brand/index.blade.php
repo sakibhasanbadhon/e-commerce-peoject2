@@ -32,6 +32,7 @@
                                     <th>Brand Logo</th>
                                     <th>Brand Name</th>
                                     <th>created_at</th>
+                                    <th>Home Page</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -77,6 +78,7 @@
                 {data: 'brand_logo'},
                 {data: 'brand_name'},
                 {data: 'created_at'},
+                {data: 'home_page'},
                 {data: 'operation'},
             ],
             language: {
@@ -160,7 +162,7 @@
         function addNewBtn(modalTitle,modalSaveBtn){
             $('#dataId').val('');
             $('form#ajaxForm').trigger("reset");
-            $('.modal').modal('show');
+            $('#exampleModal').modal('show');
             $('#modalTitle').text(modalTitle);
             $('button#modalSaveBtn').text(modalSaveBtn);
 
@@ -183,7 +185,7 @@
             e.preventDefault();
             let data_id = $(this).data('id');
 
-            $('.modal').modal('show');
+            $('#brand_create').modal('show');
             $('#modalTitle').text('Edit category');
             $('button#modalSaveBtn').text('Save Change');
             $('#dataId').val(data_id);
@@ -195,17 +197,50 @@
                 dataType:'json',
                 success: function(response) {
                     if (response) {
-                        $('form#ajaxForm input[name="brand_name"]').val(response.brand_name);
+                        $('form#brandForm input[name="brand_name"]').val(response.brand.brand_name);
 
-                        let avatar_path = "{{ asset('admin/brandImage') }}/"+response.brand_logo;
-                        $('form#ajaxForm .modalEdit_avatar').html('<img src="'+avatar_path+'" width="150" height="100" class="profile_img">');
+                        let avatar_path = "{{ asset('admin/brandImage') }}/"+response.brand.brand_logo;
+                        $('.modalEdit_avatar').html('<img src="'+avatar_path+'" width="150" height="100" class="profile_img">');
 
+                        $('form#brandForm #brand_home_page').html(response.product_home);
 
 
                     }
                 }
             });
         });
+
+
+
+
+
+        // data update
+
+        $(document).on("submit",'form#brandForm',function(e) {
+            e.preventDefault();
+                $.ajax({
+                type: "post",
+                url: "{{ route('admin.brand.update') }}",
+                data: new FormData(this),
+                contentType:false,
+                processData:false,
+                success: function(response) {
+                    if (response) {
+                        $('#brandForm').trigger("reset");
+                        $('#brand_create').modal('hide');
+                        table.draw();
+                        toastr.success('Data Update Success');
+                    }
+                },
+                error: function (response) {
+                    $('#brandForm').trigger("reset");
+                    $('#brand_create').modal('hide');
+                    toastr.error('Opps! Something went wrong');
+                }
+            });
+        });
+
+
 
         // Data delete
 

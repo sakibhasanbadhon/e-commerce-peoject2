@@ -14,170 +14,183 @@
 
 <div class="single_product">
     <div class="container">
-        <div class="row">
-            @php
-                $images=json_decode($product_details->images,true);
-                $color=explode(',',$product_details->color);
-			    $size=explode(',',$product_details->size);
-            @endphp
+            <div class="row">
+                @php
+                    $images=json_decode($product_details->images,true);
+                    $color=explode(',',$product_details->color);
+                    $size=explode(',',$product_details->size);
+                @endphp
 
-            <!-- Images -->
-            <div class="col-lg-1 order-lg-1 order-2">
-                <ul class="image_list">
-                    @foreach ($images as $item)
-                        <li><img class="product_images" src="{{ asset('admin/product-images/'.$item) }}" alt=""></li>
-                    @endforeach
+                <!-- Images -->
+                <div class="col-lg-1 order-lg-1 order-2">
+                    <ul class="image_list">
+                        @isset($images)
+                            @foreach ($images as $item)
+                                <li><img class="product_images" src="{{ asset('admin/product-images/'.$item) }}" alt=""></li>
+                            @endforeach
+                        @endisset
+                    </ul>
+                </div>
 
-                </ul>
-            </div>
+                <!-- Selected Image -->
+                <div class="col-lg-3 order-lg-2 order-1">
+                    <div class="image_selected"><img id="display_image" src="{{ $product_details->thumbnail != null ? asset('admin/product-images/'.$product_details->thumbnail)  : 'https://via.placeholder.com/80' }}" alt=""></div>
+                </div>
 
-            <!-- Selected Image -->
-            <div class="col-lg-3 order-lg-2 order-1">
-                <div class="image_selected"><img id="display_image" src="{{ $product_details->thumbnail != null ? asset('admin/product-images/'.$product_details->thumbnail)  : 'https://via.placeholder.com/80' }}" alt=""></div>
-            </div>
+                @php
+                    $review_5 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',5)->count();
+                    $review_4 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',4)->count();
+                    $review_3 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',3)->count();
+                    $review_2 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',2)->count();
+                    $review_1 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',1)->count();
 
-            @php
-                $review_5 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',5)->count();
-                $review_4 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',4)->count();
-                $review_3 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',3)->count();
-                $review_2 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',2)->count();
-                $review_1 = DB::table('reviews')->where('product_id',$product_details->id)->where('rating',1)->count();
-
-                $sum_rating=DB::table('reviews')->where('product_id',$product_details->id)->sum('rating');
-                $count_rating=DB::table('reviews')->where('product_id',$product_details->id)->count('rating');
-            @endphp
-
-            <!-- Description -->
-            <div class="col-lg-4 order-3">
-                <div class="product_description">
-                    <div class="product_category"> {{ $product_details->category->category_name }} -> {{ $product_details->subcategory->subcategory_name }}</div>
-                    <div class="product_name">{{ $product_details->name }}</div>
-                    <div class="text-secondary">{{ $product_details->brand->brand_name }} </div>
-                    <div class="text-secondary">Stock Quantity :{{ $product_details->stock_quantity }} </div>
-                    <div class="text-secondary">Unit :{{ $product_details->unit }} </div>
-
-                    @if($sum_rating !=NULL)
-					 	@if(intval($sum_rating/$count_rating) == 5)
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	@elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star "></span>
-					 	@elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star "></span>
-					 	<span class="fa fa-star "></span>
-					 	@elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star text-warning"></span>
-					 	<span class="fa fa-star "></span>
-					 	<span class="fa fa-star "></span>
-					 	<span class="fa fa-star "></span>
-					 	@else
-					 	<span class="fa fa-star checked"></span>
-					 	<span class="fa fa-star "></span>
-					 	<span class="fa fa-star "></span>
-					 	<span class="fa fa-star "></span>
-					 	<span class="fa fa-star "></span>
-					 	@endif
-					@endif
+                    $sum_rating=DB::table('reviews')->where('product_id',$product_details->id)->sum('rating');
+                    $count_rating=DB::table('reviews')->where('product_id',$product_details->id)->count('rating');
+                @endphp
 
 
-                    <div class="order_info d-flex flex-row">
-                        <form action="#">
-                            <div class="form-group">
-                                <div class="row">
-                                    @isset($product_details->size)
-                                        <div class="col-6">
-                                            <label for="">Size</label>
-                                            <select name="size" id="" class="custom-select form-control form-control-sm" style="min-width: 120px">
-                                                @foreach ($size as $row)
-                                                    <option value="">{{ $row }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    @endisset
 
-                                    @isset($product_details->color)
-                                        <div class="col-6">
-                                            <label for="">Color</label>
-                                            <select name="color" id="" class="custom-select form-control form-control-sm" style="min-width: 120px">
-                                                @foreach ($color as $clr)
-                                                    <option value="">{{ $clr }}</option>
-                                                @endforeach
+                    <!-- Description -->
+                    <div class="col-lg-4 order-3">
+                        <div class="product_description">
+                            <div class="product_category"> {{ $product_details->category->category_name }} -> {{ $product_details->subcategory->subcategory_name }}</div>
+                            <div class="product_name">{{ $product_details->name }}</div>
+                            <div class="text-secondary">{{ $product_details->brand->brand_name }} </div>
+                            <div class="text-secondary">Stock Quantity :{{ $product_details->stock_quantity }} </div>
+                            <div class="text-secondary">Unit :{{ $product_details->unit }} </div>
 
-                                            </select>
-                                        </div>
-                                    @endisset
-                                </div>
-                            </div>
-
-                            <div class="clearfix pl-2" style="z-index: 1000;">
-
-                                <!-- Product Quantity -->
-                                <div class="product_quantity clearfix">
-                                    <span>Quantity: </span>
-                                    <input id="quantity_input" type="text" pattern="[0-9]*" value="1" class="form-control-sm">
-                                    <div class="quantity_buttons">
-                                        <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-                                        <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
-                                    </div>
-                                </div>
-
-                                <!-- Product Color -->
-
-
-                            </div>
-
-                            @if ($product_details->discount_price==null)
-                                <div class="product_price" style="margin-top: 20px">{{ $currency_symbol->currency }} {{ $product_details->selling_price }}</div>
-                            @else
-                                <div class="product_price" style="margin-top: 20px">
-                                    <del class="text-danger">{{ $currency_symbol->currency }}{{ $product_details->selling_price }}</del>
-                                    {{ $currency_symbol->currency }}{{ $product_details->discount_price }}
-                                </div>
+                            @if($sum_rating !=NULL)
+                                @if(intval($sum_rating/$count_rating) == 5)
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                @elseif(intval($sum_rating/$count_rating) >= 4 && intval($sum_rating/5) <$count_rating)
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star "></span>
+                                @elseif(intval($sum_rating/$count_rating) >= 3 && intval($sum_rating/5) <$count_rating)
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                @elseif(intval($sum_rating/$count_rating) >= 2 && intval($sum_rating/5) <$count_rating)
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star text-warning"></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                @else
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                <span class="fa fa-star "></span>
+                                @endif
                             @endif
-                            {{-- <div class="product_price" style="margin-top: 20px">$2000</div> --}}
 
-                            <div class="button_container">
-                                <button type="button" class="btn btn-sm btn-info">Add to Cart</button>
-                                <a href="{{ route('add.wishlist',$product_details->id) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
 
+                            <div class="order_info d-flex flex-row">
+                                <form action="" method="post" id="singleCartForm">
+                                    @csrf
+                                        <input type="hidden" name="id" value="{{ $product_details->id }}">
+                                        @if ($product_details->discount_price==null)
+                                            <input type="hidden" name="price" value="{{ $product_details->selling_price }}">
+                                        @else
+                                            <input type="hidden" name="price" value="{{ $product_details->discount_price }}">
+                                        @endif
+                                    <div class="form-group">
+                                        <div class="row">
+                                            @isset($product_details->size)
+                                                <div class="col-6">
+                                                    <label for="">Size</label>
+                                                    <select name="size" id="" class="custom-select form-control form-control-sm" style="min-width: 120px">
+                                                        @foreach ($size as $row)
+                                                            <option value="">{{ $row }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            @endisset
+
+                                            @isset($product_details->color)
+                                                <div class="col-6">
+                                                    <label for="">Color</label>
+                                                    <select name="color" id="" class="custom-select form-control form-control-sm" style="min-width: 120px">
+                                                        @foreach ($color as $clr)
+                                                            <option value="">{{ $clr }}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                </div>
+                                            @endisset
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix pl-2" style="z-index: 1000;">
+
+                                        <!-- Product Quantity -->
+                                        <div class="product_quantity clearfix">
+                                            <span>Quantity: </span>
+                                            <input id="quantity_input" name="qty" type="text" pattern="[0-9]*" value="1" class="form-control-sm">
+                                            <div class="quantity_buttons">
+                                                <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
+                                                <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Product Color -->
+
+
+                                    </div>
+
+                                    @if ($product_details->discount_price==null)
+                                        <div class="product_price" style="margin-top: 20px">{{ $currency_symbol->currency }} {{ $product_details->selling_price }}</div>
+                                    @else
+                                        <div class="product_price" style="margin-top: 20px">
+                                            <del class="text-danger">{{ $currency_symbol->currency }}{{ $product_details->selling_price }}</del>
+                                            {{ $currency_symbol->currency }}{{ $product_details->discount_price }}
+                                        </div>
+                                    @endif
+                                    {{-- <div class="product_price" style="margin-top: 20px">$2000</div> --}}
+
+                                    <div class="button_container">
+                                        <button type="submit" class="btn btn-sm btn-info">Add to Cart</button>
+                                        <a href="{{ route('add.wishlist',$product_details->id) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
+
+                                    </div>
+
+                                </form>
                             </div>
-
-                        </form>
+                        </div>
                     </div>
+
+
+                <div class="col-lg-4 order-4">
+                    <p><b>pickup point of this product</b> <br>
+                    <i class="fa fa-map pr-1"></i>{{ $product_details->pickup_point->pickup_point_name }}</p>
+
+                    <p><b>Home Delivery</b> <br>
+                        >> (3-5) days after the order placed. <br>
+                        >> Cash On Delivery Avalible. <br>
+                    </p>
+
+                    <div>
+                        <p><b>Product Video</b></p>
+
+                        <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="250" height="150" type="text/html" src="https://www.youtube.com/embed/DBXH9jJRaDk?autoplay=0&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=http://youtubeembedcode.com"><div><small><a href="https://youtubeembedcode.com/es/">youtubeembedcode.com/es/</a></small></div><div><small><a href="https://sms-lån-direkt-utbetalning.se/">sms-lån-direkt-utbetalning.se</a></small></div></iframe>
+
+                        {{-- <iframe src="https://www.youtube.com/watch?v=PBykiW32kac&list=PLbC4KRSNcMnqxs0m8EgNNWuz_jhsLR6SY&index=41" height="200" width="300" title="Iframe Example"></iframe> --}}
+                    </div>
+
                 </div>
+
             </div>
 
-            <div class="col-lg-4 order-4">
-                <p><b>pickup point of this product</b> <br>
-                <i class="fa fa-map pr-1"></i>{{ $product_details->pickup_point->pickup_point_name }}</p>
 
-                <p><b>Home Delivery</b> <br>
-                    >> (3-5) days after the order placed. <br>
-                    >> Cash On Delivery Avalible. <br>
-                </p>
-
-                <div>
-                    <p><b>Product Video</b></p>
-
-                      <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0"width="250" height="150" type="text/html" src="https://www.youtube.com/embed/DBXH9jJRaDk?autoplay=0&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=http://youtubeembedcode.com"><div><small><a href="https://youtubeembedcode.com/es/">youtubeembedcode.com/es/</a></small></div><div><small><a href="https://sms-lån-direkt-utbetalning.se/">sms-lån-direkt-utbetalning.se</a></small></div></iframe>
-
-                      {{-- <iframe src="https://www.youtube.com/watch?v=PBykiW32kac&list=PLbC4KRSNcMnqxs0m8EgNNWuz_jhsLR6SY&index=41" height="200" width="300" title="Iframe Example"></iframe> --}}
-                </div>
-
-            </div>
-
-        </div>
 
         <div class="row mt-5">
 			<div class="col-lg-12">
@@ -440,5 +453,31 @@
                 $("#display_image").show();
             });
         });
+
+
+        // product add to car
+        $(document).on("submit",'form#singleCartForm',function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "post",
+                url: "{{ route('add.to.cart.quickview') }}",
+                data: new FormData(this),
+                contentType:false,
+                processData:false,
+                success: function(response) {
+                    toastr.success(response);
+                    $('form#singleCartForm')[0].reset();
+                    cart();
+
+                },
+                error: function (response) {
+                    toastr.error('Opps! cart not add');
+                }
+            });
+        });
+
+
+
+
     </script>
 @endpush

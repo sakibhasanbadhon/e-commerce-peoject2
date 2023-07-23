@@ -69,17 +69,15 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+
         $brand_logo = $this->file_upload($request->file('brand_logo'),'admin/brandImage/');
 
-        $brand = Brand::updateOrCreate([
-            'id' => $request->dataId
-        ],
-        [
+        $brand = Brand::create([
             'brand_name' => $request->brand_name,
             'brand_slug' => Str::slug($request->brand_name),
+            'home_page' => $request->home_page,
             'brand_logo' => $brand_logo,
         ]);
-
 
         if ($brand) {
             $output=['status'=>'success','message'=>'Data has been Updated success'];
@@ -106,8 +104,16 @@ class BrandController extends Controller
     public function edit(Request $request)
     {
         if ($request->ajax()) {
-            $category = Brand::findOrFail($request->data_id);
-            return response()->json($category);
+            $brand = Brand::findOrFail($request->data_id);
+
+            $home_page='
+                <option value="0" '.($brand->home_page == 0 ? 'selected' : '').'>NO</option>
+                <option value="1" '.($brand->home_page == 1 ? 'selected' : '').'>YES</option>
+            ';
+            return response()->json([
+                'brand'=>$brand,
+                'product_home'=>$home_page,
+            ]);
         }
     }
 
@@ -117,18 +123,24 @@ class BrandController extends Controller
     public function update(Request $request)
     {
         if($request->ajax()){
+            $student = Brand::findOrFail($request->dataId);
 
-            $student = Brand::findOrFail($request->data_id);
-
-            if($request->hasFile('avatar')){
-                $profile = $this->file_update($request->file('brand_logo'),'admin/brandImage/',$student->brand_logo);
+            if ($request->has('avatar')) {
+                file_exists('admin/brandImage/'.$student->brand_logo) ? unlink('admin/brandImage/'.$student->brand_logo) : false;
+                $file = $request->file('avatar');
+                $extension = $file->getClientOriginalExtension();
+                $imageName = uniqid(rand().time()).'.'.$extension;
+                $file->move('admin/brandImage/',$imageName);
             }else{
-                $profile = $student->brand_logo;
+                $imageName = $student->brand_logo;
             }
 
+
+
             $data=$student->update([
-                'brand_name'   => $request->name,
-                'brand_logo' => $profile
+                'brand_name'   => $request->brand_name,
+                'home_page'   => $request->home_page,
+                'brand_logo' => $imageName
             ]);
 
             if ($data) {
@@ -139,7 +151,7 @@ class BrandController extends Controller
 
             return response()->json($output);
         }
-        
+
     }
 
     /**

@@ -1746,7 +1746,7 @@
                 success: function(response) {
                     toastr.success(response);
                     $('form#cartForm')[0].reset();
-                    Cart();
+                    cardCount();
 
                 },
                 error: function (response) {
@@ -1754,6 +1754,24 @@
                 }
             });
         });
+
+
+		function cardCount(){
+			$.ajax({
+				type: "post",
+				url: "{{ route('cart.reload') }}",
+                data: {_token:_token},
+				success: function (response) {
+                    $('#cartLoad').html(response.cartLoad);
+                    $('#cartCount').html(response.cartCount);
+
+				}
+			});
+		}
+
+
+
+
 
     </script>
 

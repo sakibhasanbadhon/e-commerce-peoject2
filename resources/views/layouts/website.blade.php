@@ -153,11 +153,11 @@
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="{{ asset('/') }}images/cart.png" alt="">
-										<div class="cart_count"><span>{{ Cart::count() }}</span></div>
+										<div class="cart_count"><span id="cartCount">{{ Cart::count() }}</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
-										<div class="cart_price">{{ $currency_symbol->currency }} {{ Cart::total() }}</div>
+										<div class="cart_text"><a href="{{ route('cart') }}">Cart</a></div>
+										<div class="cart_price" id="cartLoad">{{ $currency_symbol->currency }} {{ Cart::total() }} </div>
 									</div>
 								</div>
 							</div>

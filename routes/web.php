@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Website\CartController;
-use App\Http\Controllers\Website\IndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Http\Controllers\Website\CartController;
+use App\Http\Controllers\Website\IndexController;
 
 
 
@@ -20,5 +21,14 @@ Route::get('add/wishlist/{product_id}', [IndexController::class,'wishlist'])->na
 Route::get('quick/view', [IndexController::class,'quickView'])->name('quick.view');
 
 Route::post('add-to-cart', [CartController::class,'addToCartQv'])->name('add.to.cart.quickview');
+Route::get('my-cart', [CartController::class,'myCart'])->name('cart');
+Route::post('cart/reload', [CartController::class,'cartReload'])->name('cart.reload');
+Route::get('cart/empty', [CartController::class,'cartEmpty'])->name('cart.empty');
+
+Route::post('cart/remove', [CartController::class,'cartRemove'])->name('cart.remove');
+
+
+// Route::get('my-cart', [CartController::class,'myCart'])->name('cart');
+
 
 // Route::get('category/product-show/{category}', [IndexController::class, 'categoryWiseProduct'])->name('category.product-show');

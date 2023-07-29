@@ -16,7 +16,13 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('product/details/{slug}', [IndexController::class,'productDetails'])->name('product.details');
 Route::get('customer/logout', [IndexController::class,'customerLogout'])->name('customer.logout');
 
+// this route for product details page review
 Route::post('review', [IndexController::class,'review'])->name('review.store');
+// this route for website
+Route::get('write/review', [IndexController::class,'writeReview'])->name('write.review');
+Route::post('write/review/store', [IndexController::class,'writeReviewStore'])->name('write.review.store');
+
+
 Route::get('quick/view', [IndexController::class,'quickView'])->name('quick.view');
 
 
@@ -36,6 +42,18 @@ Route::get('add/wishlist/{product_id}', [CartController::class,'addWishlist'])->
 Route::get('empty/wishlist', [CartController::class,'emptyWishlist'])->name('empty.wishlist');
 Route::get('remove/product/wishlist/{id}', [CartController::class,'WishlistProductRemove'])->name('remove.product.wishlist');
 
+
+// category wise product
+
+Route::get('categorywise/product/{id}', [IndexController::class, 'categoryWiseProduct'])->name('categorywise.product');
+Route::get('subcategorywise/product/{id}', [IndexController::class, 'subcategoryWiseProduct'])->name('subcategorywise.product');
+Route::get('childcategorywise/product/{id}', [IndexController::class, 'childcategoryWiseProduct'])->name('childcategorywise.product');
+Route::get('brandwise/product/{id}', [IndexController::class, 'brandWiseProduct'])->name('brandwise.product');
+
+
+// Route::get('user', function(){
+//     return view('website.user.dashboard');
+// })->name('home');
 
 // Route::get('my-cart', [CartController::class,'myCart'])->name('cart');
 

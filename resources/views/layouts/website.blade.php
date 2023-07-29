@@ -18,7 +18,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/plugins/toastr/toastr.css') }}">
 <link href="{{ asset('/') }}assets/toastr.css" rel="stylesheet" />
 
-
+@yield('styles')
 
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/product_styles.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('/') }}styles/product_responsive.css"> --}}

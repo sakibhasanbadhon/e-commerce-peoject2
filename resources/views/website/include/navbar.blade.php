@@ -18,7 +18,7 @@
                         <ul class="cat_menu">
                             @foreach($category as $row)
                                 <li class="hassubs">
-                                    <a href="#">{{ $row->category_name }}<i class="fas fa-chevron-right"></i></a>
+                                    <a href="{{ route('categorywise.product',$row->id) }}">{{ $row->category_name }}<i class="fas fa-chevron-right"></i></a>
                                     @php
                                         $subcategory= DB::table('subcategories')->where('category_id',$row->id)->get();
                                     @endphp
@@ -26,14 +26,14 @@
                                     <ul>
                                         @foreach ($subcategory as $item)
                                             <li class="hassubs">
-                                                <a href="#">{{ $item->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
+                                                <a href="{{ route('subcategorywise.product',$item->id) }}">{{ $item->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
                                                 @php
                                                     $child_cat=DB::table('child_categories')->where('subcategory_id',$item->id)->get();
                                                 @endphp
 
                                                     <ul>
                                                         @foreach ($child_cat as $row)
-                                                            <li><a href="#">{{ $row->childCategory_name }}<i class="fas fa-chevron-right"></i></a></li>
+                                                            <li><a href="{{ route('childcategorywise.product',$row->id) }}">{{ $row->childCategory_name }}<i class="fas fa-chevron-right"></i></a></li>
                                                         @endforeach
                                                     </ul>
 

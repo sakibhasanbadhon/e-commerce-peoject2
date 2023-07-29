@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\ChildCategory;
+use App\Models\Customerreview;
 use App\Models\Review;
+use App\Models\Subcategory;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +28,8 @@ class IndexController extends Controller
         $trendy_product = Product::where('status',1)->where('trendy',1)->orderBy('id','DESC')->limit(8)->get();
         $category_home = Category::where('home_page',1)->get();
         $brand = Brand::where('home_page',1)->limit(24)->get();
+        $customer_review = Customerreview::where('status',1)->orderBy('id','DESC')->limit(12)->get();
+
         // recently product
         $random_product = Product::where('status',1)->inRandomOrder()->limit(12)->get();
 
@@ -39,7 +44,8 @@ class IndexController extends Controller
                 'trendy_product',
                 'category_home',
                 'brand',
-                'random_product'
+                'random_product',
+                'customer_review'
             ));
     }
 
@@ -107,12 +113,121 @@ class IndexController extends Controller
 
 
 
-    // public function categoryWiseProduct($category){
-    //     $arrival_product = Product::where('category_id', $category->id)->get();
-    //     return view('website.index', compact('arrival_product'));
-    // }
+    public function categoryWiseProduct($id){
+        $categoryItem = Category::where('id',$id)->first();
+        $subcategory = Subcategory::where('category_id',$id)->get();
+        $brand = Brand::get();
+        $products = Product::where('category_id',$id)->paginate(20);
+        $random_product = Product::where('status',1)->inRandomOrder()->limit(12)->get();
+        $category = Category::get(); //for navbar
+
+        return  view('website.category.category_product',compact(
+            'subcategory',
+            'products',
+            'brand',
+            'category',
+            'random_product',
+            'categoryItem'
+        ));
+
+    }
+
+    public function subcategoryWiseProduct($id){
+        $subcategory = Subcategory::where('id',$id)->first();
+        $childcategory = ChildCategory::where('subcategory_id',$id)->get();
+        $brand = Brand::get();
+        $products = Product::where('subcategory_id',$id)->paginate(20);
+        $random_product = Product::where('status',1)->inRandomOrder()->limit(12)->get();
+        $category = Category::get(); //for navbar
+
+        return  view('website.category.subcategory_product',compact(
+            'subcategory',
+            'childcategory',
+            'brand',
+            'products',
+            'random_product',
+            'category',
+        ));
+
+    }
+
+    public function childcategoryWiseProduct($id){
+        // $subcategory = Subcategory::where('id',$id)->first();
+        $childcategory = ChildCategory::where('id',$id)->first();
+        $brand = Brand::get();
+        $products = Product::where('childcategory_id',$id)->paginate(4);
+        $random_product = Product::where('status',1)->inRandomOrder()->limit(12)->get();
+        $category = Category::get(); //for navbar
+
+        return  view('website.category.childcategory_product',compact(
+            'childcategory',
+            'brand',
+            'products',
+            'random_product',
+            'category',
+        ));
+
+    }
 
 
+    public function brandWiseProduct($id){
+        $brandItem = Brand::where('id',$id)->first();
+        // $subcategory = Subcategory::get();
+        $brand = Brand::get();
+        $products = Product::where('brand_id',$id)->paginate(20);
+        $random_product = Product::where('status',1)->inRandomOrder()->limit(12)->get();
+        $category = Category::get(); //for navbar
+
+        return  view('website.category.brand_product',compact(
+            // 'subcategory',
+            'brandItem',
+            'brand',
+            'products',
+            'random_product',
+            'category',
+        ));
+
+    }
+
+    public function customer(){
+        return view('website.user.dashboard');
+    }
+
+    public function writeReview(){
+        return view('website.include.user.write_review');
+    }
+
+    public function writeReviewStore(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'review' => 'required',
+            'rating' => 'required',
+        ]);
+
+        $review_check = Customerreview::where('user_id', auth::id())->first();
+        if ($review_check) {
+
+            $message = array('message'=>'Already your review Exist','alert-type'=>'error');
+            return redirect()->back()->with($message);
+        }else {
+            $customer = Customerreview::create([
+                'user_id' => auth::id(),
+                'name'    => $request->name,
+                'review'  => $request->review,
+                'rating'  => $request->rating,
+            ]);
+
+            $message = array('message'=>'Your Review submit','alert-type'=>'success');
+            return redirect()->back()->with($message);
+        }
+
+
+
+
+
+
+
+    }
 
 
 }

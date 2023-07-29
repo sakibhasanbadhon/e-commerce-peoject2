@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PickupPointController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Website\IndexController;
 
 Auth::routes();
 
@@ -36,7 +37,7 @@ Auth::routes([
 Route::get('signup', [LoginController::class, 'signup'])->name('signup');
 Route::post('signup/store', [LoginController::class, 'signupStore'])->name('signup.store');
 
-Route::get('customer/dashboard', [AdminController::class, 'customer'])->name('customer.dashboard');
+Route::get('customer/dashboard', [IndexController::class, 'customer'])->name('customer.dashboard');
 
 // Route::get('admin/dashboard', [HomeController::class, 'admin'])->name('admin.dashboard')->middleware('is_admin');
 

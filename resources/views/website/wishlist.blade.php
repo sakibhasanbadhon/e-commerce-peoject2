@@ -36,7 +36,7 @@
 
                                         <div class="cart_item_price cart_info_col">
                                             <div class="cart_item_text">
-                                                @if ($wish_product->product->discount_price == null )
+                                                @if ($wish_product->product->discount_price == null)
                                                     {{ $currency_symbol->currency }} {{ $wish_product->product->selling_price }}
                                                 @else
                                                 {{ $currency_symbol->currency }} {{ $wish_product->product->discount_price }} </div>

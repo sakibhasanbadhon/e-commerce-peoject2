@@ -63,9 +63,7 @@ class AdminController extends Controller
 
     }
 
-    public function customer(){
-        return view('customer.index');
-    }
+    
 
 
 

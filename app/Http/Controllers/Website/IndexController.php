@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\ChildCategory;
 use App\Models\Customerreview;
+use App\Models\Page;
 use App\Models\Review;
 use App\Models\Subcategory;
 use App\Models\Wishlist;
@@ -29,6 +30,7 @@ class IndexController extends Controller
         $category_home = Category::where('home_page',1)->get();
         $brand = Brand::where('home_page',1)->limit(24)->get();
         $customer_review = Customerreview::where('status',1)->orderBy('id','DESC')->limit(12)->get();
+
 
         // recently product
         $random_product = Product::where('status',1)->inRandomOrder()->limit(12)->get();
@@ -221,13 +223,20 @@ class IndexController extends Controller
             return redirect()->back()->with($message);
         }
 
+    }
 
 
 
 
+    // footer view page
 
+    public function footerViewPage($page_slug) {
+        $category= Category::get();
+        $page = Page::where('page_slug',$page_slug)->first();
+        return view('website.page',compact('page','category'));
 
     }
+
 
 
 }

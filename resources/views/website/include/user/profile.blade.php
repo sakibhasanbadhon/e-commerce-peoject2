@@ -1,6 +1,6 @@
 <div class="card">
     <div class="image-div">
-        <img style="width: 155px;height: 150px; border: 8px solid #f2f2f2;" src="{{ asset('/') }}assets/img/admin-avatar.png" class="profile-image mx-auto mt-4 card-img-top rounded rounded-circle">
+        <img style="width: 155px;height: 150px; border: 8px solid #f2f2f2;" src="{{ asset('/') }}user.png" class="profile-image mx-auto mt-4 card-img-top rounded rounded-circle">
 
     </div>
     <div class="middle zoom-in">
@@ -15,25 +15,25 @@
 
       <ul class="list-inline text-dark">
         <li style="border-top:1px solid #f2f2f2" class="py-2">
-            <a class="text-secondary text-decoration-none" href="{{ route('write.review') }}">Dashboard</a>
+            <a class="text-secondary text-decoration-none" href="{{ route('customer.dashboard') }}"><i class="fas fa-home px-1"></i> Dashboard</a>
         </li>
         <li style="border-top:1px solid #f2f2f2" class="py-2">
-            <a class="text-secondary text-decoration-none" href="">Edit Profile</a>
+            <a class="text-secondary text-decoration-none" href=""> <i class="fas fa-file-alt px-1"></i>  Edit Profile</a>
         </li>
         <li style="border-top:1px solid #f2f2f2" class="py-2">
-            <a class="text-secondary text-decoration-none" href="{{ route('wishlist') }}">Wishlist</a>
+            <a class="text-secondary text-decoration-none" href="{{ route('wishlist') }}"><i class="far fa-heart px-1"></i> Wishlist</a>
         </li>
         <li style="border-top:1px solid #f2f2f2" class="py-2">
-            <a class="text-secondary text-decoration-none" href="">My Order</a>
+            <a class="text-secondary text-decoration-none" href=""><i class="fas fa-file-alt px-1"></i> My Order</a>
         </li>
         <li style="border-top:1px solid #f2f2f2" class="py-2">
-            <a class="text-secondary text-decoration-none" href="">Setting</a>
+            <a class="text-secondary text-decoration-none" href="{{ route('profile.setting') }}"><i class="fas fa-edit px-1"></i> Setting</a>
         </li>
         <li style="border-top:1px solid #f2f2f2" class="py-2">
-            <a class="text-secondary text-decoration-none" href="">Open Ticket</a>
+            <a class="text-secondary text-decoration-none" href=""><i class="fab fa-telegram-plane px-1"></i> Open Ticket</a>
         </li>
         <li style="border-top:1px solid #f2f2f2" class="py-2">
-            <a class="text-secondary text-decoration-none" href="{{ route('customer.logout') }}">Logout</a>
+            <a class="text-secondary text-decoration-none" href="{{ route('customer.logout') }}"><i class="fas fa-sign-out-alt px-1"></i> Logout</a>
         </li>
       </ul>
 

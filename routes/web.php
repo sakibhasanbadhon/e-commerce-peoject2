@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\IndexController;
-
-
-
+use App\Http\Controllers\Website\ProfileController;
 
 Auth::routes();
 
@@ -18,9 +16,7 @@ Route::get('customer/logout', [IndexController::class,'customerLogout'])->name('
 
 // this route for product details page review
 Route::post('review', [IndexController::class,'review'])->name('review.store');
-// this route for website
-Route::get('write/review', [IndexController::class,'writeReview'])->name('write.review');
-Route::post('write/review/store', [IndexController::class,'writeReviewStore'])->name('write.review.store');
+
 
 
 Route::get('quick/view', [IndexController::class,'quickView'])->name('quick.view');
@@ -50,12 +46,17 @@ Route::get('subcategorywise/product/{id}', [IndexController::class, 'subcategory
 Route::get('childcategorywise/product/{id}', [IndexController::class, 'childcategoryWiseProduct'])->name('childcategorywise.product');
 Route::get('brandwise/product/{id}', [IndexController::class, 'brandWiseProduct'])->name('brandwise.product');
 
+// customer
+// this route for website
+Route::get('write/review', [IndexController::class,'writeReview'])->name('write.review');
+Route::post('write/review/store', [IndexController::class,'writeReviewStore'])->name('write.review.store');
 
-// Route::get('user', function(){
-//     return view('website.user.dashboard');
-// })->name('home');
-
-// Route::get('my-cart', [CartController::class,'myCart'])->name('cart');
+Route::get('profile/setting', [ProfileController::class,'profileSetting'])->name('profile.setting');
+Route::post('profile/password/update', [ProfileController::class,'passwordChange'])->name('customer.password.change');
+Route::post('profile/shipping.store', [ProfileController::class,'shippingStore'])->name('shipping.store');
 
 
-// Route::get('category/product-show/{category}', [IndexController::class, 'categoryWiseProduct'])->name('category.product-show');
+// footer view page
+Route::get('footer/view/page/{page_slug}', [IndexController::class, 'footerViewPage'])->name('footer.view.page');
+
+

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     public function profileSetting() {
-        return view('website.include.user.setting');
+        return view('website.user.setting');
 
     }
 

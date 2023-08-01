@@ -196,7 +196,7 @@ class IndexController extends Controller
     }
 
     public function writeReview(){
-        return view('website.include.user.write_review');
+        return view('website.user.write_review');
     }
 
     public function writeReviewStore(Request $request) {
@@ -235,6 +235,21 @@ class IndexController extends Controller
         $page = Page::where('page_slug',$page_slug)->first();
         return view('website.page',compact('page','category'));
 
+    }
+
+
+    public function newsletter(Request $request){
+        $email = DB::table('newsletters')->where('email',$request)->first();
+        if ($email) {
+            $message = array('message'=>'Email already exist','alert-type'=>'error');
+            return redirect()->back()->with($message);
+        }else {
+            DB::table('newsletters')->insert([
+                'email' => $request->email
+            ]);
+            $message = array('message'=>'Thanks For Subscription','alert-type'=>'success');
+            return redirect()->back()->with($message);
+        }
     }
 
 

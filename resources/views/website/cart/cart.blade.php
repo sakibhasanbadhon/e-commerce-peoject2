@@ -94,7 +94,7 @@
 
                     <div class="cart_buttons">
                         <a href="{{ route('cart.empty') }}" type="button" class="btn btn-outline-danger ">Empty Cart</a>
-                        <button type="button" class="btn btn-outline-info">Chackout</button>
+                        <a type="submit" href="{{ route('product.checkout') }}" class="btn btn-outline-info">Chackout</a>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use App\Http\Controllers\Website\CartController;
+use App\Http\Controllers\Website\CheckoutController;
 use App\Http\Controllers\Website\IndexController;
 use App\Http\Controllers\Website\ProfileController;
 
@@ -32,6 +33,11 @@ Route::post('cart-qty/update', [CartController::class,'cartUpdateQty'])->name('c
 Route::post('cart-color/update', [CartController::class,'cartUpdateColor'])->name('cart.color.update');
 Route::post('cart-size/update', [CartController::class,'cartUpdateSize'])->name('cart.size.update');
 
+// checkout
+Route::get('product/checkout', [CheckoutController::class, 'checkout'])->name('product.checkout');
+Route::post('apply/coupon', [CheckoutController::class,'applyCoupon'])->name('apply.coupon');
+Route::get('remove/coupon', [CheckoutController::class,'removeCoupon'])->name('remove.coupon');
+
 // wishlist
 Route::get('wishlist', [CartController::class,'wishlist'])->name('wishlist');
 Route::get('add/wishlist/{product_id}', [CartController::class,'addWishlist'])->name('add.wishlist');
@@ -55,6 +61,11 @@ Route::get('profile/setting', [ProfileController::class,'profileSetting'])->name
 Route::post('profile/password/update', [ProfileController::class,'passwordChange'])->name('customer.password.change');
 Route::post('profile/shipping.store', [ProfileController::class,'shippingStore'])->name('shipping.store');
 
+
+
+
+// newsletter
+Route::post('newsletter', [IndexController::class, 'newsletter'])->name('newsletter');
 
 // footer view page
 Route::get('footer/view/page/{page_slug}', [IndexController::class, 'footerViewPage'])->name('footer.view.page');

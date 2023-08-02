@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Website;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Shipping;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -62,6 +63,12 @@ class ProfileController extends Controller
             return redirect()->back()->with($message);
 
 
+    }
+
+
+    public function myOrder() {
+        $orders = DB::table('orders')->where('user_id',Auth::id())->orderBy('id','DESC')->get();
+        return view('website.user.my_order',compact('orders'));
     }
 
 

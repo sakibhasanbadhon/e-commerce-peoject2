@@ -60,7 +60,8 @@ Route::post('write/review/store', [IndexController::class,'writeReviewStore'])->
 
 Route::get('profile/setting', [ProfileController::class,'profileSetting'])->name('profile.setting');
 Route::post('profile/password/update', [ProfileController::class,'passwordChange'])->name('customer.password.change');
-Route::post('profile/shipping.store', [ProfileController::class,'shippingStore'])->name('shipping.store');
+Route::post('profile/shipping/store', [ProfileController::class,'shippingStore'])->name('shipping.store');
+Route::get('my/order', [ProfileController::class,'myOrder'])->name('my.order');
 
 
 

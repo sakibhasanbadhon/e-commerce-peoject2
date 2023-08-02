@@ -192,7 +192,14 @@ class IndexController extends Controller
     }
 
     public function customer(){
-        return view('website.user.dashboard');
+        $orders = DB::table('orders')->where('user_id',Auth::id())->orderBy('id','DESC')->take(10)->get();
+
+        $total_orders = DB::table('orders')->where('user_id',Auth::id())->count();
+        $complete_orders = DB::table('orders')->where('user_id',Auth::id())->where('status',3)->count();
+        $return_orders = DB::table('orders')->where('user_id',Auth::id())->where('status',4)->count();
+        $cancel_orders = DB::table('orders')->where('user_id',Auth::id())->where('status',5)->count();
+
+        return view('website.user.dashboard',compact('orders','total_orders','complete_orders','return_orders','cancel_orders'));
     }
 
     public function writeReview(){

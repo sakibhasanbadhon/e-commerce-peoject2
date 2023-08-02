@@ -75,7 +75,7 @@
                                     <li>
                                         <a href="#">{{ Auth::user()->name }}<i class="fas fa-chevron-down"></i></a>
                                         <ul>
-                                            <li><a href="#">Profile</a></li>
+                                            <li><a href="{{ route('customer.dashboard') }}">Profile</a></li>
                                             <li><a href="#">Order list</a></li>
                                             <li><a href="#">Setting</a></li>
                                             <li><a href="{{ route('customer.logout') }}">Logout</a></li>

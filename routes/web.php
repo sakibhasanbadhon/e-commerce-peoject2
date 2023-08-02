@@ -37,6 +37,7 @@ Route::post('cart-size/update', [CartController::class,'cartUpdateSize'])->name(
 Route::get('product/checkout', [CheckoutController::class, 'checkout'])->name('product.checkout');
 Route::post('apply/coupon', [CheckoutController::class,'applyCoupon'])->name('apply.coupon');
 Route::get('remove/coupon', [CheckoutController::class,'removeCoupon'])->name('remove.coupon');
+Route::post('order/place', [CheckoutController::class,'orderPlace'])->name('order.place');
 
 // wishlist
 Route::get('wishlist', [CartController::class,'wishlist'])->name('wishlist');

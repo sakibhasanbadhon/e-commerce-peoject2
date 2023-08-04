@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\PickupPointController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Website\IndexController;
 
 Auth::routes();
@@ -164,6 +165,13 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     // Today_deal switch
     Route::post('product/status_active', [ProductController::class, 'status_active'])->name('product.status_active');
     Route::post('product/status_deactivate', [ProductController::class, 'status_deactivate'])->name('product.status_deactivate');
+
+    // ticket
+    Route::get('ticket/index', [TicketController::class, 'index'])->name('ticket.index');
+    Route::post('ticket/get', [TicketController::class, 'ticketGet'])->name('ticket.get');
+    Route::get('ticket/show/{id}', [TicketController::class, 'ticketShow'])->name('ticket.show');
+    Route::post('ticket/store/', [TicketController::class, 'replyStore'])->name('reply.store');
+
 
 
 

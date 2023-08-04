@@ -55,12 +55,21 @@
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
                     <span class="nav-label">Offer</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
-
                     <li>
                         <a href="{{ route('admin.coupon.index') }}">Coupon</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.campaign.index') }}">E Campaign</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-telegram"></i>
+                    <span class="nav-label">Ticket</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="{{ route('admin.ticket.index') }}"><i class="fa fa-telegram-plane"></i> Ticket</a>
                     </li>
                 </ul>
             </li>

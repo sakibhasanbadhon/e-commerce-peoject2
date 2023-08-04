@@ -63,6 +63,13 @@ Route::post('profile/password/update', [ProfileController::class,'passwordChange
 Route::post('profile/shipping/store', [ProfileController::class,'shippingStore'])->name('shipping.store');
 Route::get('my/order', [ProfileController::class,'myOrder'])->name('my.order');
 
+// Ticket
+Route::get('open/ticket', [ProfileController::class,'openTicket'])->name('open.ticket');
+Route::post('ticket/store', [ProfileController::class,'ticketStore'])->name('ticket.store');
+Route::get('show/ticket/{id}', [ProfileController::class,'showTicket'])->name('show.ticket');
+Route::post('reply/store', [ProfileController::class,'replyStore'])->name('reply.store');
+
+
 
 
 

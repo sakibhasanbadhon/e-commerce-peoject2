@@ -170,7 +170,9 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::get('ticket/index', [TicketController::class, 'index'])->name('ticket.index');
     Route::post('ticket/get', [TicketController::class, 'ticketGet'])->name('ticket.get');
     Route::get('ticket/show/{id}', [TicketController::class, 'ticketShow'])->name('ticket.show');
+    Route::get('ticket/close/{id}', [TicketController::class, 'ticketClose'])->name('ticket.close');
     Route::post('ticket/store/', [TicketController::class, 'replyStore'])->name('reply.store');
+    Route::post('ticket/destroy/', [TicketController::class, 'ticketDestroy'])->name('ticket.destroy');
 
 
 

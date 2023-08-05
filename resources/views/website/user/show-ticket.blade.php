@@ -97,8 +97,6 @@
                     @endforeach
                 @endisset
 
-
-
             </div>
         </div>
 

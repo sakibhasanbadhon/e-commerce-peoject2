@@ -135,7 +135,7 @@ class ProfileController extends Controller
         }
         $ticket = Reply::create($ticketData);
 
-
+        Ticket::where('id',$request->ticket_id)->update(['status'=>0]);
         $message = array('message'=>'Replied Done','alert-type'=>'success' );
         return redirect()->back()->with($message);
     }

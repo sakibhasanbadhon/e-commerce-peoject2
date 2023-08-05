@@ -160,7 +160,6 @@
                                 </td>
                                 <td>
                                     <a title="view ticket" href="{{ route('show.ticket',$ticket->id) }}" class="btn btn-info btn-sm"><i class=" fa fa-eye"></i></a>
-                                    <a title="ticket delete" href="#" class="btn btn-danger btn-sm"><i class=" fa fa-trash"></i></a>
                                 </td>
                             </tr>
                         @endforeach

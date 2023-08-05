@@ -40,10 +40,10 @@
                         <div class="form-group col-4">
                             <label for="">Status</label>
                             <select name="status" class="form-control submitable" id="status">
-                                <option value="0">All</option>
-                                <option value="0">Pending0</option>
-                                <option value="1">Closed1</option>
-                                <option value="2">Replied2</option>
+                                <option value="">All</option>
+                                <option value="0">Pending</option>
+                                <option value="1">Replied</option>
+                                <option value="2">Closed</option>
                             </select>
                         </div>
 
@@ -183,14 +183,14 @@
         });
 
 
-        // Data delete
+         // Data delete
 
-        // $(document).on('click','button#delete-btn',function(e) {
-        //     e.preventDefault();
-        //     let url = "{{ route('admin.product.destroy') }}";
-        //     let data_id = $(this).data('id');
-        //     deleteWarning(url,data_id);
-        // });
+         $(document).on('click','button#delete-btn',function(e) {
+            e.preventDefault();
+            let url = "{{ route('admin.ticket.destroy') }}";
+            let data_id = $(this).data('id');
+            deleteWarning(url,data_id)
+        });
 
 
 

@@ -12,15 +12,15 @@
         <div class="row p-3" style="background: #d9ebfb">
             <div class="col-8">
                 <h3>Your Ticket Details</h3> <hr>
-                <strong class="text-muted"> User: {{ $show->user->name }} </strong> <br>
-                <strong class="text-muted"> Subject: {{ $show->subject }} </strong> <br>
-                <strong class="text-muted"> Service: {{ $show->service }} </strong> <br>
-                <strong class="text-muted"> Priority: {{ $show->priority }}</strong> <br>
-                <strong class="text-muted"> Message: {{ $show->message }}</strong>
+                <strong class="text-muted"> User: {{ $ticket_show->user->name }} </strong> <br>
+                <strong class="text-muted"> Subject: {{ $ticket_show->subject }} </strong> <br>
+                <strong class="text-muted"> Service: {{ $ticket_show->service }} </strong> <br>
+                <strong class="text-muted"> Priority: {{ $ticket_show->priority }}</strong> <br>
+                <strong class="text-muted"> Message: {{ $ticket_show->message }}</strong>
             </div>
             <div class="col-4 pt-4">
-                <a href="{{ asset('admin/ticket-image/'.$show->image) }}" target="_blank">
-                    <img src="{{ asset('admin/ticket-image/'.$show->image) }}" height="80" weight="80" alt="">
+                <a href="{{ asset('admin/ticket-image/'.$ticket_show->image) }}" target="_blank">
+                    <img src="{{ asset('admin/ticket-image/'.$ticket_show->image) }}" height="80" weight="80" alt="">
                 </a>
             </div>
         </div>
@@ -48,7 +48,7 @@
                                 <div class="col-sm-12">
                                     <label for="">Product Code</label>
                                     <textarea name="message" class="form-control" id="message" cols="30" rows="3" required></textarea>
-                                    <input type="hidden" name="ticket_id" value="{{ $show->id }}">
+                                    <input type="hidden" name="ticket_id" value="{{ $ticket_show->id }}">
                                 </div>
                                 <div class="col-sm-12">
                                     <label for="">Image</label>
@@ -63,6 +63,7 @@
 
                     </div>
                 </div>
+                <a class="float-right btn btn-danger" href="{{ route('admin.ticket.close',$ticket_show->id) }}">Close Ticket</a>
             </div>
 
             <div class="col-md-6">
@@ -76,27 +77,24 @@
                     </div>
                     <div class="ibox-body" style="padding: 15px;height: 400px; overflow: scroll;">
 
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="fa fa-user"> </i> {{ Auth::user()->name }}
-                            </div>
-                            <div class="card-body">
-                                <blockquote class="blockquote mb-0">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                                </blockquote>
-                            </div>
-                        </div>
+                        <div class="card my-2">
+                            <div class="card-body" >
+                                @isset($reply)
+                                    @foreach ($reply as $item)
+                                        <div class="card my-2 @if ($item->user_id==0) ml-5 @endif">
+                                            <div class="card-header @if ($item->user_id==0) bg-info @else bg-secondary @endif">
+                                            <i class="fa fa-user"> </i> @if ($item->user_id==0) Admin @else {{ $ticket_show->user->name }} @endif
+                                            </div>
+                                            <div class="card-body">
+                                                <blockquote class="blockquote mb-0">
+                                                    <p>{{ $item->message }}</p>
+                                                    <footer class="blockquote-footer">{{ date('d-M-Y', strtotime($item->reply_date)) }}</footer>
+                                                </blockquote>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endisset
 
-                        <div class="card mt-1 ml-5">
-                            <div class="card-header">
-                                <span class="float-right"><i class="fa fa-user"> </i> {{ Auth::user()->name }}</span>
-                            </div>
-                            <div class="card-body">
-                                <blockquote class="blockquote mb-0">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                                </blockquote>
                             </div>
                         </div>
 

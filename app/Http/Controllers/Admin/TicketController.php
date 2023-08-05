@@ -71,9 +71,9 @@ class TicketController extends Controller
                 if ($ticket->status ==0) {
                 return '<span class="badge badge-warning"> Pending </span>';
                }elseif($ticket->status ==1){
-                return '<span class="badge bg-secondary"> Close </span>';
+                return '<span class="badge bg-info"> Replied </span>';
                }elseif($ticket->status ==2){
-                return '<span class="badge badge-danger"> Replied </span>';
+                return '<span class="badge badge-secondary"> Closed </span>';
                }
 
            })
@@ -98,8 +98,9 @@ class TicketController extends Controller
      */
     public function ticketShow($id)
     {
-        $show= Ticket::find($id)->first();
-        return view('admin.ticket.show',compact('show'));
+        $ticket_show= Ticket::where('id',$id)->first();
+        $reply = Reply::where('ticket_id',$ticket_show->id)->orderBy('id','DESC')->get();
+        return view('admin.ticket.show',compact('ticket_show','reply'));
     }
 
     /**
@@ -124,25 +125,39 @@ class TicketController extends Controller
         }
         $ticket = Reply::create($ticketData);
 
-
+        Ticket::where('id',$request->ticket_id)->update(['status'=>1]);
         $message = array('message'=>'Replied Done','alert-type'=>'success' );
         return redirect()->back()->with($message);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+
+
+    public function ticketClose($id)
     {
-        //
+        Ticket::where('id',$id)->update(['status'=>2]);
+        $message = array('message'=>'Ticket Closed Success','alert-type'=>'success' );
+        return redirect()->route('admin.ticket.index')->with($message);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function ticketDestroy(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $ticket_id = Ticket::find($request->data_id);
+
+            if ($ticket_id->image) {
+                unlink('admin/ticket-image/'.$ticket_id->image);
+            }
+            $ticket_id->delete();
+        }
+
+
+        $message = ['status'=>'success','message'=>'Ticket has been Delete'];
+
+        return response()->json($message);
     }
 
     /**

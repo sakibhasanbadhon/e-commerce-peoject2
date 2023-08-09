@@ -102,7 +102,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a title="view order" href="#" class="btn btn-info btn-sm"><i class=" fa fa-eye"></i></a>
+                                    <a href="{{ route('view.order',$item->id) }}" title="view order" class="btn btn-info btn-sm"><i class=" fa fa-eye"></i></a>
                                 </td>
                             </tr>
                         @endforeach

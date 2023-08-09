@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\Website;
 
+use App\Models\Page;
+use App\Models\Brand;
+use App\Models\Order;
+use App\Models\Review;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Wishlist;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use App\Models\Brand;
 use App\Models\ChildCategory;
 use App\Models\Customerreview;
-use App\Models\Page;
-use App\Models\Review;
-use App\Models\Subcategory;
-use App\Models\Wishlist;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\OrderDetail;
 
 class IndexController extends Controller
 {
@@ -258,6 +260,30 @@ class IndexController extends Controller
             return redirect()->back()->with($message);
         }
     }
+
+
+
+
+    public function orderTracking() {
+        return view('website.tracking.orderTracking');
+
+    }
+
+    public function checkOrder(Request $request) {
+        $order_check = Order::where('order_id',$request->order_id)->first();
+        if ($order_check) {
+            $order = Order::where('order_id',$request->order_id)->first();
+            $order_details = OrderDetail::where('order_id',$order->id)->get();
+            return view('website.tracking.tracking_details',compact('order','order_details'));
+        }else {
+            $message = array('message'=>'Invalid order id. try again !','alert-type'=>'error' );
+            return redirect()->back()->with($message);
+        }
+
+    }
+
+
+
 
 
 

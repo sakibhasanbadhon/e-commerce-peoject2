@@ -10,6 +10,8 @@ use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -73,6 +75,18 @@ class ProfileController extends Controller
         $orders = DB::table('orders')->where('user_id',Auth::id())->orderBy('id','DESC')->get();
         return view('website.user.my_order',compact('orders'));
     }
+
+    public function viewOrder($id) {
+       $order = Order::findOrFail($id);
+       $order_details = OrderDetail::where('order_id',$id)->get();
+       return view('website.user.order_details',compact('order','order_details'));
+
+    }
+
+
+
+
+    // __ ticket
 
     public function openTicket() {
         $tickets = Ticket::where('user_id',Auth::id())->orderBy('id','DESC')->take(10)->get();
@@ -139,6 +153,11 @@ class ProfileController extends Controller
         $message = array('message'=>'Replied Done','alert-type'=>'success' );
         return redirect()->back()->with($message);
     }
+
+
+
+
+
 
 
 }

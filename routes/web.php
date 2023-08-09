@@ -62,12 +62,17 @@ Route::get('profile/setting', [ProfileController::class,'profileSetting'])->name
 Route::post('profile/password/update', [ProfileController::class,'passwordChange'])->name('customer.password.change');
 Route::post('profile/shipping/store', [ProfileController::class,'shippingStore'])->name('shipping.store');
 Route::get('my/order', [ProfileController::class,'myOrder'])->name('my.order');
+Route::get('view/order/{id}', [ProfileController::class,'viewOrder'])->name('view.order');
 
 // Ticket
 Route::get('open/ticket', [ProfileController::class,'openTicket'])->name('open.ticket');
 Route::post('ticket/store', [ProfileController::class,'ticketStore'])->name('ticket.store');
 Route::get('show/ticket/{id}', [ProfileController::class,'showTicket'])->name('show.ticket');
 Route::post('reply/store', [ProfileController::class,'replyStore'])->name('reply.store');
+
+
+Route::get('order/tracking', [IndexController::class,'orderTracking'])->name('order.tracking');
+Route::post('check/order', [IndexController::class,'checkOrder'])->name('check.order');
 
 
 

@@ -175,6 +175,10 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('ticket/destroy/', [TicketController::class, 'ticketDestroy'])->name('ticket.destroy');
 
 
+    Route::get('payment/gateway', [SettingController::class, 'paymentGateway'])->name('payment.gateway');
+    Route::put('amarpay/update', [SettingController::class, 'amarpayUpdate'])->name('amarpay.update');
+    Route::put('surjopay/update', [SettingController::class, 'surjopayUpdate'])->name('surjopay.update');
+
 
 
 

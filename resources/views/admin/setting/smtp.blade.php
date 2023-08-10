@@ -11,7 +11,7 @@
         <div class="col-md-8">
             <div class="ibox">
                 <div class="ibox-head text-white" style="background-color:#374f65 !important">
-                    <div class="ibox-title">Password Change</div>
+                    <div class="ibox-title">SMTP Setting</div>
                     <div class="ibox-tools">
                         <a class="ibox-collapse text-white"><i class="fa fa-minus"></i></a>
                         <a class="fullscreen-link text-white"><i class="fa fa-expand"></i></a>

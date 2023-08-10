@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Seo;
 use App\Models\Setting;
+use App\Models\Payment_gateway;
 use App\Models\SmtpMail;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\BinaryOp\Smaller;
@@ -104,6 +105,45 @@ class SettingController extends Controller
 
             return redirect()->back()->with($message);
 
+
+    }
+
+
+
+    public function paymentGateway(){
+        $amarpay = Payment_gateway::first();
+        $surjopay = Payment_gateway::skip(1)->first();
+        $ssl = Payment_gateway::skip(2)->first();
+
+        return view('admin.payment_gateway.edit',compact('amarpay','surjopay','ssl'));
+
+    }
+
+    public function amarpayUpdate(Request $request){
+
+        $amarpay = Payment_gateway::findOrFail($request->id);
+        $amarpay = $amarpay->update([
+            'store_id'      => $request->store_id,
+            'signature_key' => $request->signature_key,
+            'status'        => $request->status
+        ]);
+
+        $message = array('message'=>'Amarpay Payment gateway updated','alert-type'=>'success' );
+        return redirect()->back()->with($message);
+
+    }
+
+    public function surjopayUpdate(Request $request){
+
+        $surjopay = Payment_gateway::findOrFail($request->id);
+        $surjopay->update([
+            'store_id'      => $request->store_id,
+            'signature_key' => $request->signature_key,
+            'status'        => $request->status
+        ]);
+
+        $message = array('message'=>'Surjopay Payment gateway updated','alert-type'=>'success');
+        return redirect()->back()->with($message);
 
     }
 

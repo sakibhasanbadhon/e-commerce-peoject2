@@ -99,6 +99,9 @@
                         <a href="{{ route('admin.setting.smtp') }}">Smtp Setting</a>
                     </li>
                     <li>
+                        <a href="{{ route('admin.payment.gateway') }}">Payment Gateway</a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.page.index') }}">Create Page</a>
                     </li>
                     <li>

@@ -70,7 +70,7 @@ Route::post('ticket/store', [ProfileController::class,'ticketStore'])->name('tic
 Route::get('show/ticket/{id}', [ProfileController::class,'showTicket'])->name('show.ticket');
 Route::post('reply/store', [ProfileController::class,'replyStore'])->name('reply.store');
 
-
+// Order tracking 
 Route::get('order/tracking', [IndexController::class,'orderTracking'])->name('order.tracking');
 Route::post('check/order', [IndexController::class,'checkOrder'])->name('check.order');
 

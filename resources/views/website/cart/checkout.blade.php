@@ -143,12 +143,12 @@
                           <label class="custom-control-label pt-2" for="credit">Paypal</label>
                         </div>
                         <div class="custom-control custom-radio">
-                          <input id="debit" name="payment_type" type="radio" class="custom-control" value="SSL Commerze" required="">
-                          <label class="custom-control-label pt-2" for="debit">SSL Commerze</label>
+                          <input id="debit" name="payment_type" type="radio" class="custom-control" value="aamarpay" required="">
+                          <label class="custom-control-label pt-2" for="debit">Bikash/Nagat/Rocket/upay</label>
                         </div>
                         <div class="custom-control custom-radio">
-                          <input id="paypal" name="payment_type" type="radio" class="custom-control" value="hand cash" required="">
-                          <label class="custom-control-label pt-2" for="paypal">hand cash</label>
+                          <input id="paypal" name="payment_type" type="radio" class="custom-control" value="Hand Cash" required="">
+                          <label class="custom-control-label pt-2" for="paypal">Hand Cash</label>
                         </div>
                       </div>
 

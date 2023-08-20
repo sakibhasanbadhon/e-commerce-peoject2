@@ -70,9 +70,14 @@ Route::post('ticket/store', [ProfileController::class,'ticketStore'])->name('tic
 Route::get('show/ticket/{id}', [ProfileController::class,'showTicket'])->name('show.ticket');
 Route::post('reply/store', [ProfileController::class,'replyStore'])->name('reply.store');
 
-// Order tracking 
+// Order tracking
 Route::get('order/tracking', [IndexController::class,'orderTracking'])->name('order.tracking');
 Route::post('check/order', [IndexController::class,'checkOrder'])->name('check.order');
+
+// payment gateway
+Route::post('/success', [CheckoutController::class,'success'])->name('success');
+Route::post('/fail', [CheckoutController::class,'fail'])->name('fail');
+Route::get('/cancel', [CheckoutController::class,'cancel'])->name('cancel');
 
 
 

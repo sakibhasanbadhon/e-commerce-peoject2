@@ -7,10 +7,19 @@
 
 @section('content')
 
+
+
 <div class="container">
+    <div class="row">
+        <div class="col">
+
+            <a href="{{ route('admin.ticket.index') }}" class="float-right py-2"><< Back</a>
+        </div>
+    </div>
+
     <div class="container-fluid">
-        <div class="row p-3" style="background: #d9ebfb">
-            <div class="col-8">
+        <div class="row p-3" style="background: #374f65;color:aliceblue">
+            <div class="col-8 text-">
                 <h3>Your Ticket Details</h3> <hr>
                 <strong class="text-muted"> User: {{ $ticket_show->user->name }} </strong> <br>
                 <strong class="text-muted"> Subject: {{ $ticket_show->subject }} </strong> <br>

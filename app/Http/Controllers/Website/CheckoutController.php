@@ -143,7 +143,13 @@ class CheckoutController extends Controller
 
                 $tran_id = "test".rand(1111111,9999999);//unique transection id for every transection
                 $currency= "BDT"; //aamarPay support Two type of currency USD & BDT
-                $amount = Cart::total();   //10 taka is the minimum amount for show card option in aamarPay payment gateway
+
+                if (Session::has('coupon')) {
+                    $amount = Session::get('coupon')['main_balance'];
+                }else {
+                    $amount = Cart::total();
+                }
+                  //10 taka is the minimum amount for show card option in aamarPay payment gateway
                 $store_id = $amarpay->store_id;
                 $signature_key = $amarpay->signature_key;
                 $curl = curl_init();
@@ -176,7 +182,7 @@ class CheckoutController extends Controller
                     "cus_country": "'.$request->c_country.'",
                     "cus_phone": "'.$request->c_phone.'",
                     "type": "json",
-                    "opt_a": "'.$request->c_country.'",
+                    "opt_a": "'.$request->payment_type.'",
                     "opt_b": "'.$request->c_city.'",
                     "opt_c": "'.$request->c_address.'",
                     "opt_d": "'.$request->payment_type.'"
@@ -221,10 +227,11 @@ class CheckoutController extends Controller
             'c_phone'         => $request->cus_phone,
             'c_address'       => $request->opt_c,
             'c_email'         => $request->cus_email,
-            'c_country'       => $request->opt_a,
+            // 'c_country'       => $request->opt_a,
             'c_city'          => $request->opt_b,
             'c_zipcode'       => $request->c_zipcode,
-            'payment_type'    => $request->opt_d,
+            'date'            => date('Y-m-d'),
+            'payment_type'    => $request->opt_a,
             'tax'             => 0,
             'shipping_charge' => 0,
             'status'          => 1,
@@ -236,9 +243,9 @@ class CheckoutController extends Controller
             $data['coupon_code']     = Session::get('coupon')['name'];
             $data['coupon_discount'] = Session::get('coupon')['discount'];
             $data['main_balance']    = Session::get('coupon')['main_balance'];
-            $data['tax']             = 0;
-            $data['shipping_charge'] = 0;
-            $data['status']          = 0;
+            // $data['tax']             = 0;
+            // $data['shipping_charge'] = 0;
+            // $data['status']          = 0;
         }else{
             $data['subtotal'] = Cart::subtotal();
             $data['total']    = Cart::total();

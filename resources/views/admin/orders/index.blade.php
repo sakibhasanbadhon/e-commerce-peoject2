@@ -9,53 +9,48 @@
 
 @endsection
 @section('content')
-
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header p-3">
-                        <h4> Ticket </h4>
+                        <h4> Orders </h4>
                     </div>
 
                     <div class="row p-2">
-                        <div class="form-group col-4">
-                            <label for="">Ticket Type</label>
-                            <select name="type" class="form-control submitable" id="type">
-                                <option value="">All</option>
-                                <option value="Technical">Technical</option>
-                                <option value="Payment">Payment</option>
-                                <option value="Affiliate">Affiliate</option>
-                                <option value="Return">Return</option>
-                                <option value="Refund">Refund</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-4">
-                            <label for="date">Date</label>
-                            <input type="date" class="form-control submitable" id="date">
-                        </div>
-
                         <div class="form-group col-4">
                             <label for="">Status</label>
                             <select name="status" class="form-control submitable" id="status">
                                 <option value="">All</option>
                                 <option value="0">Pending</option>
-                                <option value="1">Replied</option>
-                                <option value="2">Closed</option>
+                                <option value="1">Received</option>
+                                <option value="2">Shipped</option>
+                                <option value="3">Complete</option>
+                                <option value="4">Return</option>
+                                <option value="5">Cancel</option>
                             </select>
                         </div>
+
+                        <div class="form-group col-4">
+                            <label for="date">Date</label>
+                            <input type="date" class="form-control submitable" id="date">
+                        </div>
+
+
 
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-sm" id="ticket-datatables">
+                        <table class="table table-sm" id="orders-datatables">
                             <thead>
                                 <tr>
                                     <th>Sl</th>
-                                    <th>User</th>
-                                    <th>Subject</th>
-                                    <th>Service</th>
-                                    <th>Priority</th>
+                                    <th>Name</th>
+                                    <th>phone</th>
+                                    <th>Email</th>
+                                    <th>subtotal</th>
+                                    <th>Total</th>
+                                    <th>Payment Type</th>
                                     <th>Date</th>
                                     <th>status</th>
                                     <th>Action</th>
@@ -77,7 +72,7 @@
 @push('scripts')
     <script>
         // var _token = "{{ csrf_token() }}";
-        let table = $('#ticket-datatables').DataTable({
+        let table = $('#orders-datatables').DataTable({
             processing: true,
             serverSide: true,
             order: [], //Initial no order
@@ -91,22 +86,23 @@
             ],
             pageLength: 25, //number of data show per page
             ajax: {
-                url: "{{ route('admin.ticket.get') }}",
+                url: "{{ route('admin.order.get-data') }}",
                 type: "POST",
                 dataType: "JSON",
                 data: function(d) {
                     d._token = _token
-                    d.type = $("#type").val(); //#category_id value going to controller request
-                    d.date = $("#date").val();      //#brand_id value going to controller request
-                    d.status = $("#status").val();
+                    d.status = $("#status").val(); //#status value going to controller request
+                    d.date = $("#date").val();  //#date value going to controller request
                 }
             },
             columns: [
                 {data: 'id'},
-                {data: 'name'},
-                {data: 'subject'},
-                {data: 'service'},
-                {data: 'priority'},
+                {data: 'c_name'},
+                {data: 'c_phone'},
+                {data: 'c_email'},
+                {data: 'subtotal'},
+                {data: 'total'},
+                {data: 'payment_type'},
                 {data: 'date'},
                 {data: 'status'},
                 {data: 'operation'},
@@ -177,18 +173,18 @@
         // filtering
 
         $(document).on('change','.submitable',function () {
-            $('#ticket-datatables').DataTable().ajax.reload();
+            $('#orders-datatables').DataTable().ajax.reload();
         });
 
 
          // Data delete
 
-         $(document).on('click','button#delete-btn',function(e) {
-            e.preventDefault();
-            let url = "{{ route('admin.ticket.destroy') }}";
-            let data_id = $(this).data('id');
-            deleteWarning(url,data_id)
-        });
+        //  $(document).on('click','button#delete-btn',function(e) {
+        //     e.preventDefault();
+        //     let url = "{{ route('admin.ticket.destroy') }}";
+        //     let data_id = $(this).data('id');
+        //     deleteWarning(url,data_id)
+        // });
 
 
 

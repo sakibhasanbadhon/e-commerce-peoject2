@@ -19,6 +19,7 @@ class Order extends Model
         'c_country',
         'c_city',
         'c_zipcode',
+        'date',
         'subtotal',
         'total',
         'coupon_code',
@@ -29,4 +30,8 @@ class Order extends Model
         'shipping_charge',
         'status'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

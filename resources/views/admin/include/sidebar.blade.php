@@ -76,6 +76,16 @@
 
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
+                    <span class="nav-label">Orders</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li> <a href="{{ route('admin.order.index') }}">Pending order</a></li>
+                    <li> <a href="javascript:;">All Orders</a></li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
                     <span class="nav-label">Pickup Point</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
 
@@ -114,27 +124,7 @@
                 </ul>
             </li>
 
-            <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
-                    <span class="nav-label">Menu Levels</span><i class="fa fa-angle-left arrow"></i></a>
-                <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="javascript:;">Level 2</a>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <span class="nav-label">Level 2</span><i class="fa fa-angle-left arrow"></i></a>
-                        <ul class="nav-3-level collapse">
-                            <li>
-                                <a href="javascript:;">Level 3</a>
-                            </li>
-                            <li>
-                                <a href="javascript:;">Level 3</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+
 
         </ul>
     </div>

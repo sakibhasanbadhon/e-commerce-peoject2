@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\PickupPointController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Website\IndexController;
@@ -173,6 +174,18 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::get('ticket/close/{id}', [TicketController::class, 'ticketClose'])->name('ticket.close');
     Route::post('ticket/store/', [TicketController::class, 'replyStore'])->name('reply.store');
     Route::post('ticket/destroy/', [TicketController::class, 'ticketDestroy'])->name('ticket.destroy');
+
+
+    // Orders
+    Route::get('order/index', [OrderController::class, 'index'])->name('order.index');
+    Route::post('order/get-data', [OrderController::class, 'getData'])->name('order.get-data');
+    // Route::post('pickup-Point/store', [OrderController::class, 'store'])->name('pickupPoint.store');
+    // Route::post('pickup-Point/edit', [OrderController::class, 'edit'])->name('pickupPoint.edit');
+    // Route::post('pickup-Point/destroy', [OrderController::class, 'destroy'])->name('pickupPoint.destroy');
+
+
+
+
 
 
     Route::get('payment/gateway', [SettingController::class, 'paymentGateway'])->name('payment.gateway');

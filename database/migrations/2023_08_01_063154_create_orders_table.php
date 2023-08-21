@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('c_country')->nullable();
             $table->string('c_city')->nullable();
             $table->string('c_zipcode')->nullable();
+            $table->string('date',20)->nullable();
             $table->string('subtotal')->nullable();
             $table->string('total')->nullable();
             $table->string('coupon_code')->nullable();

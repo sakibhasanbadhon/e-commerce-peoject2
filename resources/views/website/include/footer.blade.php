@@ -9,13 +9,17 @@
             <div class="col-lg-3 footer_col">
                 <div class="footer_column footer_contact">
                     <div class="logo_container">
-                        <div class="logo"><a href="#">OneTech</a></div>
+                        <div class="logo">
+                            <a href="#">
+                                <img src="{{ asset('admin/logo-favicon/'.$currency_symbol->logo) }}" alt="{{ $currency_symbol->logo }}" width="120" height="100">
+                            </a>
+                        </div>
                     </div>
                     <div class="footer_title">Got Question? Call Us 24/7</div>
-                    <div class="footer_phone">+38 068 005 3570</div>
+                    <div class="footer_phone">{{ $currency_symbol->phone_one }}</div>
                     <div class="footer_contact_text">
-                        <p>17 Princess Road, London</p>
-                        <p>Grester London NW18JR, UK</p>
+                        <p>{{ $currency_symbol->address }}</p>
+                        {{-- <p>Grester London NW18JR, UK</p> --}}
                     </div>
                     <div class="footer_social">
                         <ul>

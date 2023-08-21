@@ -15,6 +15,7 @@ use App\Models\ChildCategory;
 use App\Models\Customerreview;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrderDetail;
 
@@ -32,6 +33,7 @@ class IndexController extends Controller
         $category_home = Category::where('home_page',1)->get();
         $brand = Brand::where('home_page',1)->limit(24)->get();
         $customer_review = Customerreview::where('status',1)->orderBy('id','DESC')->limit(12)->get();
+        $campaign = Campaign::where('status',1)->orderBy('id','DESC')->first();
 
 
         // recently product
@@ -49,7 +51,8 @@ class IndexController extends Controller
                 'category_home',
                 'brand',
                 'random_product',
-                'customer_review'
+                'customer_review',
+                'campaign'
             ));
     }
 

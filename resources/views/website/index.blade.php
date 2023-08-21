@@ -37,7 +37,24 @@
 		</div>
 	</div>
 
+    {{-- campaign  --}}
+    @isset($campaign)
+        <div class="characteristics">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-8">
+                        <h4 class="text-center">{{ $campaign->title }}</h4>
+                        <a href=""><img src="{{ asset('admin/campaign-img/'.$campaign->image) }}" alt="{{ $campaign->image }}" style="width: 100%;height:150px">
+                    </div>
 
+                    </a>
+                </div>
+            </div>
+        </div>
+    @endisset
+
+    {{-- brand section  --}}
     <div class="characteristics">
 		<div class="container">
 			<div class="row">

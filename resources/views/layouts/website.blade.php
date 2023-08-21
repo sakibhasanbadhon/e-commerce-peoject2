@@ -40,8 +40,8 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('/') }}images/phone.png" alt=""></div>+880 183 22 45 72</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('/') }}images/mail.png" alt=""></div><a href="mailto:fastsales@gmail.com">sakibhasan23333@gmail.com</a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('/') }}images/phone.png" alt=""></div> {{ $currency_symbol->phone_one }}</div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('/') }}images/mail.png" alt=""></div><a href="mailto:sakibhasan23333@gmail.com">{{ $currency_symbol->main_email }}</a></div>
 						<div class="top_bar_content ml-auto">
 							{{-- <div class="top_bar_menu">
 								<ul class="standard_dropdown top_bar_dropdown">

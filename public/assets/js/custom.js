@@ -68,7 +68,7 @@ function updateCreate(url,form) {
                     $('form').trigger("reset");
                     $('.modal').modal('hide');
                     table.draw();
-                    toastr.success('Data Update Success');
+                    toastr.success(response.message);
                 }
             },
             error: function (response) {

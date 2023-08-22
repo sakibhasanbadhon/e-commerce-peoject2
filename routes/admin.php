@@ -179,9 +179,12 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     // Orders
     Route::get('order/index', [OrderController::class, 'index'])->name('order.index');
     Route::post('order/get-data', [OrderController::class, 'getData'])->name('order.get-data');
-    // Route::post('pickup-Point/store', [OrderController::class, 'store'])->name('pickupPoint.store');
-    // Route::post('pickup-Point/edit', [OrderController::class, 'edit'])->name('pickupPoint.edit');
-    // Route::post('pickup-Point/destroy', [OrderController::class, 'destroy'])->name('pickupPoint.destroy');
+    Route::post('order/edit', [OrderController::class, 'edit'])->name('order.edit');
+    Route::post('order/update', [OrderController::class, 'update'])->name('order.update');
+    Route::get('order/view', [OrderController::class, 'view'])->name('order.view');
+    Route::post('status/update', [OrderController::class, 'statusUpdate'])->name('status.update');
+    Route::post('order/delete', [OrderController::class, 'orderDelete'])->name('order.delete');
+
 
 
 

@@ -88,7 +88,7 @@
             <div class="card-body">
                 <input type="hidden" name="view_order_id" value="{{ $order->id }}">
                 <input type="hidden" name="order_email" value="{{ $order->c_email }}">
-                <label for=""><strong> Order Status </strong> </label>
+                <label for=""><strong> Order Status </strong> <small>(current update)</small>  </label>
                 <select class="form-control m-auto" name="view_order_status" id="">
                     <option value="0" {{ $order->status==0 ? 'selected' : '' }}>Pending</option>
                     <option value="1" {{ $order->status==1 ? 'selected' : '' }}>Received</option>

@@ -45,6 +45,20 @@
                         </div>
                         <div class="form-group">
                             <div class="input-group-icon right">
+                                <div class="input-icon"><i class="fa fa-user"></i></div>
+                                <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="phone number" required >
+                                @if (session('error'))
+                                    <strong style="color:red">  {{ session('error') }}</strong>
+                                @endif
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group-icon right">
                                 <div class="input-icon"><i class="fa fa-lock font-16"></i></div>
                                 <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" placeholder="Password" required>
 
@@ -80,11 +94,11 @@
                             <span>Or Signup with</span>
                         </div>
                         <div class="text-center social-auth m-b-20">
-                            <a class="btn btn-social-icon btn-twitter m-r-5" href="javascript:;"><i class="fa fa-twitter"></i></a>
-                            <a class="btn btn-social-icon btn-facebook m-r-5" href="javascript:;"><i class="fa fa-facebook"></i></a>
-                            <a class="btn btn-social-icon btn-google m-r-5" href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                            <a class="btn btn-social-icon btn-linkedin m-r-5" href="javascript:;"><i class="fa fa-linkedin"></i></a>
-                            <a class="btn btn-social-icon btn-vk" href="javascript:;"><i class="fa fa-vk"></i></a>
+                            <a href="javascript:;" class="btn btn-social-icon btn-google m-r-5"><i class="fa fa-google"></i></a>
+                            <a href="javascript:;" class="btn btn-social-icon btn-twitter m-r-5"><i class="fa fa-twitter"></i></a>
+                            <a href="javascript:;" class="btn btn-social-icon btn-facebook m-r-5"><i class="fa fa-facebook"></i></a>
+                            <a href="javascript:;" class="btn btn-social-icon btn-linkedin m-r-5"><i class="fa fa-linkedin"></i></a>
+                            <a href="javascript:;" class="btn btn-social-icon btn-vk"><i class="fa fa-vk"></i></a>
                         </div>
                         <div class="text-center">Not a member?
                             <a class="color-blue" href="{{ route('login') }}">Login</a>

@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\Website\IndexController;
 
 Auth::routes();
@@ -186,11 +187,6 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::post('order/delete', [OrderController::class, 'orderDelete'])->name('order.delete');
 
 
-
-
-
-
-
     Route::get('payment/gateway', [SettingController::class, 'paymentGateway'])->name('payment.gateway');
     Route::put('amarpay/update', [SettingController::class, 'amarpayUpdate'])->name('amarpay.update');
     Route::put('surjopay/update', [SettingController::class, 'surjopayUpdate'])->name('surjopay.update');
@@ -199,4 +195,14 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
 
 
 });
+
+
+
+Route::get('login/google', [SocialController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [SocialController::class, 'redirectToGoogleCallback']);
+
+Route::get('login/facebook', [SocialController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback', [SocialController::class, 'redirectToFacebookCallback']);
+
+
 

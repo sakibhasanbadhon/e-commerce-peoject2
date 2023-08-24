@@ -197,6 +197,7 @@
 {{-- toastr message --}}
 <script src="{{ asset('/') }}assets/toastr.min.js" type="text/javascript"></script>
 
+
 <script>
         var _token = "{{ csrf_token() }}";
 </script>

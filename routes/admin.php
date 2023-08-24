@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CouponController;
@@ -185,6 +186,25 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::get('order/view', [OrderController::class, 'view'])->name('order.view');
     Route::post('status/update', [OrderController::class, 'statusUpdate'])->name('status.update');
     Route::post('order/delete', [OrderController::class, 'orderDelete'])->name('order.delete');
+
+
+    // Blog category
+    Route::get('blog/category/index', [BlogController::class, 'index'])->name('blog.category.index');
+    Route::post('blog/category/get-data', [BlogController::class, 'getData'])->name('blog.category.get-data');
+    Route::post('blog/category/store', [BlogController::class, 'store'])->name('blog.category.store');
+    Route::post('blog/category/edit', [BlogController::class, 'edit'])->name('blog.category.edit');
+    Route::post('blog/category/destroy', [BlogController::class, 'destroy'])->name('blog.category.destroy');
+
+    // Blog post
+    Route::get('blog/post/index', [BlogController::class, 'blogIndex'])->name('blog.post.index');
+    Route::post('blog/post/get-data', [BlogController::class, 'blogGetData'])->name('blog.post.get-data');
+    Route::get('blog/post/create', [BlogController::class, 'blogCreate'])->name('blog.post.create');
+    Route::post('blog/post/store', [BlogController::class, 'blogStore'])->name('blog.post.store');
+    Route::get('blog/post/edit/{id}', [BlogController::class, 'blogEdit'])->name('blog.post.edit');
+    Route::put('blog/post/update/{id}', [BlogController::class, 'blogUpdate'])->name('blog.post.update');
+    Route::post('blog/post/destroy', [BlogController::class, 'blogDestroy'])->name('blog.post.destroy');
+
+
 
 
     Route::get('payment/gateway', [SettingController::class, 'paymentGateway'])->name('payment.gateway');

@@ -47,12 +47,20 @@
                         <div class="social-auth-hr py-3">
                             <span>Or login with</span>
                         </div>
-                        <div class="text-center social-auth m-b-20">
+                        {{-- <div class="text-center social-auth m-b-20">
                             <a href="{{ route('login.google') }}" class="btn btn-social-icon btn-google m-r-5"><i class="fa fa-google"></i></a>
-                            <a href="javascript:;" class="btn btn-social-icon btn-twitter m-r-5"><i class="fa fa-twitter"></i></a>
                             <a href="{{ route('login.facebook') }}" class="btn btn-social-icon btn-facebook m-r-5"><i class="fa fa-facebook"></i></a>
+                            <a href="javascript:;" class="btn btn-social-icon btn-twitter m-r-5"><i class="fa fa-twitter"></i></a>
                             <a href="javascript:;" class="btn btn-social-icon btn-linkedin m-r-5"><i class="fa fa-linkedin"></i></a>
                             <a href="javascript:;" class="btn btn-social-icon btn-vk"><i class="fa fa-vk"></i></a>
+                        </div> --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="{{ route('login.google') }}" class="d-block btn btn-danger"><i class="fa fa-google"> Sign in with Google</i></a>
+                            </div>
+                            <div class="col-md-12">
+                                <a href="{{ route('login.facebook') }}" class="d-block my-2 btn btn-info"><i class="fa fa-facebook"> Sign in with Google Facebook</i></a>
+                            </div>
                         </div>
                         <div class="text-center">Not a member?
                             <a class="color-blue" href="{{ route('register') }}">Create accaunt</a>

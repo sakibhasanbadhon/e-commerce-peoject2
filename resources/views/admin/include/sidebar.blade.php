@@ -86,6 +86,16 @@
 
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
+                    <span class="nav-label">Blogs</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li> <a href="{{ route('admin.blog.category.index') }}">Blog Category</a></li>
+                    <li> <a href="{{ route('admin.blog.post.index') }}"> Blog Post</a></li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
                     <span class="nav-label">Pickup Point</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
 

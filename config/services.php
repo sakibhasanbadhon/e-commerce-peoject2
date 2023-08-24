@@ -38,11 +38,11 @@ return [
         'redirect' => env('GOOGLE_REDIRECT'),
     ],
 
-    // 'facebook' => [
-    //     'client_id' => '847888683613440',
-    //     'client_secret' => '730f66e899904bfd90827e078f85dffc',
-    //     'redirect' => 'http://127.0.0.1:8000/login/facebook/callback',
-    // ],
+    'facebook' => [
+        'client_id' => '1435652633953910',
+        'client_secret' => '866ab9b9543f32ab15b57d2a21f94310',
+        'redirect' => 'http://127.0.0.1:8000/login/facebook/callback',
+    ],
 
 
 ];

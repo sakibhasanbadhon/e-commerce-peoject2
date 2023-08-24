@@ -72,7 +72,7 @@
                                     <li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
                                 </ul>
                             </li>
-                            <li><a href="blog.html">Helpline<i class="fas fa-chevron-down"></i></a></li>
+                            <li><a href="{{ route('blog.show') }}">Blog<i class="fas fa-chevron-down"></i></a></li>
                             <li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
                         </ul>
                     </div>
@@ -128,7 +128,7 @@
 									</ul>
 								</li>
 								<li class="page_menu_item">
-									<a href="#">Home<i class="fa fa-angle-down"></i></a>
+									<a href="{{ url('/') }}">Home<i class="fa fa-angle-down"></i></a>
 								</li>
 								<li class="page_menu_item has-children">
 									<a href="#">Super Deals<i class="fa fa-angle-down"></i></a>

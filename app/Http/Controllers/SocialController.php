@@ -47,30 +47,30 @@ class SocialController extends Controller
         return Socialite::driver('facebook')->redirect();
     }
 
-    public function redirectToFacebookCallback()
-    {
-        try {
+    // public function redirectToFacebookCallback()
+    // {
+    //     try {
 
-            $user = Socialite::driver('facebook')->stateless()->user();
-            $existingUser = User::where('fb_id', $user->id)->first();
+    //         $user = Socialite::driver('facebook')->stateless()->user();
+    //         $existingUser = User::where('fb_id', $user->id)->first();
 
-            if (!$existingUser) {
-                $existingUser = User::create([
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'password' => "12345678",
-                    'is_admin' => 2,
-                ]);
-            }
+    //         if (!$existingUser) {
+    //             $existingUser = User::create([
+    //                 'name' => $user->name,
+    //                 'email' => $user->email,
+    //                 'password' => "12345678",
+    //                 'is_admin' => 2,
+    //             ]);
+    //         }
 
-            Auth::login($existingUser);
-            return redirect('/');
+    //         Auth::login($existingUser);
+    //         return redirect('/');
 
 
-        } catch (\Throwable $th) {
-          throw $th;
-       }
-    }
+    //     } catch (\Throwable $th) {
+    //       throw $th;
+    //    }
+    // }
 
 
 

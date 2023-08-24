@@ -287,6 +287,10 @@ class IndexController extends Controller
 
 
 
+    public function blogPage() {
+        $category = Category::all();
+        return view('website.blog.blog',['category'=>$category]);
+    }
 
 
 

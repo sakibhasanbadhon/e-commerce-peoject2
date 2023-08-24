@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BlogController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -79,7 +80,9 @@ Route::post('/success', [CheckoutController::class,'success'])->name('success');
 Route::post('/fail', [CheckoutController::class,'fail'])->name('fail');
 Route::get('/cancel', [CheckoutController::class,'cancel'])->name('cancel');
 
+// Blog Post
 
+Route::get('blog/show',[IndexController::class,'blogPage'])->name('blog.show');
 
 
 

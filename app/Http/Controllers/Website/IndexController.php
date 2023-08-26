@@ -15,6 +15,7 @@ use App\Models\ChildCategory;
 use App\Models\Customerreview;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use App\Models\Campaign;
 use Illuminate\Support\Facades\Auth;
 use App\Models\OrderDetail;
@@ -286,10 +287,27 @@ class IndexController extends Controller
     }
 
 
+    //  blog page section
 
     public function blogPage() {
         $category = Category::all();
-        return view('website.blog.blog',['category'=>$category]);
+        $blogs = Blog::where('status',1)->orderBy('id','desc')->get();
+        return view('website.blog.blog',['category'=>$category,'blogs'=>$blogs]);
+    }
+
+
+    public function blogDetails($slug) {
+        $category = Category::all();
+        $blogs = Blog::where('slug',$slug)->first();
+        $similar = Blog::where('blog_category_id',$blogs->blog_category_id)->take(10)->get();
+        return view('website.blog.blog_single',
+        [
+            'category'=>$category,
+            'blogs'=>$blogs,
+            'similar'=>$similar
+        ]);
+
+
     }
 
 

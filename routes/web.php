@@ -83,6 +83,7 @@ Route::get('/cancel', [CheckoutController::class,'cancel'])->name('cancel');
 // Blog Post
 
 Route::get('blog/show',[IndexController::class,'blogPage'])->name('blog.show');
+Route::get('blog/{slug}',[IndexController::class,'blogDetails'])->name('blog.details');
 
 
 

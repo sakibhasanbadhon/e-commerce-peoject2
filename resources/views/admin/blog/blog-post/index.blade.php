@@ -31,8 +31,8 @@
                                 <tr>
                                     <th>Sl</th>
                                     <th>Thumbnail</th>
-                                    <th>Name</th>
-                                    <th>Slug</th>
+                                    <th style="width: 250px">Name</th>
+                                    <th style="width: 150px">Slug</th>
                                     <th>Category</th>
                                     <th>Date</th>
                                     <th>Status</th>

@@ -14,7 +14,9 @@
 
 
 <div class="home">
-    <div class="home_background parallax-window" data-parallax="scroll" data-image-src="{{ asset('/') }}images/shop_background.jpg"></div>
+    <div class="home_background parallax-window" data-parallax="scroll">
+        <img style="height: 260px;width:100%" src="{{ asset('images/shop_background.jpg') }}" alt="">
+    </div>
     <div class="home_overlay"></div>
     <div class="home_content d-flex flex-column align-items-center justify-content-center">
         <h2 class="home_title"> {{ $categoryItem->category_name }}</h2>

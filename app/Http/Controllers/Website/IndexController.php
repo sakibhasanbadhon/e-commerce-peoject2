@@ -287,7 +287,7 @@ class IndexController extends Controller
     }
 
 
-    //  blog page section
+    //  ================   blog page section ==========================
 
     public function blogPage() {
         $category = Category::all();
@@ -309,6 +309,19 @@ class IndexController extends Controller
 
 
     }
+
+
+
+    // ===================  contact page   =========================
+
+
+    public function contactView(){
+        $category = Category::all();
+        return view('website.contact',compact('category'));
+    }
+
+
+
 
 
 

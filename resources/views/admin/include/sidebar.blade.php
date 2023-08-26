@@ -38,7 +38,7 @@
             </li>
 
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-cube"></i>
                     <span class="nav-label">Product</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
 
@@ -52,7 +52,7 @@
             </li>
 
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-tags"></i>
                     <span class="nav-label">Offer</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
@@ -85,17 +85,36 @@
             </li>
 
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
-                    <span class="nav-label">Blogs</span><i class="fa fa-angle-left arrow"></i></a>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                    <span class="nav-label">Blog</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li> <a href="{{ route('admin.blog.category.index') }}">Blog Category</a></li>
                     <li> <a href="{{ route('admin.blog.post.index') }}"> Blog Post</a></li>
 
                 </ul>
             </li>
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-phone"></i>
+                    <span class="nav-label">Contact</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li> <a href="">Contact Message</a></li>
+
+                </ul>
+            </li>
 
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-sitemap"></i>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
+                    <span class="nav-label">Reports</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li> <a href="{{ route('admin.order.report') }}">Order Report</a></li>
+                    <li> <a href="{{ route('admin.product.report') }}"> Product Report</a></li>
+                    <li> <a href="{{ route('admin.customer.report') }}"> Customer Report</a></li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-map"></i>
                     <span class="nav-label">Pickup Point</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
 
@@ -109,7 +128,7 @@
             </li>
 
             <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-file-text"></i>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-cogs"></i>
                     <span class="nav-label">Setting</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>

@@ -199,7 +199,7 @@
 
 
 <script>
-        var _token = "{{ csrf_token() }}";
+    var _token = "{{ csrf_token() }}";
 </script>
 
     <script>

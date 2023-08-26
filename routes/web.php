@@ -80,10 +80,13 @@ Route::post('/success', [CheckoutController::class,'success'])->name('success');
 Route::post('/fail', [CheckoutController::class,'fail'])->name('fail');
 Route::get('/cancel', [CheckoutController::class,'cancel'])->name('cancel');
 
-// Blog Post
 
+// Blog Post
 Route::get('blog/show',[IndexController::class,'blogPage'])->name('blog.show');
 Route::get('blog/{slug}',[IndexController::class,'blogDetails'])->name('blog.details');
+
+// contact page
+Route::get('contact',[IndexController::class,'contactView'])->name('contact');
 
 
 

@@ -9,23 +9,24 @@ use Illuminate\Routing\RouteRegistrar;
 use PHPUnit\Framework\Attributes\Group;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SocialController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\TicketController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Website\IndexController;
+use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\WarehouseController;
 use App\Http\Controllers\Admin\PickupPointController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ChildCategoryController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\TicketController;
-use App\Http\Controllers\SocialController;
-use App\Http\Controllers\Website\IndexController;
 
 Auth::routes();
 
@@ -204,6 +205,19 @@ Route::prefix('admin/')->name('admin.')->middleware(['auth','is_admin'])->group(
     Route::put('blog/post/update/{id}', [BlogController::class, 'blogUpdate'])->name('blog.post.update');
     Route::post('blog/post/destroy', [BlogController::class, 'blogDestroy'])->name('blog.post.destroy');
 
+
+    //======================= All report ====================
+    // order
+    Route::get('order/report',[ReportController::class,'orderView'])->name('order.report');
+    Route::post('order/report/getData',[ReportController::class,'orderGetData'])->name('order.report.getData');
+
+    // Product
+    Route::get('product/report',[ReportController::class,'productView'])->name('product.report');
+    Route::post('product/report/getData',[ReportController::class,'productGetData'])->name('product.report.getData');
+
+    // Product
+    Route::get('customer/report',[ReportController::class,'customerView'])->name('customer.report');
+    Route::post('customer/report/getData',[ReportController::class,'customerGetData'])->name('customer.report.getData');
 
 
 
